@@ -1,0 +1,8 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Thanks for your submission!</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2614.3500" name=GENERATOR></HEAD>
+<BODY>
+<H2>Thanks for your submission!</H2>A confirmation email has been sent to 
+[re_email].<BR>If you were half your age, you'd be [&lt; [rd_age] / 2 
+&gt;].</BODY></HTML>

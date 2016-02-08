@@ -1,0 +1,11 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type></HEAD>
+<BODY>To: info@w3oi.org
+From: [re_email]
+Subject: My favourite colour is [r_colour]!
+My Age:    [rd_age]
+My Email:  [re_email]
+My Colour: [r_colour]
+In five years I'll be [< 5 + [rd_age] >]!
+I submitted the form on [%HTTP_REFERER]. My IP address is [%REMOTE_ADDR].</BODY></HTML>

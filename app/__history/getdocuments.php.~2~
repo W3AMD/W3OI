@@ -1,0 +1,28 @@
+<?php
+function listFolderFiles($dir, $currentdir)
+{
+   $ffs = scandir($dir);
+   echo '<ol>';
+   foreach($ffs as $ff)
+   {
+      if($ff != '.' && $ff != '..')
+      {
+         if(is_dir($dir . '/' . $ff))
+         {
+            echo '<li>' . $ff;
+         }
+         else
+         {
+            echo '<li>' . '<a href="../documents/' . $currentdir .'/' .
+            $ff . '">' . $ff . '</a>';
+         }
+         if(is_dir($dir . '/' . $ff))
+            listFolderFiles($dir . '/' . $ff, $ff);
+         echo '</li>';
+      }
+   }
+   echo '</ol>';
+}
+
+listFolderFiles('../documents/', NULL);
+

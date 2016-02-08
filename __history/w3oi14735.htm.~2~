@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>W3OI 147.35 And DStar Repeater</title>
+  </head>
+  <body>
+            <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        <style type="text/css">#GoogleMap1 {
+height: 300px;
+width: 400px;
+}
+</style><div id="Repeater14735"><div id="GoogleMap1"></div><script>var GoogleMap1_map;
+function initializeGoogleMaps(id, options, callback)
+{
+    var mapOptions = {
+      zoom: options.zoom,
+      center: new google.maps.LatLng(0, 0),
+      disableDefaultUI: options.disableDefaultUI,
+      mapTypeId: eval(options.maptype)
+    };
+
+    // load the map
+    map = new google.maps.Map(document.getElementById(id),
+        mapOptions);
+
+    if(options.address && options.address != "")
+    {
+        var geocoder = new google.maps.Geocoder(),
+            geocoderRequest = {address: options.address};
+
+        geocoder.geocode(geocoderRequest, function(geocoderResult, geocoderStatus){
+            if (geocoderStatus == google.maps.GeocoderStatus.OK)
+            {
+                map.setCenter(geocoderResult[0].geometry.location);
+
+                marker = new google.maps.Marker({
+                  map: map
+                });
+                marker.setPosition(geocoderResult[0].geometry.location);
+            } else {
+            }
+        });
+    }
+
+    // calls OnLoad event if exists
+    if(callback) setTimeout(callback, 0);
+
+    return map;
+}
+GoogleMap1_map = initializeGoogleMaps('GoogleMap1', {"zoom":7,"address":"St Lukes Bethlehem, PA","disableDefaultUI":false,"maptype":"google.maps.MapTypeId.HYBRID"},  null);
+</script></div>
+  </body>
+</html>

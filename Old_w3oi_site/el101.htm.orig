@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>Elmer 101 Sources</TITLE>
+</HEAD>
+<BODY bgcolor="#ffff99">
+<CENTER>
+<H1>Elmer 101 Data Sources</H1>
+<hr width="50%">
+For Use with the W3OI 2005 Presentation Series<BR>
+<B>"Introduction to Basic Electronics"</B><BR>
+or<BR>
+"How to Spend a Year Building an SW-40+ Tranceiver Kit!"
+<hr width="25%">
+</CENTER>
+<TABLE>
+<TR><TD><B>The PDF and PPT Course Slides</B><TD>
+<TR><TD >This is the material to read before coming to the meeting.  The meeting presentation will be based around the slides, but may not follow them exactly.<UL>
+<LI><A HREF="http://www.w3oi.org/elmer101">Slides are here</A>.
+</UL>
+</TR>
+
+<TR><TD>&nbsp;</TR>
+<TR><TD><B>Additional Reading</B><TD>
+<TR><TD>These collected articles provide copious discussion of the corresponding slide material and include thought questions and detailed design analysis of the SW-40+ used in the course.
+<UL>
+<LI><A HREF="http://www.qsl.net/kf4trd/lessons.htm">Link to Additional Reading</A>.
+</UL>
+</TR>
+<TR><TD>&nbsp;</TR>
+
+<TR><TD ><B>Planned Delivery (Tentative)</B><BR>Check 146.94 for updates
+<TR><TD >&nbsp;
+<TR><TD >Lesson 1 - February 1st (Corresponds to Part 2 in the Additional Reading)
+<TR><TD >Lesson 2 - March 1st (Corresponds to Part 3 in the Additional Reading)
+<TR><TD >Lesson 3 - May 3rd (Corresponds to Part 4 in the Additional Reading)
+<TR><TD >Lesson 4 - July 5th (Corresponds to Part 5 & 6 in the Additional Reading)
+<TR><TD >Lesson 5 - August 2nd (Corresponds to Part 7 & 8 in the Additional Reading)
+<TR><TD >Lesson 6 - September 6th (Corresponds to Part 9 & 10 in the Additional Reading)
+
+<TR><TD >Lessons 7 & 8 - To Be Determined
+
+</TABLE>
+
+<HR width=90%>
+
+<form><input type="button" value="Back to previous page" onClick = "history.back()"></form>
+</CENTER>
+
+</BODY>
+</HTML>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

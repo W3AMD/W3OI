@@ -1,0 +1,12 @@
+The page you requested: 
+<B><!--#echo var="REQUEST_URI" --></B><BR>
+caused an internal error.  Sorry...<BR>
+We'll try to do better next time!<BR>
+Your friends at w3oi.org.<BR>
+
+
+<!-- 
+                                                                                                                                                                                                                                                                                                                                                                                                                                  
+--> 
+
+

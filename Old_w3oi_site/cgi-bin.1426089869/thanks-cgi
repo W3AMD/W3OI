@@ -1,0 +1,112 @@
+#!/usr/bin/perl
+#Setup environment
+$maxindex="27";
+$price=$ENV{'WWW_price'};
+$service=$ENV{'WWW_service'};
+$food=$ENV{'WWW_food'};
+$idindex=$ENV{'WWW_idindex'};
+$comments=$ENV{'WWW_comments'};
+$outfile="./lunch-db.txt";
+$infile="./code2full.txt";
+$tempfile="/tmp/thks-$$";
+$src_ip=$ENV{'REMOTE_ADDR'};
+$src_host=$ENV{'REMOTE_HOST'};
+$browser=$ENV{'HTTP_USER_AGENT'};
+@slist=("","Never Again","Not Impressed","OK","Good Deal","Great!");
+
+#Check params for in range value
+#If OK, post and print message
+#else send regrets.
+
+#Price, Food and Service must be between 1 and 5
+# and idindex must be between 1 and 27
+if ($food ge "1" && $food le "5" && $service ge "1" && $service le "5"
+ && $price ge "1" && $price le "5" 
+# && $idindex ge "1" && $idindex le $maxindex
+) {
+#Post to database 
+$currtime=time();
+open (OUTFILE, ">>$outfile");
+print (OUTFILE "$idindex:$currtime:$price:$service:$food:$comments\n");
+close OUTFILE;
+
+$count=$tprice=$tservice=$tfood=0;
+#Gather stats for index file
+if (open (OUTFILE, "$outfile")) {
+    while ($line = <OUTFILE>)  {
+        chop ($line);
+	@ARRAY1 = split (/:/, $line);
+	if ($ARRAY1[0] eq $idindex ) {
+	  $count += 1;
+	  $tprice += $ARRAY1[2];
+	  $tservice+= $ARRAY1[3];
+	  $tfood += $ARRAY1[4];
+	}
+    }  
+    close OUTFILE;
+}
+#Replace index file
+if (open (TEMP, ">$tempfile")) {
+if (open (INFILE, "$infile")) {
+    while ($line = <INFILE>)  {
+        chop ($line);
+	@ARRAY1 = split (/:/, $line);
+	if ($ARRAY1[2] eq $idindex ) {
+	  print TEMP ("$ARRAY1[0]:$ARRAY1[1]:$ARRAY1[2]:$tprice:$tservice:$tfood:$count\n");
+	  $entname=$ARRAY1[1];
+	}else{
+	print TEMP ("$line\n");
+	}
+    }  
+    close INFILE;
+}
+close TEMP;
+}
+
+#Send me mail
+$timestrg=(localtime($currtime));
+open (OUTFILE, "|mail Paul.Ryan\@USA.NET -s \"$entname\"");
+print OUTFILE ("Feedback on $timestrg from $src_host at $src_ip\n");
+print OUTFILE ("for $entname using $browser.\n");
+print OUTFILE ("Price    = $price, $slist[$price]\n");
+print OUTFILE ("Service  = $service, $slist[$service]\n");
+print OUTFILE ("Food     = $food, $slist[$food]\n");
+print OUTFILE ("Comments = $comments\n");
+close OUTFILE ;
+
+if (open (INFILE, "$tempfile")) {
+if (open (TEMP, ">$infile")) {
+    while ($line = <INFILE>)  {
+	print TEMP ("$line");
+	}
+    close TEMP;
+}
+close INFILE;
+}
+
+#Print thank-you form 
+print "Content-type: text/html\n\n";
+print '<HTML><HEAD>';
+print '<TITLE>Lunch Survey:  Thank You</TITLE>';
+print '</HEAD><BODY BACKGROUND="/graphics/paper4.jpeg">';
+print '<H1>Thank you for voting!</H1>';
+print '<P>Your votes in the Lunch Survey will be tallied and';
+print ' made available for other students.</P>';
+print 'You voted as follows:<BR>';
+print '<TABLE WIDTH="50%" BGCOLOR="#ffebcd"><TD>';
+print "<TR><TD>Service:<TD>$slist[$service]<BR></TR>";
+print "<TR><TD>Price:<TD>$slist[$price]<BR></TR>";
+print "<TR><TD>Food:<TD>$slist[$food]<BR></TR></TABLE>";
+print "Comments: $comments<BR>";
+#print "\$tprice=$tprice,\$tservice=$tservice,\$tf=$tfood,\$tc=$count\n<BR>";
+print '<HR><CENTER><A HREF="/lunch.html">Back</A> to lunch</CENTER>';
+print "</BODY></HTML>\n\n";
+}
+else {
+print "Content-type: text/html\n\n";
+print '<HTML><HEAD>';
+print '<TITLE>Lunch Survey:  Thank You</TITLE>';
+print '</HEAD><BODY BACKGROUND="/graphics/Paper4.jpeg">';
+print "<H1>YOU CAN'T VOTE!!</H1>";
+print "</BODY></HTML>\n\n";
+}

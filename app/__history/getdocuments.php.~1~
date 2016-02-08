@@ -1,0 +1,27 @@
+<?php
+
+$sourcedir = "../documents/";
+$fileExt = "pdf";
+$request = $_SERVER['REQUEST_URI'];
+$endreq = strrpos($request,'/');
+$url = substr($request, 0, $endreq);
+
+$dir = opendir($sourcedir);
+
+$strReturned = '<ul>';
+
+while ( false !== ( $file = readdir($dir) ) )
+{
+	// if ( substr_compare($file, $fileExt, -3, 3) )
+	if ($file != "." && $file != ".." && $file != "images")
+	{
+		$strReturned .= "<li class='plain'><a href='$url/$sourcedir$file' target='_blank'>$file</a></li>";
+	}
+}
+
+$strReturned .= '</ul>';
+closedir($dir);
+
+print($strReturned);
+
+?>

@@ -1,0 +1,13 @@
+To: W3OI@ARRL.NET
+Cc: paul.f.ryan@gmail.com
+Subject: LVARC Comments from WEB Page
+                        
+Submitted name:   [yourname]
+Submitted e-mail:  [emailaddr]
+Submitted callsign: [callsign] 
+From_IP:              [$REMOTE_ADDR]
+Using Browser:      [$HTTP_USER_AGENT]
+
+Submitter's comment: [komment]
+Last Line added 061220
+

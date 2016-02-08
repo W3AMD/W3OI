@@ -1,0 +1,26 @@
+arbys:Arby's:1:4:3:5:1
+parkland:Parkland Diner:2:23:25:25:6
+paddock:The Paddock:3:5:4:4:1
+soupsand:The Downstairs Sandwich Shop:4:39:49:49:12
+subway1:Subway in Texaco:5:30:29:29:7
+subway2:Subway in Tilghman West Shopping Center:6:5:5:5:1
+palumbos:Palumbos Pizza:7
+au1corn:Golden Unicorn:8:43:39:39:9
+atillios:Atillio's Pizza:10:20:18:22:5
+CCPchinese:The Fortune:11:6:10:6:4
+weis:Weis's Salad Bar:12:12:12:12:3
+portpub:Charlie Brown's Steakhouse:13
+mcdonald:Mc Donalds:14:29:28:32:9
+outback:The Outback Steak House:15:7:7:7:2
+parma:Parma's Pizza:16:3:4:5:1
+michong:Mi Chong's Chinese:17:6:6:6:2
+bosmkt:Boston Market:18:4:4:4:2
+tgif:TGI Fridays:19:5:8:9:2
+perkins:Perkins:20
+wendys1:Wendys Dorneyville:21:11:11:12:4
+wendys2:Wendys Tilghman Sq.:22:4:4:4:1
+bk:Burger King:23:4:4:4:1
+yoccos:Yoccos:24:19:19:17:4
+redrobin:Red Robin:25
+schaus:Schau's Deli:26
+franks:Franks for All:27

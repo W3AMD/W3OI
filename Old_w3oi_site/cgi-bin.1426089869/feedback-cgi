@@ -1,0 +1,100 @@
+#!/usr/bin/perl
+$infile="./code2full.txt";
+$logfile="./lunch-db.txt";
+$srchstrg = $ENV{'QUERY_STRING'};
+$rsltstrg="";
+@slist=("","Never Again","Not Impressed","OK","Good Deal","Great!");
+
+print ("Content-type: text/html\n\n");
+print ("<HTML><HEAD><TITLE>Lunch Survey Form</TITLE></HEAD>\n");
+print ("<BODY BACKGROUND=\"/graphics/paper4.jpeg\">\n");
+
+if (open (XREFFILE, $infile )) {
+    while ($line = <XREFFILE>)  {
+        chop ($line);
+	@ARRAY1 = split (/:/, $line);
+	if ($ARRAY1[0] eq $srchstrg ) {
+	  $rsltstrg=$ARRAY1[1];
+	  $idx=$ARRAY1[2];
+	  $count=$ARRAY1[6];
+	    if ($count > 0 ) {
+	      $price=$ARRAY1[3]/$count;
+ 	      $service=$ARRAY1[4]/$count;
+	      $food=$ARRAY1[5]/$count;
+	      $price=int ($price + 0.5);
+ 	      $service=int ($service + 0.5);
+	      $food=int ($food + 0.5);}
+	}
+    }  
+    close (XREFFILE);
+    if ( $rsltstrg eq "") {
+      print ( $srchstrg," not found.  Sorry, you can't vote!<BR>\n")
+      }else{
+      if ($count > 0) {
+	 print "<TABLE BORDER=1 WIDTH=\"100%\" BGCOLOR=\"#90ee90\"><TR>";
+	 print "<TH COLSPAN=4 ALIGN=center>Current Lunch Survey Results for $rsltstrg</TH></TR>";
+	 print "<TR><TH>Service</TH><TH>Price</TH><TH>Food</TH><TH>Entries</TH></TR>";
+	 printf "<TR ALIGN=CENTER><TD>$slist[$service]<TD>$slist[$price]<TD>$slist[$food]<TD>$count</TR></TABLE>";
+      } else {
+	 print "<TABLE BORDER=1 WIDTH=\"100%\" BGCOLOR=\"#90ee90\"><TR>";
+	 print "<TH ALIGN=center>Current Lunch Survey Results for $rsltstrg</TH></TR>";
+	 print "<TR ALIGN=CENTER><TD>You are the first to vote on $rsltstrg.</TR></TABLE>";
+      }
+         print '<FORM METHOD="POST" ACTION="/cgi-bin/uncgi/thanks-cgi">';
+         print '<TABLE BORDER WIDTH="100%" BGCOLOR=\"#1E90FF\"><TR><TH COLSPAN=6>';
+	 print "Cast your vote HERE...</TH></TR><TR>";
+         print "<TD><P><STRONG>Service: </STRONG>\n";
+         print '<TD><INPUT TYPE="radio" NAME="service" VALUE="5">Great!';
+         print '<TD><INPUT TYPE="radio" NAME="service" VALUE="4">Good Deal';
+         print '<TD><INPUT TYPE="radio" NAME="service" VALUE="3" CHECKED>OK';
+         print '<TD><INPUT TYPE="radio" NAME="service" VALUE="2">Not Impressed';
+         print '<TD><INPUT TYPE="radio" NAME="service" VALUE="1">Never Again';
+         print "</TR>\n";
+
+         print '<TR>';
+         print "<TD><STRONG>Price: </STRONG>\n";
+         print '<TD><INPUT TYPE="radio" NAME="price" VALUE="5">Great!';
+         print '<TD><INPUT TYPE="radio" NAME="price" VALUE="4">Good Deal';
+         print '<TD><INPUT TYPE="radio" NAME="price" VALUE="3" CHECKED>OK';
+         print '<TD><INPUT TYPE="radio" NAME="price" VALUE="2">Not Impressed';
+         print '<TD><INPUT TYPE="radio" NAME="price" VALUE="1">Never Again';
+         print '</TR>';
+
+         print '<TR>';
+         print "<TD><STRONG>Food: </STRONG>\n";
+         print '<TD><INPUT TYPE="radio" NAME="food" VALUE="5">Great!';
+         print '<TD><INPUT TYPE="radio" NAME="food" VALUE="4">Good Deal';
+         print '<TD><INPUT TYPE="radio" NAME="food" VALUE="3" CHECKED>OK';
+         print '<TD><INPUT TYPE="radio" NAME="food" VALUE="2">Not Impressed';
+         print '<TD><INPUT TYPE="radio" NAME="food" VALUE="1">Never Again';
+         print '</TR></TABLE>';
+
+         print '<TABLE ALIGN="center" WIDTH="100%"><TR>';
+         print '<TD ALIGN="center"><INPUT TYPE="SUBMIT" Value="Send It!">';
+         print '<TD ALIGN="center"><INPUT TYPE="RESET" VALUE="Clear Form">';
+         print '<TD ALIGN="center"><A HREF="/lunch.html"><IMG SRC="/graphics/home_off.gif">Back</A> to lunch';
+         print '</TR></TABLE>';
+
+         print '<HR>Enter any Comments you have about this dining establishment:';
+         print '<TEXTAREA NAME="_comments" ROWS="4" COLS="75"></TEXTAREA>';
+
+	 print "<INPUT Type='hidden' NAME='idindex' VALUE=\"$idx\">\n";
+         print "</FORM>\n";
+
+if (open (LOG,$logfile )) {
+    while ($line = <LOG>)  {
+        chop ($line);
+	@ARRAY1 = split (/:/, $line, 6);
+	if ($ARRAY1[0] eq $idx) {
+	  $time=$ARRAY1[1];
+	  $timestrg= localtime ($time);
+	  $rsltstrg=$ARRAY1[5];
+	  if ($rsltstrg gt "") {
+	  print "<STRONG>$timestrg</STRONG><BR>$rsltstrg<HR>";
+	}}
+    }  
+    close (LOG);
+  }	
+}
+print ("</BODY></HTML>\n");
+}end;

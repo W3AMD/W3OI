@@ -1,0 +1,14 @@
+echo "Hello user at:
+<!--#echo var="REMOTE_ADDR" -->
+<BR>
+echo "The page you requested: "
+<!--#echo var="REQUEST_URI" -->
+<BR>
+Generated an <b>"AUTHORIZATION REQUIRED"</B> error.  Sorry.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+<!-- 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+--> 
+
+
+

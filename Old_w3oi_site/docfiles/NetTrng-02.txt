@@ -1,0 +1,50 @@
+Training Session #2 - Simplex Net Procedures
+
+Last week we reviewed our fallback procedures for a single repeater failure.  This week we'll address 
+what to do if both repeaters fail.  This scenario would be typical if we had a hurricane, tornado, 
+earthquake or other violent natural disaster that disrupts both power and physical structures such as 
+towers and repeater sites.  Remember, our repeater sites are less than 3 miles apart and could easily be 
+affected by the same disaster.  The benefit of amateur radio is the widely distributed and independent 
+nature of our individual facilities.  Each ham has his own "radio site" at his/her home location.  A 
+simplex net takes advantage of this distributed topology and employs proven HF communications tactics in 
+a Line-of-Sight VHF network.  
+
+Net control, having determined that both repeaters were down, would open the net as usual and then call 
+for checkins, either by roll or more likely by suffix blocks.  If he is unfamiliar with the layout of the 
+net stations, he may ask that stations indicate during checkin their location, operational status, such as 
+"Poor", "Favorable" or "Excellent" and also their willingness to act as relay stations during the net.  
+The NCS would accept checkins until no additional stations were heard and then call on selected relay 
+stations, in turn, to handle relay checkins from outlying sectors in the valley.  The relay station would 
+call for checkins and note callsigns of stations for relay back to net control.  As stations check in they 
+may announce that they can hear the net but can't check in directly, or just that they can only hear the 
+relay station, or a selected subset of net stations that have checked in directly to the main net.
+
+The relay station would then forward this information to net control.  The NCS would then proceed to the 
+next relay station in turn until the affected area has been adequately covered.  Note that you may not hear 
+net control during this type of net.  You may only hear the relay station when he calls for relay checkins.  
+This is the difficult part of simplex communications...you have to be QUIET even though you can't hear other 
+stations on the frequency.  BE PATIENT, eventually some relay station will come up to accept checkins in your 
+area.  It may be 5 or 10 minutes past the net opening time before you hear the call for checkins.  That's 
+okay, the normal preamble and direct checkins have to be processed first, so if you don't hear the net, or 
+do hear the net but your checkin isn't acknowledged, just stand by until an S9 relay comes up on frequency.  
+Normally, you'll have a good idea of the net's progress because you'll hear some stations, either those close 
+to you or high profile ones, as they checkin.  
+
+Handling bulletins and other traffic in this type of net is a lot more tedious, since the net has to provide 
+for ALL the net stations receiving the data.  The listing station may be a relayed station and the relaying 
+station must copy the traffic and then pass that traffic to net control.  When he passes the traffic to net 
+control, his small "flock" of stations will hear it, but they'll probably be the only ones.  The NCS must now 
+reread the traffic for all the direct copying stations and then call on all the other relay stations, except 
+the one that listed the traffic, to repeat it to their "flocks" of outlying stations.  In effect, a one minute 
+message that would have taken one minute on the repeater may take up to ten minutes, with fills and repeats, 
+on a simplex net.  However, the essential component of having a net, the passing of information, will be 
+completed under less than favorable conditions.
+
+This may sound like a inefficient way to conduct business, but HF nets have operated this way for a long time!  
+You may be only 50 miles from the net control station, but not be able to hear him.  You may hear the relay 
+station 600 miles distant and check in through them.  It's just the way propagation works.  With Line-Of-Sight 
+communication, we have similar problems due to each station individual situation  regarding topography, power 
+and antenna.  We just use the HF net paradigm to accomplish our normal net objectives. 
+
+73,
+de N0KIA

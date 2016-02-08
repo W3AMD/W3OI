@@ -1,0 +1,20 @@
+<?php
+function dbConnect() {
+	// $hostname='108.2.206.24:3306';
+	// $dbname='lvarcftp_test';
+	// $user = 'lvarcftp_test';
+	// $pwd = 'RW22qhHO62HO';
+
+	$hostname='198.71.227.91:3306';
+	$dbname='W3OI';
+	$user = 'w3oiuser';
+	$pwd = '146.94';
+
+	// Connection code
+	//$conn = mysql_connect( $hostname, $user, $pwd ) or die ( 'Cannot connect to MySQL server' );
+	$conn = mysqli_connect( $hostname, $user, $pwd ) or die ( 'Cannot connect to MySQL server' );
+	//mysql_select_db( $dbname ) or die ( 'Cannot open database' );
+	mysqli_select_db( $conn, $dbname ) or die ( 'Cannot open database' );
+	return $conn;
+}
+?>

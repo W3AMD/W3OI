@@ -1,0 +1,49 @@
+<div class="pagetext">
+<h2>Lehigh Valley Amateur Radio Club</h2>
+<!-- <h3>Outline</h3> -->
+<p><b>W3OI</b> - The Lehigh Valley Amateur Radio Club (LVARC) was established in 1928, making
+ it one of the oldest ham (amateur) radio clubs in the area.  The club has
+ regular club meetings and monthly activities. We have a monthly newsletter,
+ called the <a href="#/newsletter">VOX</a>. The VOX contains information
+ regarding club meetings and events pertinent to the radio amateur with the club's
+ planned events and future schedule.
+ Hams and non-hams are invited to visit
+ and spend as much time as they need to view the newsletters, meeting dates
+ and activities as well as links to other ham radio related sites!</p>
+<p>As well as being a club related to ham radio, the LVARC is a social club
+and a service organization, as members serve the public by providing
+communications support for many community events. Our repeaters support that
+service philosophy by providing a controlled radio communications environment
+for club members and mobile operators in the Lehigh Valley.</p>
+<p>The LVARC has close ties to and works closely with, the
+<a href="http://ema.lehighcounty.org">Lehigh County Emergency Management
+Agency</a>, RACES (Radio Amateur Civil Emergency Service) and
+ARES (Amateur Radio Emergency Service).</p>
+<p>
+<form action="views/membership.htm">
+    <input type="submit" value="Join or Renew Membership">
+</form>
+</p>
+<p>The LVARC is registered as a 501(c)3 organization with the
+Internal Revenue Service.</p>
+<h3>Meetings and Nets</h3>
+<p>The LVARC meets the FIRST TUESDAY of EVERY MONTH at the
+<a href="#/location">Tri-Clover Fire
+Company in Orefield</a> at 7:30 pm for a monthly business meeting and technical
+presentation on subjects of interest to the ham radio community.  All hams
+and persons interested in ham radio are welcome.</p>
+<p>On the THIRD TUESDAY of EVERY MONTH we have a more informal
+<a href="#/moprogs">'Hands On
+Night'</a>, which involves demonstrations of ham radio equipment and techniques.</p>
+<p>On Monday nights at 7:30pm the club has a different kind of 'meeting' on
+the air called a traffic net.  Members and non-members can check in and hone
+their emergency traffic handling skills as part of the net.  The net takes
+place on the primary repeater used by the club on 146.94 Mhz.  Messages,
+bulletins and traffic are handled by the net control station.  Tune in for
+announcements of upcoming meetings and club events.</p>
+</div><!-- pagetext -->
+
+<div class="pagetext" id="mondaynet"></div>
+
+<div class="pagetext" id="announcements"></div>
+<BR>

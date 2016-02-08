@@ -1,0 +1,20 @@
+Classification of K-indices are as follows:
+K0=Inactive
+K1=Very quiet
+K2=Quiet
+K3=Unsettled
+K4=Active
+K5=Minor storm
+K6=Major storm
+K7=Severe storm
+K8=Very severe storm
+K9=Extremely severe storm
+As with the K-index, the higher the A-index, the more unstable propagation 
+becomes.
+Classification of A-indices are as follows:
+A0 - A7 = quiet 
+A8 - A15 = unsettled
+A16 - A29 = active 
+A30 - A49 = minor storm 
+A50 - A99 = major storm 
+A100 - A400 = severe storm

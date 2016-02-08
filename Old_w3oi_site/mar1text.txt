@@ -1,0 +1,22 @@
+From: Ed WA3WSJ
+Reference: W3OI Monthly Meeting on March 1.
+
+Greetings Fellow Digital Ops,
+
+If you are bringing your laptop computer and have FLDIGI installed, please
+use this configuration guide. If you would have your system configured this
+way, it will save a good bit of time at the meeting.
+
+The link to the configuration guide is:
+
+http://berkscountynbems.homestead.com/Berks_County_NBEMS.html
+
+
+NOTE from N3XG:  FLDIGI is a free program and can be found on the net and
+installed on any portable computer with a soundcard (working speakers and
+microphone) and then brought to the March meeting so that you can play along
+with Ed from your seat.
+
+NOTE from N0KIA:  The link above seems to be out of date.  
+Use the setup instructions link on our web page just to the right of
+the link that got you here.  Thanks.

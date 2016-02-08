@@ -1,0 +1,13 @@
+echo "Hello user at:
+<!--#echo var="REMOTE_ADDR" -->
+<BR>
+echo "The page you requested: "
+<B><!--#echo var="REQUEST_URI" --></B>
+<BR>
+is <B>"FORBIDDEN"</B> to your class of user.  Sorry.
+
+
+<!-- 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+--> 
+

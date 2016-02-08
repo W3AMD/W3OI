@@ -1,0 +1,14 @@
+Hello user at: <!--#echo var="REMOTE_ADDR" -->
+<BR>
+The page you requested: 
+<B><!--#echo var="REQUEST_URI" --></B>
+<BR>
+Was not available.  Sorry.
+
+
+<!-- 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+--> 
+
+
+

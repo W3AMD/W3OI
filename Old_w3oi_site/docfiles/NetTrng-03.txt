@@ -1,0 +1,49 @@
+Training Session #3 - - Repeater Operations
+
+Our typical VHF net is run over the local repeater.  Knowing how to use a repeater, while simple enough, 
+is rarely taught to the new ham and must be learned by listening, and trial and error.  This lesson will 
+look at suggested repeater procedures for both nets and casual usage.
+
+First off, just as in HF work, LISTEN before you key up - - a QSO may be in progress!  If the repeater is 
+quiet for fifteen seconds or so, you can assume it's clear and then announce by giving your callsign.  You 
+may also add "... listening" or "... listening on 94".  The latter is preferable in a crowded RF location 
+such as the Lehigh Valley where operators may be monitoring four or more repeaters and may not be quick 
+enough to catch the tone ID.  The use of "CQ" on a repeater is not necessary and in some locations, 
+strongly discouraged.  
+
+To establish communications with a specific station, using a 2 x 1 call format works best, repeated in 30 
+seconds if there's no answer.  That is "W3AMC, W3AMC this is N0KIA on the 94 repeater." is a sufficient 
+call on a repeater and can be repeated in 30 seconds if the call goes unanswered.  As in HF work, when a 
+call goes out to a specific station, it's considered bad form to jump in and start talking to the calling 
+station without first leaving a long break for the intended station to reply.  To use the above example, if 
+W3AMC hadn't responded to my second call I would then close by saying "N0KIA clear of 94" if I were going 
+elsewhere, or "N0KIA listening on 94" if I were looking to talk to any contact.
+
+How do you key up the repeater?  First, press your mike button, then wait a second before you start speaking.  
+The repeater, if idle, takes a few hundred milliseconds to spin up and start transmitting.  If you key and 
+start talking immediately, or start talking then key up (a common occurence around here!) your first few 
+syllables will be dropped.  Now, once the repeater is active, just wait for the courtesy tone, then key up 
+and speak.  Nothing will be dropped.  Every few turn overs, leave a short break (2-3 seconds) after the tone 
+to let any breaking station get into the repeater, especially during drive time.  That's when the repeater 
+gets it most use and should be made accessable to mobile users.  That doesn't mean DON'T USE THE REPEATER!, 
+just be aware that a breaking station may be waiting to get a word in, so, like the PA construction signs 
+say, "Givem' a break!".
+
+While some may say that phonetics is unnecessary on FM, I'm of the opinion that when needed, it should be 
+used.  For instance, when checking into a new net, or when there is an inexperienced net control, giving your 
+call in phonetics gives the receiving operator more time and clues to decode your call.  Also, if you have 
+a B, C, D, E, F, M, N or S in your call, you may want to use phonetics when first establishing communications, 
+since they are often confused with each other.  Also, if net control calls for a fill on your callsign, be 
+nice to him/her and repeat it phonetically.  It may be that they heard you OK, but can't tell if you said "F" 
+or "S".  Using a phonetic reply gives them a helping hand.  During net roll call, phonetics aren't necessary, 
+since the NCS already has your call, but during open checkins, phonetics may be useful.  Use your own judgment.
+
+Finally, during casual conversations, remember that repeaters have timeout timers on them.  146.94 has a three 
+minute timer.  Unlike HF, where you may wax elloquent for a quarter hour or more, repeaters are designed for 
+more frequent turnovers.  Now, three minutes is a long time, but if you unkey and hear "Repeater time out cancel", 
+then you've managed to exceed a three minute monolog. Try to keep it shorter on the next go 'round. 
+
+That's it for this week's training.  Next week is something special, so stay tuned...
+
+73,
+N0KIA
