@@ -12,7 +12,6 @@ Count=0
 Module2=app\getmemberslist.php
 Module3=views\newsletter.html
 Module4=app\getnewsletters.php
-Module5=app\getdocuments.php
 
 [app\getmemberslist.php]
 Line=0
@@ -23,13 +22,9 @@ Line=0
 Position=0
 
 [app\getnewsletters.php]
-Line=10
-Position=36
-
-[app\getdocuments.php]
-Line=5
-Position=51
+Line=27
+Position=125
 
 [Status]
-OpenModule=app\getdocuments.php
+OpenModule=app\getnewsletters.php
 
