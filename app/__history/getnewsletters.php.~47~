@@ -32,10 +32,9 @@ function listFolderFiles($dir, $currentdir,$dateandfile)
 }
 
 $dateandfile = array();
-$dateandfile=listFolderFiles('../newsletter/', NULL, $dateandfile);
-foreach ($dateandfile as $k => $v) {
- if($k % 2) echo $v;
- else echo '<BR>' . $v . " ";
+listFolderFiles('../newsletter/', NULL, $dateandfile);
+foreach ($dateandfile as $datefile) {
+ echo '<BR>' . $datefile;
  }
 /*
 

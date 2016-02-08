@@ -23,20 +23,19 @@ function listFolderFiles($dir, $currentdir,$dateandfile)
             echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
          }
          if(is_dir($dir . '/' . $ff))
-            $dateandfile=listFolderFiles($dir . '/' . $ff, $ff,$dateandfile);
+            listFolderFiles($dir . '/' . $ff, $ff);
          echo '</li>';
       }
    }
    echo '</ol>';
-   return $dateandfile;
 }
 
-$dateandfile = array();
-$dateandfile=listFolderFiles('../newsletter/', NULL, $dateandfile);
-foreach ($dateandfile as $k => $v) {
- if($k % 2) echo $v;
- else echo '<BR>' . $v . " ";
- }
+$dateandfile = array(
+                        'datetime'=>'value',
+                        'filewpath'=>'value2'
+                        );
+listFolderFiles('../newsletter/', NULL, $dateandfile);
+
 /*
 
 $sourcedir = "../newsletter/";

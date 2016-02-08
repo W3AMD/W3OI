@@ -1,8 +1,10 @@
 <?php
-//copyright 2016 LVARC
-//Author: W3AMD John Borchers
-function listFolderFiles($dir, $currentdir,$dateandfile)
+function listFolderFiles($dir, $currentdir)
 {
+   $dateandfile = array(
+                      'datetime'=>'value',
+                      'filewpath'=>'value2'
+                      );
    $ffs = scandir($dir);
    echo '<ol>';
    foreach($ffs as $ff)
@@ -18,25 +20,20 @@ function listFolderFiles($dir, $currentdir,$dateandfile)
             $month = substr($ff, 0, 3);
             $year = substr($ff, 3, 2);
             $time = strtotime($month . $year);
-            $pathfile = '../newsletter/' . $currentdir . '/' . $ff;
             array_push($dateandfile, $time, $pathfile);
-            echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
+         echo '<li>' . '<a href="../newsletter/' . $currentdir . '/' .
+            $ff . '">' . $ff . '</a>';
          }
          if(is_dir($dir . '/' . $ff))
-            $dateandfile=listFolderFiles($dir . '/' . $ff, $ff,$dateandfile);
+            listFolderFiles($dir . '/' . $ff, $ff);
          echo '</li>';
       }
    }
    echo '</ol>';
-   return $dateandfile;
 }
 
-$dateandfile = array();
-$dateandfile=listFolderFiles('../newsletter/', NULL, $dateandfile);
-foreach ($dateandfile as $k => $v) {
- if($k % 2) echo $v;
- else echo '<BR>' . $v . " ";
- }
+listFolderFiles('../newsletter/', NULL);
+
 /*
 
 $sourcedir = "../newsletter/";
