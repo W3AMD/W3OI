@@ -8,7 +8,7 @@ function listFolderFiles($dir, $currentdir)
       {
          if(is_dir($dir . '/' . $ff))
          {
-            echo '<BR><p>'. ucfirst ($ff) . '</p><BR>';
+            echo '<p>'. ucfirst ($ff) . '</p><BR>';
          }
          else
          {
