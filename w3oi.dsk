@@ -5,33 +5,31 @@ Count=0
 Groups=1
 group0=Watches
 
+[Watchgroup_Watches]
+Count=0
+
 [OpenFiles]
 Module2=app\getmemberslist.php
 Module3=views\newsletter.html
 Module4=app\getnewsletters.php
-Module5=index.html
-Module6=views\home.html
+Module5=app\getdocuments.php
 
 [app\getmemberslist.php]
-Line=250
-Position=50
+Line=0
+Position=0
 
 [views\newsletter.html]
-Line=3
+Line=0
 Position=0
 
 [app\getnewsletters.php]
-Line=3
-Position=57
+Line=10
+Position=36
 
-[index.html]
-Line=9
-Position=26
-
-[views\home.html]
-Line=20
-Position=52
+[app\getdocuments.php]
+Line=5
+Position=51
 
 [Status]
-OpenModule=views\home.html
+OpenModule=app\getdocuments.php
 

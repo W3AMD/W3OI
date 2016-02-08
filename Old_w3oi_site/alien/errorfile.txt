@@ -1,7 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD><TITLE>[%OUT_TITLE]</TITLE>
-<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
-</HEAD>
-<BODY>
-<H2>[%OUT_TITLE]</H2>[%OUT_MSG]
-<P></P></BODY></HTML>

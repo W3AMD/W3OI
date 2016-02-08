@@ -1,4 +1,0 @@
-af.log
-At [%DATE_GMT], [%REMOTE_ADDR] filled out the form on [%HTTP_REFERER].
-Beleive it or not, his favorite colour is [r_colour]!
-
