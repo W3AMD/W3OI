@@ -4,6 +4,7 @@
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
+   echo '<ol>';
    foreach($ffs as $ff)
    {
       if($ff != '.' && $ff != '..')

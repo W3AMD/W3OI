@@ -4,6 +4,7 @@
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
+   echo '<ol>';
    foreach($ffs as $ff)
    {
       if($ff != '.' && $ff != '..')
@@ -16,11 +17,14 @@ function listFolderFiles($dir, $currentdir, $dateandfile)
             $time = strtotime($day . $month . $year);
             $pathfile = '../newsletter/' . $currentdir . '/' . $ff;
             array_push($dateandfile, $time, $pathfile);
+            echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
          }
          if(is_dir($dir . '/' . $ff))
             $dateandfile = listFolderFiles($dir . '/' . $ff, $ff, $dateandfile);
+         echo '</li>';
       }
    }
+   echo '</ol>';
    return $dateandfile;
 }
 

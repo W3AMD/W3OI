@@ -4,11 +4,16 @@
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
+   echo '<ol>';
    foreach($ffs as $ff)
    {
       if($ff != '.' && $ff != '..')
       {
-         if(!is_dir($dir . '/' . $ff))
+         if(is_dir($dir . '/' . $ff))
+         {
+            echo '<li>' . $ff;
+         }
+         else
          {
             $day = '01';
             $month = substr($ff, 0, 3);
@@ -16,11 +21,14 @@ function listFolderFiles($dir, $currentdir, $dateandfile)
             $time = strtotime($day . $month . $year);
             $pathfile = '../newsletter/' . $currentdir . '/' . $ff;
             array_push($dateandfile, $time, $pathfile);
+            echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
          }
          if(is_dir($dir . '/' . $ff))
             $dateandfile = listFolderFiles($dir . '/' . $ff, $ff, $dateandfile);
+         echo '</li>';
       }
    }
+   echo '</ol>';
    return $dateandfile;
 }
 
@@ -50,9 +58,10 @@ while(count($dateandfile))
       if($v == $maxdate)
       {
          //found the largest date record
+         echo '<h1><p>The latest issue is:' . $v . " key " .
          $dateandfile[$pathkey] . '</p></h1>';
          echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '">' .
-         date('Y-m', $v) . '</a></li>';
+         $v->format('Y-m-d H:i:s'); . '</a></li>';
          //remove this from the array
          unset($dateandfile[$k]);
          unset($dateandfile[$pathkey]);

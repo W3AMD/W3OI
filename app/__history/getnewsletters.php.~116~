@@ -4,6 +4,7 @@
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
+   echo '<ol>';
    foreach($ffs as $ff)
    {
       if($ff != '.' && $ff != '..')
@@ -19,8 +20,10 @@ function listFolderFiles($dir, $currentdir, $dateandfile)
          }
          if(is_dir($dir . '/' . $ff))
             $dateandfile = listFolderFiles($dir . '/' . $ff, $ff, $dateandfile);
+         echo '</li>';
       }
    }
+   echo '</ol>';
    return $dateandfile;
 }
 

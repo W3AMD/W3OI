@@ -4,23 +4,30 @@
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
+   echo '<ol>';
    foreach($ffs as $ff)
    {
       if($ff != '.' && $ff != '..')
       {
-         if(!is_dir($dir . '/' . $ff))
+         if(is_dir($dir . '/' . $ff))
          {
-            $day = '01';
+            echo '<li>' . $ff;
+         }
+         else
+         {
             $month = substr($ff, 0, 3);
             $year = substr($ff, 3, 2);
-            $time = strtotime($day . $month . $year);
+            $time = strtotime($month . $year);
             $pathfile = '../newsletter/' . $currentdir . '/' . $ff;
             array_push($dateandfile, $time, $pathfile);
+            echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
          }
          if(is_dir($dir . '/' . $ff))
             $dateandfile = listFolderFiles($dir . '/' . $ff, $ff, $dateandfile);
+         echo '</li>';
       }
    }
+   echo '</ol>';
    return $dateandfile;
 }
 
@@ -29,38 +36,30 @@ function listFolderFiles($dir, $currentdir, $dateandfile)
 
 $dateandfile = array();
 $dateandfile = listFolderFiles('../newsletter/', NULL, $dateandfile);
-while(count($dateandfile))
-{
-   //find the newest VOX issue date in the array
-   $maxdate = 0;
-   foreach($dateandfile as $k=>$v)
-   {
-      if($v > $maxdate)
-         $maxdate = $v;
-   }
 
-   //maxdate now how the newest VOX issue date
-   //loop through the array finding the newest issue date
-   //display that issue to the window with it's link
-   //remove the value from the array
-   //and repeat until the array is empty
-   foreach($dateandfile as $k=>$v)
-   {
-      $pathkey = $k + 1;
-      if($v == $maxdate)
-      {
-         //found the largest date record
-         $dateandfile[$pathkey] . '</p></h1>';
-         echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '">' .
-         date('Y-m', $v) . '</a></li>';
-         //remove this from the array
-         unset($dateandfile[$k]);
-         unset($dateandfile[$pathkey]);
-         //leave loop because already found max
-         break;
-      }
-   }
+//find the newest VOX issue date in the array
+$maxdate = 0;
+foreach($dateandfile as $k=>$v)
+{
+   if($v > $maxdate)
+      $maxdate = $v;
+   if($k % 2)
+      echo $v;
+   else
+      echo '<BR>' . $v . " ";
 }
+
+//maxdate now how the newest VOX issue date
+//loop through the array finding the newest issue date
+//display that issue to the window with it's link
+//remove the value from the array
+//and repeat until the array is empty
+foreach($dateandfile as $k=>$v)
+{
+   if($v == $maxdate)
+      echo '<h1><p>The latest issue is:' . $v . " key " . $k+1 . '</p>';
+}
+
 
 //use the array to find the largest date
 
