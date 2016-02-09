@@ -22,4 +22,4 @@ function listFolderFiles($dir, $currentdir)
 }
 
 listFolderFiles('../documents/', NULL);
-
+?>
