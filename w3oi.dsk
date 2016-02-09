@@ -22,8 +22,8 @@ Line=0
 Position=0
 
 [app\getnewsletters.php]
-Line=27
-Position=125
+Line=6
+Position=23
 
 [Status]
 OpenModule=app\getnewsletters.php
