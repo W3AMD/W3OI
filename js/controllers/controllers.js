@@ -15,6 +15,7 @@ myApp.controller('MembershipController', function($scope, $rootScope, $http) {
 
 		var req = {
 			method: 'GET',
+			//url: 'http://cors.io/?u=http://w3oi.dyndns.org:1091/w3oi/members.php'
 			url: '/app/getmemberslist.php'
 		};
 

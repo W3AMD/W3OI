@@ -89,6 +89,5 @@ $strReturned .= '</ul>';
 closedir($dir);
 
 print($strReturned);
-
-?>
 */
+?>
