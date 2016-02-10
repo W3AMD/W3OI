@@ -66,7 +66,7 @@ while(count($dateandfile))
          }
          $dateandfile[$pathkey] . '</p></h1>';
          echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '">' .
-         date('Y-m', $v) . '</a></li>';
+         date('F', $v) . '</a></li>';
          //remove this from the array
          unset($dateandfile[$k]);
          unset($dateandfile[$pathkey]);
