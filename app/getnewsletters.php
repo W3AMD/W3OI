@@ -29,7 +29,7 @@ function listFolderFiles($dir, $currentdir, $dateandfile)
 
 $dateandfile = array();
 $dateandfile = listFolderFiles('../newsletter/', NULL, $dateandfile);
-//$currentyear = 0;
+$currentyear = 0;
 while(count($dateandfile))
 {
    //find the newest VOX issue date in the array
@@ -52,7 +52,6 @@ while(count($dateandfile))
       {
          //found the largest date record
          //check if this is the same year
-         /*
          $thisyear=idate('Y',$maxdate);
          if($currentyear != $thisyear)
          {
@@ -64,7 +63,6 @@ while(count($dateandfile))
             //update the current year
             $currentyear = $thisyear;
          }
-         */
          $dateandfile[$pathkey] . '</p></h1>';
          echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '">' .
          date('Y-m', $v) . '</a></li>';
