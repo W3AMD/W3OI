@@ -1,6 +1,7 @@
 <?php
 //copyright 2016 LVARC
 //Author: W3AMD John Borchers
+
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
    $ffs = scandir($dir);
