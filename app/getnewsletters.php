@@ -65,7 +65,7 @@ while(count($dateandfile))
             $currentyear = $thisyear;
          }
          $dateandfile[$pathkey] . '</p></h1>';
-         echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '">' .
+         echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '" target="_blank">' .
          date('F', $v) . '</a></li>';
          //remove this from the array
          unset($dateandfile[$k]);

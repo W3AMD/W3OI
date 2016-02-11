@@ -1,6 +1,6 @@
 <style type="text/css">
 
-  .memberIcon {
+/*  .memberIcon {
     background:#ffffff;
     float: center;
     margin: 5px;
@@ -36,7 +36,7 @@
   .marginOfficersName {
    text-align: center;
   }
-
+*/
 </style>
 
 <?php
@@ -45,25 +45,27 @@
 
 //function used to connect to the member database and return the connection
 //information
-function dbConnectMembers()
-{
-   // $hostname='108.2.206.24:3306';
-   // $dbname='lvarcftp_test';
-   // $user = 'lvarcftp_test';
-   // $pwd = 'RW22qhHO62HO';
+// function dbConnectMembers()
+// {
+//    // $hostname='108.2.206.24:3306';
+//    // $dbname='lvarcftp_test';
+//    // $user = 'lvarcftp_test';
+//    // $pwd = 'RW22qhHO62HO';
 
-   $hostname = '198.71.227.91:3306';
-   $dbname = 'W3OI';
-   $user = 'w3oiuser';
-   $pwd = '146.94';
+//    $hostname = '198.71.227.91:3306';
+//    $dbname = 'W3OI';
+//    $user = 'w3oiuser';
+//    $pwd = '146.94';
 
-   // Connection code
-   $conn = mysql_connect($hostname, $user, $pwd) or die('Cannot connect to W3OI database server');
-   //$conn = mysqli_connect( $hostname, $user, $pwd ) or die ( 'Cannot connect to MySQL server' );
-   mysql_select_db($dbname) or die('Cannot open W3OI database');
-   //mysqli_select_db( $conn, $dbname ) or die ( 'Cannot open database' );
-   return $conn;
-}
+//    // Connection code
+//    $conn = mysqli_connect($hostname, $user, $pwd) or die('Cannot connect to W3OI database server');
+//    //$conn = mysqli_connect( $hostname, $user, $pwd ) or die ( 'Cannot connect to MySQL server' );
+//    mysqli_select_db($conn, $dbname) or die('Cannot open W3OI database');
+//    //mysqli_select_db( $conn, $dbname ) or die ( 'Cannot open database' );
+//    return $conn;
+// }
+include('../includes/corefuncs.inc.php');
+include('../includes/connection.inc.php');
 
 //function to display the call sign from the database and it's associated
 //QRZ link if displayaslink is true or no second parameter are given
@@ -148,7 +150,8 @@ echo date("Y");
 <div class="marginOfficers">
 </u></b>
 <?php
-$connection1 = dbConnectMembers();
+// $connection1 = dbConnectMembers();
+$connection1 = dbConnect();
 if( ! $connection1)
 {
    header("Location: /unavailable.html");
@@ -158,25 +161,25 @@ else
 {
    //run the query to get the current officers
    $findrecords = "select * from memberlist WHERE ispresident = true";
-   $result = mysql_query($findrecords, $connection1);
+   $result = mysqli_query($connection1, $findrecords);
    if( ! $result)
    {
       die('Invalid query: ' . mysql_error());
    }
    ?>
             <table><p>
-   <?php
+  <?php
    //if query is successful display the president always use bold
    if($result)
    {
-      while($row = mysql_fetch_assoc($result))
+      while($row = mysqli_fetch_assoc($result))
       {
          displayStartTitleBold("President");
          displayFullName($row);
          displayCallAndQRZLink($row);
       }
       $findrecords = "select * from memberlist WHERE isvicepresident = true";
-      $result = mysql_query($findrecords, $connection1);
+      $result = mysqli_query($connection1, $findrecords);
       if( ! $result)
       {
          die('Invalid query: ' . mysql_error());
@@ -184,7 +187,7 @@ else
       //if query is successful display the vice president always use bold
       if($result)
       {
-         while($row = mysql_fetch_assoc($result))
+         while($row = mysqli_fetch_assoc($result))
          {
             displayStartTitleBold("Vice President");
             displayFullName($row);
@@ -192,7 +195,7 @@ else
          }
       }
       $findrecords = "select * from memberlist WHERE issecretary = true";
-      $result = mysql_query($findrecords, $connection1);
+      $result = mysqli_query($connection1, $findrecords);
       if( ! $result)
       {
          die('Invalid query: ' . mysql_error());
@@ -200,7 +203,7 @@ else
       //if query is successful display the secretary always use bold
       if($result)
       {
-         while($row = mysql_fetch_assoc($result))
+         while($row = mysqli_fetch_assoc($result))
          {
             displayStartTitleBold("Secretary");
             displayFullName($row);
@@ -208,7 +211,7 @@ else
          }
       }
       $findrecords = "select * from memberlist WHERE istreasurer = true";
-      $result = mysql_query($findrecords, $connection1);
+      $result = mysqli_query($connection1, $findrecords);
       if( ! $result)
       {
          die('Invalid query: ' . mysql_error());
@@ -216,20 +219,21 @@ else
       //if query is successful display the treasurer always use bold
       if($result)
       {
-         while($row = mysql_fetch_assoc($result))
+         while($row = mysqli_fetch_assoc($result))
          {
             displayStartTitleBold("Treasurer");
             displayFullName($row);
             displayCallAndQRZLink($row);
          }
       }
-      ?>
+?>
             </table></p>
 </div>
 <p><b><u> Board Of Govenors </b></u></p>
 <table><p>
-      <?php $findrecords = "select * from memberlist WHERE isboardmember = true";
-      $result = mysql_query($findrecords, $connection1);
+<?php 
+      $findrecords = "select * from memberlist WHERE isboardmember = true";
+      $result = mysqli_query($connection1, $findrecords);
       if( ! $result)
       {
          die('Invalid query: ' . mysql_error());
@@ -237,13 +241,13 @@ else
       //if query is successful display the vice president always use bold
       if($result)
       {
-         while($row = mysql_fetch_assoc($result))
+         while($row = mysqli_fetch_assoc($result))
          {
             displayFullName($row);
             displayCallAndQRZLink($row);
          }
       }
-      ?>
+?>
 </p></table>
 <p><b><u> List of Members </b></u>
 <?php
@@ -291,7 +295,7 @@ else
       {
          $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
       }
-      $result = mysql_query($findrecords, $connection1);
+      $result = mysqli_query($connection1, $findrecords);
       if( ! $result)
       {
          die('Invalid query: ' . mysql_error());
@@ -302,7 +306,7 @@ else
       //date in the database
       if($result)
       {
-         while($row = mysql_fetch_assoc($result))
+         while($row = mysqli_fetch_assoc($result))
          {
             $datenow = time();
             $recorddate = strtotime($row['expires']);
