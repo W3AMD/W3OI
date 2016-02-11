@@ -1,6 +1,14 @@
 <?php
 //copyright 2016 LVARC
-//Author: W3AMD John Borchers
+//Author: W3AMD John Borchers And KC3ASC Igor Kasriel
+
+//this file is the get newsletters script which will get the files
+//from the newsletter directory and dsplay them to the screen output
+//it goes through all the subfolders of dates and sorts them in reverse order
+//the directory name does not matter but the file naming itself does
+//there is where the screen display will get it's actual information from
+
+//see lvarc.css for visual display and orientation classes
 
 function listFolderFiles($dir, $currentdir, $dateandfile)
 {
