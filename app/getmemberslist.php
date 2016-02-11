@@ -27,7 +27,7 @@ function displayCallAndQRZLink($row, $displayaslink = true)
    {
       //output the callsign link
       echo " <a href='http://www.qrz.com/db/" .
-      $row['fcccall'] . "' target='_blank'>" . $callsign. "</a><br />";
+      $row['fcccall'] . "' target='_blank'>" . $callsign. "</a>";
    }
    else
    {
@@ -210,7 +210,8 @@ else
  echo ' (<a href="#/membersbycall">Order By Call</a>)';
  }
 ?>
-</p><table> <p>
+</p>
+<div class="row memberlist">
       <?php
       //run the query to get the current membership
       //get the tag to see if we are sorting by member name or
@@ -259,22 +260,22 @@ else
             $recorddate = strtotime($row['expires']);
             if($recorddate >= $datenow)
             {
-               echo '<b>';
+               $current = 'current';
+            } else {
+               $current = '';
             }
-            echo '<div class="memberList">';
+            echo '<div class="col-xs-3 col-xs-offset-3 string '.$current.'">';
             displayFullName($row);
+            echo '</div><div class="col-xs-2 '.$current.'">';
             displayMemberIcon($row);
+            echo '</div><div class="col-xs-2 string '.$current.'">';
             displayCallAndQRZLink($row);
             echo '</div>';
-            if($recorddate >= $datenow)
-            {
-               echo '</b>';
-            }
          }
       }
    }
 }
 ?>
-           </p> </table>
+           </div>
         </body>
     </html>

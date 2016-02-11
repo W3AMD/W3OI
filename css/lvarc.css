@@ -100,3 +100,14 @@ table.course_listing td {
    text-align: center;
   }
 
+.current {
+  font-weight: bold;
+}
+
+.memberlist {
+  font-size: 1.2em;
+}
+
+.string {
+  text-align: left;
+}
