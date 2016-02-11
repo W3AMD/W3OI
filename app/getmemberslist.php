@@ -9,6 +9,8 @@
 //it also loads each member image which exist from the members/images/thumbs
 //directory
 
+//see lvarc.css for visual display and orientation classes
+
 include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 
