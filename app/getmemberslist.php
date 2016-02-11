@@ -1,69 +1,14 @@
-<style type="text/css">
-
-/*  .memberIcon {
-    background:#ffffff;
-    float: center;
-    margin: 5px;
-    border: 2px solid #999999;
-    padding: 5px;
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  .memberList {
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  p {
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  body {
-    font-size: 3vmw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  .memberpagetitles {
-   text-align: center;
-   }
-
-  .marginOfficers {
-   text-align: center;
-  }
-
-  .marginOfficersName {
-   text-align: center;
-  }
-*/
-</style>
 
 <?php
-//This code is copyright 2015 LVARC
-//Author: John Borchers W3AMD
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers And KC3ASC Igor Kasriel
 
-//function used to connect to the member database and return the connection
-//information
-// function dbConnectMembers()
-// {
-//    // $hostname='108.2.206.24:3306';
-//    // $dbname='lvarcftp_test';
-//    // $user = 'lvarcftp_test';
-//    // $pwd = 'RW22qhHO62HO';
+//this script gets the member information and status from the main W3OI
+//database. it searches the database for the officers, then board members,
+//and then displays the members information to the screen.
+//it also loads each member image which exist from the members/images/thumbs
+//directory
 
-//    $hostname = '198.71.227.91:3306';
-//    $dbname = 'W3OI';
-//    $user = 'w3oiuser';
-//    $pwd = '146.94';
-
-//    // Connection code
-//    $conn = mysqli_connect($hostname, $user, $pwd) or die('Cannot connect to W3OI database server');
-//    //$conn = mysqli_connect( $hostname, $user, $pwd ) or die ( 'Cannot connect to MySQL server' );
-//    mysqli_select_db($conn, $dbname) or die('Cannot open W3OI database');
-//    //mysqli_select_db( $conn, $dbname ) or die ( 'Cannot open database' );
-//    return $conn;
-// }
 include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 
@@ -231,7 +176,7 @@ else
 </div>
 <p><b><u> Board Of Govenors </b></u></p>
 <table><p>
-<?php 
+<?php
       $findrecords = "select * from memberlist WHERE isboardmember = true";
       $result = mysqli_query($connection1, $findrecords);
       if( ! $result)

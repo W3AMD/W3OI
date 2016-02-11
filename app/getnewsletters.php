@@ -6,7 +6,8 @@
 //from the newsletter directory and dsplay them to the screen output
 //it goes through all the subfolders of dates and sorts them in reverse order
 //the directory name does not matter but the file naming itself does
-//there is where the screen display will get it's actual information from
+//this is where the screen display will get it's actual information from
+//and the directory numbering of the years is just for clarity
 
 //see lvarc.css for visual display and orientation classes
 
