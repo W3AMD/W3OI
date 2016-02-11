@@ -61,6 +61,37 @@ myApp.controller('MembershipControllerByCall', function($scope, $rootScope, $htt
 
 }); //MembershipController
 
+myApp.controller('JoinRenewController', function($scope, $rootScope, $http) {
+
+	$rootScope.pagetitle = "W3OI - Join / Renew";
+	document.title = "W3OI - Join / Renew";
+	//$scope.rulesactive = "active";
+	rulesactive = "active";
+	//alert(window.location.href.toString().split(window.location.host)[1]);
+	$scope.$on('$viewContentLoaded' , function() {
+		//var navItem = document.getElementById("rules");
+		//console.log(navItem.className);
+		//navItem.className = navItem.className + " active";
+	});
+	//var content = $(".nav li.rules").class();
+	//console.log(content);
+
+		var req = {
+			method: 'GET',
+			url: 'views/membership.html'
+		};
+
+		$http(req).success(function(data){
+			$('#membershipbycall').html(data);
+			//console.log(data);
+		})
+		.error(function(error){
+			$('#membershipbycall').html(error);
+			//console.log(error);
+		});
+
+}); //JoinRenewController
+
 myApp.controller('CalendarController', function($scope, $rootScope) {
 
 		$rootScope.pagetitle = "W3OI - Calendar";

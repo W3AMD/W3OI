@@ -20,7 +20,7 @@ for club members and mobile operators in the Lehigh Valley.</p>
 Agency</a>, RACES (Radio Amateur Civil Emergency Service) and
 ARES (Amateur Radio Emergency Service).</p>
 <p>
-<form action="views/membership.html">
+<form action="views/membership.htm">
     <input type="submit" value="Join or Renew Membership">
 </form>
 </p>

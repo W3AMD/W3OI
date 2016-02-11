@@ -24,6 +24,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/membersbycallsuffix.html',
 			controller: 'MembershipControllerByCall'
 		}).
+		when('/joinrenew', {
+			templateUrl: 'views/membership.html',
+			controller: 'JoinRenewController'
+		}).
 		when('/calendar', {
 			templateUrl: 'views/calendar.html',
 			controller: 'CalendarController'
