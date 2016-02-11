@@ -54,3 +54,11 @@ hr {
 table.course_listing td {
 	padding-right: 30px;
 }
+
+@media screen and (max-width: 768px) {
+
+	header .row h1 {
+		font-size: 1.6em;
+	}
+
+}
