@@ -8,12 +8,12 @@ function listFolderFiles($dir, $currentdir)
       {
          if(is_dir($dir . '/' . $ff))
          {
-            echo '<BR><p>'. ucfirst ($ff) . '</p>';
+            echo '<div class="document_folder">'. ucfirst ($ff) . '</div>';
          }
          else
          {
-            echo '<a href="../documents/' . $currentdir .'/' .
-            $ff . '">' . $ff . '</a>' . '<BR>';
+            echo '<div class="document"><a href="../documents/' . $currentdir .'/' .
+            $ff . '">' . $ff . '</a></div>';
          }
          if(is_dir($dir . '/' . $ff))
             listFolderFiles($dir . '/' . $ff, $ff);

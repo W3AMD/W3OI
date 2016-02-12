@@ -69,12 +69,12 @@ while(count($dateandfile))
             //only if this is not the first time close the last list
             if($currentyear!=0)
                echo '</ul>';
-            echo '<ul>' . $thisyear . '<BR>';
+            echo '<ul><div class="newsletter_year">' . $thisyear . '</div>';
             //update the current year
             $currentyear = $thisyear;
          }
          $dateandfile[$pathkey] . '</p></h1>';
-         echo '<li>' . '<a href="' . $dateandfile[$pathkey] . '" target="_blank">' .
+         echo '<li class="newsletter">' . '<a href="' . $dateandfile[$pathkey] . '" target="_blank">' .
          date('F', $v) . '</a></li>';
          //remove this from the array
          unset($dateandfile[$k]);

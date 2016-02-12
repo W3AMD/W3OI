@@ -99,14 +99,13 @@ function displayStartTitleBold($output, $addspace = true, $addcolon = true)
 <div class="memberpagetitles">
 <title>Members</title>
 <body>
-<h2><u><b> Officers For
+<h2 class="header"> Officers For
 <?php
 echo date("Y");
 ?>
 </h2>
-</div>
 <div class="marginOfficers">
-</u></b>
+</div>
 <?php
 // $connection1 = dbConnectMembers();
 $connection1 = dbConnect();
@@ -210,7 +209,7 @@ else
       }
 ?>
 <!-- </div> -->
-<h2><b><u> Board Of Govenors </b></u></h2>
+<h2 class="header"> Board Of Govenors </h2>
 <!-- <div class="row governors"> -->
 <?php
       $findrecords = "select * from memberlist WHERE isboardmember = true";
@@ -235,7 +234,7 @@ else
       }
 ?>
 <!-- </div> -->
-<h2><b><u> List of Members </b></u>
+<h2 class="header"> List of Members 
 <?php
 //show the sort button to show the option for sort by last name
 //or suffix depending on what will load now

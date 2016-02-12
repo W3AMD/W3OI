@@ -63,42 +63,15 @@ table.course_listing td {
 
 }
 
-  .memberIcon {
-    background:#ffffff;
-    float: center;
-    margin: 5px;
-    border: 2px solid #999999;
-    padding: 5px;
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  .memberList {
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  p {
-    font-size: 3vw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  body {
-    font-size: 3vmw; /* 3% viewport width */
-    text-align: center;
-  }
-
-  .memberpagetitles {
-   text-align: center;
-   }
-
-  .marginOfficers {
-   text-align: center;
-  }
-
-  .marginOfficersName {
-   text-align: center;
-  }
+.memberIcon {
+  background:#ffffff;
+  float: center;
+  margin: 5px;
+  border: 2px solid #999999;
+  padding: 5px;
+  font-size: 3vw; /* 3% viewport width */
+  text-align: center;
+}
 
 .current {
   font-weight: bold;
@@ -106,6 +79,7 @@ table.course_listing td {
 
 .memberlist {
   font-size: 1.2em;
+  /*font-size: 3vw;*/ /* 3% viewport width */
   vertical-align: bottom;
 }
 
@@ -114,5 +88,22 @@ table.course_listing td {
 }
 
 .governors, .officers {
+  font-size: 1.4em;
+}
+
+.header {
+  width: 98%;
+  font-size: 3vw; /* 3% viewport width */
+  font-weight: bold;
+  text-align: center;
+}
+
+.newsletter_year, .document_folder {
+  font-size: 2vw; /* 3% viewport width */
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.newsletter {
   font-size: 1.4em;
 }
