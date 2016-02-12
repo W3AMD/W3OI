@@ -17,7 +17,7 @@ if($oldphp)
 }
 else
 {
-   $result = mysqli_query($conn, $sql) or die(mysql_error());
+   $result = mysqli_query($conn, $sql) or die(mysqli_error());
 }
 $strReturn = '';
 while (($oldphp)? $row = mysql_fetch_assoc($result)
