@@ -109,7 +109,6 @@ echo date("Y");
 <div class="marginOfficers">
 </div>
 <?php
-// $connection1 = dbConnectMembers();
 $connection1 = dbConnect();
 if( ! $connection1)
 {
@@ -135,7 +134,7 @@ else
       die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
    }
    ?>
-<!-- <div class="row officers"> -->
+   <!-- <div class="row officers"> -->
    <?php
    //if query is successful display the president always use bold
    if($result)
@@ -345,6 +344,7 @@ else
       //date in the database
       if($result)
       {
+         echo 'Members while challenge';
          while(($oldphp)? $row = mysql_fetch_assoc($result)
          : $row = mysqli_fetch_assoc($result))
          {
@@ -367,10 +367,8 @@ else
             displayCallAndQRZLink($row);
             echo '</div>';
             echo '</div>';
-         }
-      }
-   }
-}
+         }//end while
+      }//end if
 ?>
            <!-- </div> -->
         </body>
