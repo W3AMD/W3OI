@@ -47,17 +47,20 @@ function displayMemberIcon($row)
    // echo '<br/>';
    // echo $_SERVER['SCRIPT_FILENAME'];
 
-   $pos = strrpos($_SERVER['SCRIPT_FILENAME'], "/");
-   $dir = substr($_SERVER['SCRIPT_FILENAME'], 0, $pos);
-   $fulldir = $dir . '/../members/images/thumbs/';
-   // echo '<br/>';
-   // echo $fulldir;
+   //$pos = strrpos($_SERVER['SCRIPT_FILENAME'], "/");
+   //$dir = substr($_SERVER['SCRIPT_FILENAME'], 0, $pos);
+   $fulldir/*$dir . */ = '..\members\images\thumbs\\';
+   //echo '<br/>';
+   //echo 'pos:' , $pos . ' dir:';
+   //echo dir . ' ';
+   //echo 'fulldir: ' . $fulldir . $callsign . ".jpg";
 
    $exists = file_exists($fulldir . $callsign . ".jpg");
    //echo $fulldir . $callsign . '.jpg<br>';
    if($exists)
    {
-      echo '<img src="members/images/thumbs/' . $callsign . '.jpg" width="100" height="auto" alt="" class="memberIcon">';
+      echo '<img src="members/images/thumbs/' . $callsign .
+      '.jpg" width="100" height="auto" alt="" class="memberIcon">';
       /*
       // display image file name as link
       echo "<a href=\"{$img['file']}\">", basename($img['file']), "</a><br>\n";
@@ -337,7 +340,6 @@ else
    //date in the database
    if($result)
    {
-      echo 'Members while challenge';
       while(($oldphp)? $row = mysql_fetch_assoc($result)
       : $row = mysqli_fetch_assoc($result))
       {
@@ -355,7 +357,7 @@ else
          echo '<div class="col-xs-3 col-xs-offset-3 string ' . $current . '">';
          displayFullName($row);
          echo '</div><div class="col-xs-2 ' . $current . '">';
-         //displayMemberIcon($row);
+         displayMemberIcon($row);
          echo '</div><div class="col-xs-2 string ' . $current . '">';
          displayCallAndQRZLink($row);
          echo '</div>';
