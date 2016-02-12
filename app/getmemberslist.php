@@ -96,7 +96,7 @@ function displayStartTitleBold($output, $addspace = true, $addcolon = true)
 
 ?>
 <!DOCTYPE HTML>
- <html>
+<html>
         <meta charset="utf-8">
 <div class="memberpagetitles">
 <title>Members</title>
@@ -109,7 +109,6 @@ echo date("Y");
 <div class="marginOfficers">
 </div>
 <?php
-// $connection1 = dbConnectMembers();
 $connection1 = dbConnect();
 if( ! $connection1)
 {
@@ -134,9 +133,7 @@ else
    {
       die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
    }
-   ?>
-<!-- <div class="row officers"> -->
-   <?php
+   //<!-- <div class="row officers"> -->
    //if query is successful display the president always use bold
    if($result)
    {
@@ -243,66 +240,61 @@ else
             echo '</div>';
          }
       }
-      ?>
-<!-- </div> -->
-<h2 class="header"> Board Of Govenors </h2>
-<!-- <div class="row governors"> -->
-      <?php
-      $findrecords = "select * from memberlist WHERE isboardmember = true";
-      if($oldphp)
+   }
+   //<!-- </div> -->
+   echo '<h2 class="header"> Board Of Govenors </h2>';
+   //<!-- <div class="row governors"> -->
+   $findrecords = "select * from memberlist WHERE isboardmember = true";
+   if($oldphp)
+   {
+      $result = mysql_query($findrecords);
+   }
+   else
+   {
+      $result = mysqli_query($findrecords);
+   }
+   if( ! $result)
+   {
+      die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
+   }
+   //if query is successful display the vice president always use bold
+   if($result)
+   {
+      while(($oldphp)? $row = mysql_fetch_assoc($result)
+      : $row = mysqli_fetch_assoc($result))
       {
-         $result = mysql_query($findrecords);
+         echo '<div class="row governors">';
+         echo '<div class="col-xs-3 col-xs-offset-4 string">';
+         displayFullName($row);
+         echo '</div><div class="col-xs-3 string">';
+         displayCallAndQRZLink($row);
+         echo '</div>';
+         echo '</div>';
       }
-      else
-      {
-         $result = mysqli_query($findrecords);
-      }
-      if( ! $result)
-      {
-         die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
-      }
-      //if query is successful display the vice president always use bold
-      if($result)
-      {
-         while(($oldphp)? $row = mysql_fetch_assoc($result)
-         : $row = mysqli_fetch_assoc($result))
-         {
-            echo '<div class="row governors">';
-            echo '<div class="col-xs-3 col-xs-offset-4 string">';
-            displayFullName($row);
-            echo '</div><div class="col-xs-3 string">';
-            displayCallAndQRZLink($row);
-            echo '</div>';
-            echo '</div>';
-         }
-      }
-      ?>
-<!-- </div> -->
-<h2 class="header"> List of Members
-      <?php
-      //show the sort button to show the option for sort by last name
-      //or suffix depending on what will load now
-      if( ! empty($_GET["sort"]))
-      {
-         //the current is sorted by call suffix
-         //display a button to change to last name order
-         echo ' (<a href="#/members">Order By Name</a>)';
-      }
-      else
-      {
-         //the current is sorted by last name
-         echo ' (<a href="#/membersbycall">Order By Call</a>)';
-      }
-      ?>
-</h2>
-<!-- <div class="row memberlist"> -->
-      <?php
-      //run the query to get the current membership
-      //get the tag to see if we are sorting by member name or
-      //call sign
-      if( ! empty($_GET["sort"]))
-      {
-         $findrecords = "SELECT *
+   }
+   //<!-- </div> -->
+   echo '<h2 class="header"> List of Members';
+   //show the sort button to show the option for sort by last name
+   //or suffix depending on what will load now
+   if( ! empty($_GET["sort"]))
+   {
+      //the current is sorted by call suffix
+      //display a button to change to last name order
+      echo ' (<a href="#/members">Order By Name</a>)';
+   }
+   else
+   {
+      //the current is sorted by last name
+      echo ' (<a href="#/membersbycall">Order By Call</a>)';
+   }
+   echo '</h2>';
+   //<!-- <div class="row memberlist"> -->
+   //run the query to get the current membership
+   //get the tag to see if we are sorting by member name or
+   //call sign
+   if( ! empty($_GET["sort"]))
+   {
+      $findrecords = "SELECT *
      , SUBSTRING(fcccall
        , LEAST(
           if (Locate('0',fcccall) >0,Locate('0',fcccall),99),
@@ -319,58 +311,58 @@ else
        ) AS fccsuffix
  FROM memberlist
  ORDER BY (CASE WHEN fcccall IS NULL THEN 1 ELSE 0 END) ASC" .
-         ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
-         " fccsuffix, lastname, firstname";
-      }
-      //otherwise do the default
-      else
-      {
-         $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
-      }
-      if($oldphp)
-      {
-         $result = mysql_query($findrecords);
-      }
-      else
-      {
-         $result = mysqli_query($findrecords);
-      }
-      if( ! $result)
-      {
-         die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
-      }
-
-      //if query is successful display the member list
-      //use bold type for current paid memmbers based on the expiration
-      //date in the database
-      if($result)
-      {
-         while(($oldphp)? $row = mysql_fetch_assoc($result)
-         : $row = mysqli_fetch_assoc($result))
-         {
-            $datenow = time();
-            $recorddate = strtotime($row['expires']);
-            if($recorddate >= $datenow)
-            {
-               $current = 'current';
-            }
-            else
-            {
-               $current = '';
-            }
-            echo '<div class="row memberlist">';
-            echo '<div class="col-xs-3 col-xs-offset-3 string ' . $current . '">';
-            displayFullName($row);
-            echo '</div><div class="col-xs-2 ' . $current . '">';
-            displayMemberIcon($row);
-            echo '</div><div class="col-xs-2 string ' . $current . '">';
-            displayCallAndQRZLink($row);
-            echo '</div>';
-            echo '</div>';
-         }
-      }
+      ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
+      " fccsuffix, lastname, firstname";
    }
-}
+   //otherwise do the default
+   else
+   {
+      $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
+   }
+   if($oldphp)
+   {
+      $result = mysql_query($findrecords);
+   }
+   else
+   {
+      $result = mysqli_query($findrecords);
+   }
+   if( ! $result)
+   {
+      die('Invalid query: ' . ($oldphp)? mysql_error(): mysqli_error());
+   }
+
+   //if query is successful display the member list
+   //use bold type for current paid memmbers based on the expiration
+   //date in the database
+   if($result)
+   {
+      echo 'Members while challenge';
+      while(($oldphp)? $row = mysql_fetch_assoc($result)
+      : $row = mysqli_fetch_assoc($result))
+      {
+         $datenow = time();
+         $recorddate = strtotime($row['expires']);
+         if($recorddate >= $datenow)
+         {
+            $current = 'current';
+         }
+         else
+         {
+            $current = '';
+         }
+         echo '<div class="row memberlist">';
+         echo '<div class="col-xs-3 col-xs-offset-3 string ' . $current . '">';
+         displayFullName($row);
+         echo '</div><div class="col-xs-2 ' . $current . '">';
+         //displayMemberIcon($row);
+         echo '</div><div class="col-xs-2 string ' . $current . '">';
+         displayCallAndQRZLink($row);
+         echo '</div>';
+         echo '</div>';
+      }//end while
+   }//end if
+}//end else
 ?>
            <!-- </div> -->
         </body>
