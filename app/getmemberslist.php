@@ -116,12 +116,15 @@ if( ! $connection1)
 }
 else
 {
+   //test for db version
+   $oldphp=getdbVersion();
    //run the query to get the current officers
    $findrecords = "select * from memberlist WHERE ispresident = true";
-   $result = mysqli_query($connection1, $findrecords);
+   if($oldphp) $result = mysql_query($findrecords);
+   else $result = mysqli_query($findrecords);
    if( ! $result)
    {
-      die('Invalid query: ' . mysql_error());
+      die('Invalid query: ' . ($oldphp) ? mysql_error() : mysqli_error());
    }
    ?>
 <!-- <div class="row officers"> -->
@@ -129,7 +132,8 @@ else
    //if query is successful display the president always use bold
    if($result)
    {
-      while($row = mysqli_fetch_assoc($result))
+      while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
       {
         echo '<div class="row officers">';
         echo '<div class="col-xs-3 col-xs-offset-2 string">';
@@ -142,15 +146,17 @@ else
         echo '</div>';
       }
       $findrecords = "select * from memberlist WHERE isvicepresident = true";
-      $result = mysqli_query($connection1, $findrecords);
+      if($oldphp) $result = mysql_query($findrecords);
+      else $result = mysqli_query($findrecords);
       if( ! $result)
       {
-         die('Invalid query: ' . mysql_error());
+         die('Invalid query: ' . ($oldphp) ? mysql_error() : mysqli_error());
       }
       //if query is successful display the vice president always use bold
       if($result)
       {
-        while($row = mysqli_fetch_assoc($result))
+        while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
         {
           echo '<div class="row officers">';
           echo '<div class="col-xs-3 col-xs-offset-2 string">';
@@ -164,15 +170,17 @@ else
         }
       }
       $findrecords = "select * from memberlist WHERE issecretary = true";
-      $result = mysqli_query($connection1, $findrecords);
+      if($oldphp) $result = mysql_query($findrecords);
+      else $result = mysqli_query($findrecords);
       if( ! $result)
       {
-         die('Invalid query: ' . mysql_error());
+         die('Invalid query: ' . ($oldphp) ? mysql_error() : mysqli_error());
       }
       //if query is successful display the secretary always use bold
       if($result)
       {
-        while($row = mysqli_fetch_assoc($result))
+        while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
         {
           echo '<div class="row officers">';
           echo '<div class="col-xs-3 col-xs-offset-2 string">';
@@ -186,15 +194,17 @@ else
         }
       }
       $findrecords = "select * from memberlist WHERE istreasurer = true";
-      $result = mysqli_query($connection1, $findrecords);
+      if($oldphp) $result = mysql_query($findrecords);
+      else $result = mysqli_query($findrecords);
       if( ! $result)
       {
-         die('Invalid query: ' . mysql_error());
+         die('Invalid query: ' .  ($oldphp) ? mysql_error() : mysqli_error());
       }
       //if query is successful display the treasurer always use bold
       if($result)
       {
-        while($row = mysqli_fetch_assoc($result))
+        while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
         {
           echo '<div class="row officers">';
           echo '<div class="col-xs-3 col-xs-offset-2 string">';
@@ -213,15 +223,17 @@ else
 <!-- <div class="row governors"> -->
 <?php
       $findrecords = "select * from memberlist WHERE isboardmember = true";
-      $result = mysqli_query($connection1, $findrecords);
+      if($oldphp)  $result = mysql_query($findrecords);
+      else $result = mysqli_query($findrecords);
       if( ! $result)
       {
-         die('Invalid query: ' . mysql_error());
+         die('Invalid query: ' . ($oldphp) ? mysql_error() : mysqli_error());
       }
       //if query is successful display the vice president always use bold
       if($result)
       {
-        while($row = mysqli_fetch_assoc($result))
+        while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
         {
           echo '<div class="row governors">';
           echo '<div class="col-xs-3 col-xs-offset-4 string">';
@@ -234,7 +246,7 @@ else
       }
 ?>
 <!-- </div> -->
-<h2 class="header"> List of Members 
+<h2 class="header"> List of Members
 <?php
 //show the sort button to show the option for sort by last name
 //or suffix depending on what will load now
@@ -281,10 +293,11 @@ else
       {
          $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
       }
-      $result = mysqli_query($connection1, $findrecords);
+      if($oldphp) $result = mysql_query($findrecords);
+      else $result = mysqli_query($findrecords);
       if( ! $result)
       {
-         die('Invalid query: ' . mysql_error());
+         die('Invalid query: ' .  ($oldphp) ? mysql_error() : mysqli_error());
       }
 
       //if query is successful display the member list
@@ -292,7 +305,8 @@ else
       //date in the database
       if($result)
       {
-         while($row = mysqli_fetch_assoc($result))
+         while(($oldphp) ? $row=mysql_fetch_assoc($result)
+        : $row=mysqli_fetch_assoc($result))
          {
             $datenow = time();
             $recorddate = strtotime($row['expires']);
