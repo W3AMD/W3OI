@@ -106,8 +106,13 @@ table.course_listing td {
 
 .memberlist {
   font-size: 1.2em;
+  vertical-align: bottom;
 }
 
 .string {
   text-align: left;
+}
+
+.governors, .officers {
+  font-size: 1.4em;
 }

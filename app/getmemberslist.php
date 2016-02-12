@@ -40,24 +40,35 @@ function displayCallAndQRZLink($row, $displayaslink = true)
 //it takes in row which is a row of data in the basename
 function displayMemberIcon($row)
 {
-   //do this only if an image file exists
-   $callsign = $row['fcccall'];
-   $fulldir = "{$_SERVER['DOCUMENT_ROOT']}" . '\members\images\thumbs\\';
-   $exists = file_exists($fulldir . $callsign . ".jpg");
-   //echo $fulldir . $callsign . '.jpg<br>';
-   if($exists)
-   {
-      echo '<img src="/members/images/thumbs/' . $callsign .
-      ".jpg\" width='100' height='auto' alt=\"\" class=\"memberIcon\">";
-      /*
-      // display image file name as link
-      echo "<a href=\"{$img['file']}\">", basename($img['file']), "</a><br>\n";
-      // display image dimenstions
-      echo "({$img['size'][0]} x {$img['size'][1]} pixels)<br>\n";
-      // display mime_type
-      echo $img['size']['mime'];
-      */
-   }
+  //do this only if an image file exists
+  $callsign = $row['fcccall'];
+
+  // echo $_SERVER['DOCUMENT_ROOT'];
+  // echo '<br/>';
+  // echo $_SERVER['SCRIPT_FILENAME'];
+
+  $pos = strrpos($_SERVER['SCRIPT_FILENAME'], "/");
+  $dir = substr($_SERVER['SCRIPT_FILENAME'], 0, $pos);
+  $fulldir = $dir . '/../members/images/thumbs/';
+  // echo '<br/>';
+  // echo $fulldir;
+
+  $exists = file_exists($fulldir . $callsign . ".jpg");
+  //echo $fulldir . $callsign . '.jpg<br>';
+  if($exists)
+  {
+    echo '<img src="members/images/thumbs/' . $callsign . '.jpg" width="100" height="auto" alt="" class="memberIcon">';
+    /*
+    // display image file name as link
+    echo "<a href=\"{$img['file']}\">", basename($img['file']), "</a><br>\n";
+    // display image dimenstions
+    echo "({$img['size'][0]} x {$img['size'][1]} pixels)<br>\n";
+    // display mime_type
+    echo $img['size']['mime'];
+    */
+  } else {
+    echo '<img src="members/images/thumbs/anon.jpg" width="100" height="auto" alt="" class="memberIcon">';
+  }
 }
 
 //this function displays the members name and formats a space
@@ -88,11 +99,11 @@ function displayStartTitleBold($output, $addspace = true, $addcolon = true)
 <div class="memberpagetitles">
 <title>Members</title>
 <body>
-<p><u><b> Officers For
+<h2><u><b> Officers For
 <?php
 echo date("Y");
 ?>
-</p>
+</h2>
 </div>
 <div class="marginOfficers">
 </u></b>
@@ -114,16 +125,22 @@ else
       die('Invalid query: ' . mysql_error());
    }
    ?>
-            <table><p>
+<!-- <div class="row officers"> -->
   <?php
    //if query is successful display the president always use bold
    if($result)
    {
       while($row = mysqli_fetch_assoc($result))
       {
-         displayStartTitleBold("President");
-         displayFullName($row);
-         displayCallAndQRZLink($row);
+        echo '<div class="row officers">';
+        echo '<div class="col-xs-3 col-xs-offset-2 string">';
+        displayStartTitleBold("President");
+        echo '</div><div class="col-xs-3 string">';
+        displayFullName($row);
+        echo '</div><div class="col-xs-3 string">';
+        displayCallAndQRZLink($row);
+        echo '</div>';
+        echo '</div>';
       }
       $findrecords = "select * from memberlist WHERE isvicepresident = true";
       $result = mysqli_query($connection1, $findrecords);
@@ -134,12 +151,18 @@ else
       //if query is successful display the vice president always use bold
       if($result)
       {
-         while($row = mysqli_fetch_assoc($result))
-         {
-            displayStartTitleBold("Vice President");
-            displayFullName($row);
-            displayCallAndQRZLink($row);
-         }
+        while($row = mysqli_fetch_assoc($result))
+        {
+          echo '<div class="row officers">';
+          echo '<div class="col-xs-3 col-xs-offset-2 string">';
+          displayStartTitleBold("Vice President");
+          echo '</div><div class="col-xs-3 string">';
+          displayFullName($row);
+          echo '</div><div class="col-xs-3 string">';
+          displayCallAndQRZLink($row);
+          echo '</div>';
+          echo '</div>';
+        }
       }
       $findrecords = "select * from memberlist WHERE issecretary = true";
       $result = mysqli_query($connection1, $findrecords);
@@ -150,12 +173,18 @@ else
       //if query is successful display the secretary always use bold
       if($result)
       {
-         while($row = mysqli_fetch_assoc($result))
-         {
-            displayStartTitleBold("Secretary");
-            displayFullName($row);
-            displayCallAndQRZLink($row);
-         }
+        while($row = mysqli_fetch_assoc($result))
+        {
+          echo '<div class="row officers">';
+          echo '<div class="col-xs-3 col-xs-offset-2 string">';
+          displayStartTitleBold("Secretary");
+          echo '</div><div class="col-xs-3 string">';
+          displayFullName($row);
+          echo '</div><div class="col-xs-3 string">';
+          displayCallAndQRZLink($row);
+          echo '</div>';
+          echo '</div>';
+        }
       }
       $findrecords = "select * from memberlist WHERE istreasurer = true";
       $result = mysqli_query($connection1, $findrecords);
@@ -166,18 +195,23 @@ else
       //if query is successful display the treasurer always use bold
       if($result)
       {
-         while($row = mysqli_fetch_assoc($result))
-         {
-            displayStartTitleBold("Treasurer");
-            displayFullName($row);
-            displayCallAndQRZLink($row);
-         }
+        while($row = mysqli_fetch_assoc($result))
+        {
+          echo '<div class="row officers">';
+          echo '<div class="col-xs-3 col-xs-offset-2 string">';
+          displayStartTitleBold("Treasurer");
+          echo '</div><div class="col-xs-3 string">';
+          displayFullName($row);
+          echo '</div><div class="col-xs-3 string">';
+          displayCallAndQRZLink($row);
+          echo '</div>';
+          echo '</div>';
+        }
       }
 ?>
-            </table></p>
-</div>
-<p><b><u> Board Of Govenors </b></u></p>
-<table><p>
+<!-- </div> -->
+<h2><b><u> Board Of Govenors </b></u></h2>
+<!-- <div class="row governors"> -->
 <?php
       $findrecords = "select * from memberlist WHERE isboardmember = true";
       $result = mysqli_query($connection1, $findrecords);
@@ -188,15 +222,20 @@ else
       //if query is successful display the vice president always use bold
       if($result)
       {
-         while($row = mysqli_fetch_assoc($result))
-         {
-            displayFullName($row);
-            displayCallAndQRZLink($row);
-         }
+        while($row = mysqli_fetch_assoc($result))
+        {
+          echo '<div class="row governors">';
+          echo '<div class="col-xs-3 col-xs-offset-4 string">';
+          displayFullName($row);
+          echo '</div><div class="col-xs-3 string">';
+          displayCallAndQRZLink($row);
+          echo '</div>';
+          echo '</div>';
+        }
       }
 ?>
-</p></table>
-<p><b><u> List of Members </b></u>
+<!-- </div> -->
+<h2><b><u> List of Members </b></u>
 <?php
 //show the sort button to show the option for sort by last name
 //or suffix depending on what will load now
@@ -210,8 +249,8 @@ else
  echo ' (<a href="#/membersbycall">Order By Call</a>)';
  }
 ?>
-</p>
-<div class="row memberlist">
+</h2>
+<!-- <div class="row memberlist"> -->
       <?php
       //run the query to get the current membership
       //get the tag to see if we are sorting by member name or
@@ -264,6 +303,7 @@ else
             } else {
                $current = '';
             }
+            echo '<div class="row memberlist">';
             echo '<div class="col-xs-3 col-xs-offset-3 string '.$current.'">';
             displayFullName($row);
             echo '</div><div class="col-xs-2 '.$current.'">';
@@ -271,11 +311,12 @@ else
             echo '</div><div class="col-xs-2 string '.$current.'">';
             displayCallAndQRZLink($row);
             echo '</div>';
+            echo '</div>';
          }
       }
    }
 }
 ?>
-           </div>
+           <!-- </div> -->
         </body>
     </html>
