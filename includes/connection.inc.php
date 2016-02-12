@@ -1,5 +1,5 @@
 <?php
-//check the version to be capable with the function calls this is global
+//check the version to be capable with the function calls
 function getdbVersion()
 {
    $version = phpversion();
