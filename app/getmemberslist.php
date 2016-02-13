@@ -11,7 +11,7 @@
 
 //see lvarc.css for visual display and orientation classes
 
-//include('../includes/corefuncs.inc.php');
+include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 
 //function to display the call sign from the database and it's associated

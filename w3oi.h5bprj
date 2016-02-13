@@ -274,6 +274,7 @@ Item269=css\lvarc.css
 Item270=css\uxcore.css
 Item271=views\membership.htm
 Item272=views\membersbycallsuffix.html
+Item273=includes\sqlfunctions.inc.php
 
 [MainScript]
 Script=
