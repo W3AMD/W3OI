@@ -35,6 +35,7 @@
     <property name="Height">21</property>
     <property name="Left">96</property>
     <property name="Name">Username</property>
+    <property name="Text">w3oivoxeditor</property>
     <property name="Top">56</property>
     <property name="Width">121</property>
   </object>
@@ -53,7 +54,8 @@
     <property name="InputType">cePassword</property>
     <property name="Left">96</property>
     <property name="Name">Password</property>
-    <property name="Top">96</property>
+    <property name="Text">O63dtg!4</property>
+    <property name="Top">95</property>
     <property name="Width">121</property>
   </object>
   <object class="Button" name="LogIn" >
