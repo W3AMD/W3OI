@@ -1,5 +1,5 @@
 <?php
-include_once 'sqlfunctions.inc.php';
+include ('sqlfunctions.inc.php');
 function dbConnect()
 {
    // $hostname='108.2.206.24:3306';
@@ -12,10 +12,8 @@ function dbConnect()
    $user = 'w3oiuser';
    $pwd = '146.94';
 
-   $oldphp = getdbVersion();
-
    // Connection code
-   $conn = _mysql_connect($hostname, $user, $pwd) or die('Cannot connect to MySQL server');
+   $conn = _mysql_connect($hostname, $user, $pwd);
    _mysql_select_db($conn,$dbname);
    return $conn;
 }
