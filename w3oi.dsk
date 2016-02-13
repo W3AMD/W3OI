@@ -9,57 +9,27 @@ group0=Watches
 Count=0
 
 [OpenFiles]
-Module2=includes\sqlfunctions.inc.php
-Module3=views\home.html
-Module4=js\controllers\announcements.js
-Module5=app\queryannounce.php
-Module6=includes\connection.inc.php
-Module7=index.html
-Module8=app\getmemberslist.php
-Module9=app\queryannouncements.php
-Module10=app\voxeditorlogin.php
-Module11=..\Widow\index.php
+Module2=manager\voxeditormanager.php
+Module3=app\getmemberslist.php
+Module4=includes\connection.inc.php
+Module5=includes\sqlfunctions.inc.php
 
-[includes\sqlfunctions.inc.php]
-Line=54
-Position=54
-
-[views\home.html]
-Line=43
-Position=57
-
-[js\controllers\announcements.js]
-Line=12
-Position=52
-
-[app\queryannounce.php]
-Line=10
-Position=37
-
-[includes\connection.inc.php]
-Line=8
-Position=51
-
-[index.html]
-Line=9
-Position=53
+[manager\voxeditormanager.php]
+Line=17
+Position=49
 
 [app\getmemberslist.php]
-Line=173
-Position=64
+Line=0
+Position=0
 
-[app\queryannouncements.php]
-Line=19
-Position=35
+[includes\connection.inc.php]
+Line=0
+Position=0
 
-[app\voxeditorlogin.php]
-Line=18
-Position=56
-
-[..\Widow\index.php]
+[includes\sqlfunctions.inc.php]
 Line=0
 Position=0
 
 [Status]
-OpenModule=..\Widow\index.php
+OpenModule=manager\voxeditormanager.php
 
