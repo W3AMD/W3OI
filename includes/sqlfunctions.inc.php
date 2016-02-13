@@ -17,15 +17,14 @@ function check_sql_version()
 
 function _mysql_connect($hostname, $user, $pwd)
 {
+   //don't die on connection error if user enters wrong password
    if(check_sql_version())
    {
-      $conn = mysql_connect($hostname, $user, $pwd) or
-      die('mysql_connect: Cannot connect to MySQL server');
+      $conn = @mysql_connect($hostname, $user, $pwd);
    }
    else
    {
-      $conn = mysqli_connect($hostname, $user, $pwd) or
-      die('mysqli_connect: Cannot connect to MySQL server');;
+      $conn = @mysqli_connect($hostname, $user, $pwd);
    }
    return $conn;
 }

@@ -20,6 +20,8 @@ class VOXEditorLogin extends Page
    function LogInClick($sender, $params)
    {
       //check the user log in against the database
+      $this->LoginStatus->Font->Color=Blue;
+      $this->LoginStatus->Caption='Logging In';
       $dbconnection = dbConnectOtherUsers($this->Username->Text,
       $this->Password->Text);
       if($dbconnection)
