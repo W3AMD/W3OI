@@ -14,7 +14,7 @@ $sql = 'SELECT description FROM announcements WHERE startdate <= "'.$currdate.
 $result = _mysql_query($conn,$sql);
 $strReturn = '';
 while ($row = _mysql_fetch_assoc($conn,$result)) {
-	$strReturn .= '<p>'.$row['description'].'</p>';
+	$strReturn .= '<p><h2>'.$row['description'].'</h2><hr/></p>';
 }
 $strReturn .= '';
 print($strReturn);
