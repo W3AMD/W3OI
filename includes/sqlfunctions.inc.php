@@ -1,5 +1,4 @@
 <?php
-echo $_SERVER['DOCUMENT_ROOT'] . 'sqlfunctions.inc.php';
 //check the version to be capable with the function calls
 function check_sql_version()
 {
@@ -67,8 +66,9 @@ function _mysql_fetch_assoc($connection, $result)
    {
       $row = mysql_fetch_assoc($result);
    }
-   else {
-      $row = mysqli_fetch_assoc($connection,$result);
+   else
+   {
+      $row = mysqli_fetch_assoc($connection, $result);
    }
    return $row;
 }

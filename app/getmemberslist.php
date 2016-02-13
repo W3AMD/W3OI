@@ -10,7 +10,7 @@
 //directory
 
 //see lvarc.css for visual display and orientation classes
-
+include ('../includes/sqlfunctions.inc.php');
 include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 

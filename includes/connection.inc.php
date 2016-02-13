@@ -1,6 +1,4 @@
 <?php
-echo $_SERVER['DOCUMENT_ROOT'] . 'connection.inc.php';
-include ('../includes/sqlfunctions.inc.php');
 function dbConnect()
 {
    // $hostname='108.2.206.24:3306';
