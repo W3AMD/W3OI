@@ -1,4 +1,5 @@
 <?php
+echo $_SERVER['DOCUMENT_ROOT'] . 'queryannounce.php';
 include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 if (function_exists('nukeMagicQuotes')) {
@@ -13,7 +14,5 @@ while ($row = _mysql_fetch_assoc($conn1,$result)) {
 	$strReturn .= '<p>'.$row['description'].'</p>';
 }
 $strReturn .= '';
-
 print($strReturn);
-
 ?>

@@ -1,4 +1,5 @@
 <?php
+echo $_SERVER['DOCUMENT_ROOT'] . 'sqlfunctions.inc.php';
 //check the version to be capable with the function calls
 function check_sql_version()
 {
