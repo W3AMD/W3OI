@@ -64,6 +64,7 @@
     <property name="Name">LogIn</property>
     <property name="Top">56</property>
     <property name="Width">75</property>
+    <property name="OnClick">LogInClick</property>
   </object>
 </object>
 ?>

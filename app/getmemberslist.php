@@ -10,7 +10,7 @@
 //directory
 
 //see lvarc.css for visual display and orientation classes
-include ('../includes/sqlfunctions.inc.php');
+include('../includes/sqlfunctions.inc.php');
 include('../includes/corefuncs.inc.php');
 include('../includes/connection.inc.php');
 
@@ -113,25 +113,35 @@ echo date("Y");
 </div>
 <?php
 $connection1 = dbConnect();
-if( ! $connection1)
+//run the query to get the current officers
+$findrecords = "select * from memberlist WHERE ispresident = true";
+$result = _mysql_query($connection1, $findrecords);
+//<!-- <div class="row officers"> -->
+//if query is successful display the president always use bold
+if($result)
 {
-   header("Location: /unavailable.html");
-   exit;
-}
-else
-{
-   //run the query to get the current officers
-   $findrecords = "select * from memberlist WHERE ispresident = true";
-   $result=_mysql_query($connection1,$findrecords);
-   //<!-- <div class="row officers"> -->
-   //if query is successful display the president always use bold
+   while($row = _mysql_fetch_assoc($connection1, $result))
+   {
+      echo '<div class="row officers">';
+      echo '<div class="col-xs-3 col-xs-offset-2 string">';
+      displayStartTitleBold("President");
+      echo '</div><div class="col-xs-3 string">';
+      displayFullName($row);
+      echo '</div><div class="col-xs-3 string">';
+      displayCallAndQRZLink($row);
+      echo '</div>';
+      echo '</div>';
+   }
+   $findrecords = "select * from memberlist WHERE isvicepresident = true";
+   $result = _mysql_query($connection1, $findrecords);
+   //if query is successful display the vice president always use bold
    if($result)
    {
       while($row = _mysql_fetch_assoc($connection1, $result))
       {
          echo '<div class="row officers">';
          echo '<div class="col-xs-3 col-xs-offset-2 string">';
-         displayStartTitleBold("President");
+         displayStartTitleBold("Vice President");
          echo '</div><div class="col-xs-3 string">';
          displayFullName($row);
          echo '</div><div class="col-xs-3 string">';
@@ -139,73 +149,18 @@ else
          echo '</div>';
          echo '</div>';
       }
-      $findrecords = "select * from memberlist WHERE isvicepresident = true";
-      $result = _mysql_query($connection1,$findrecords);
-      //if query is successful display the vice president always use bold
-      if($result)
-      {
-         while($row = _mysql_fetch_assoc($connection1, $result))
-         {
-            echo '<div class="row officers">';
-            echo '<div class="col-xs-3 col-xs-offset-2 string">';
-            displayStartTitleBold("Vice President");
-            echo '</div><div class="col-xs-3 string">';
-            displayFullName($row);
-            echo '</div><div class="col-xs-3 string">';
-            displayCallAndQRZLink($row);
-            echo '</div>';
-            echo '</div>';
-         }
-      }
-      $findrecords = "select * from memberlist WHERE issecretary = true";
-      $result = _mysql_query($connection1,$findrecords);
-      //if query is successful display the secretary always use bold
-      if($result)
-      {
-         while($row = _mysql_fetch_assoc($connection1, $result))
-         {
-            echo '<div class="row officers">';
-            echo '<div class="col-xs-3 col-xs-offset-2 string">';
-            displayStartTitleBold("Secretary");
-            echo '</div><div class="col-xs-3 string">';
-            displayFullName($row);
-            echo '</div><div class="col-xs-3 string">';
-            displayCallAndQRZLink($row);
-            echo '</div>';
-            echo '</div>';
-         }
-      }
-      $findrecords = "select * from memberlist WHERE istreasurer = true";
-      $result = _mysql_query($connection1,$findrecords);
-      //if query is successful display the treasurer always use bold
-      if($result)
-      {
-         while($row = _mysql_fetch_assoc($connection1, $result))
-         {
-            echo '<div class="row officers">';
-            echo '<div class="col-xs-3 col-xs-offset-2 string">';
-            displayStartTitleBold("Treasurer");
-            echo '</div><div class="col-xs-3 string">';
-            displayFullName($row);
-            echo '</div><div class="col-xs-3 string">';
-            displayCallAndQRZLink($row);
-            echo '</div>';
-            echo '</div>';
-         }
-      }
    }
-   //<!-- </div> -->
-   echo '<h2 class="header"> Board Of Govenors </h2>';
-   //<!-- <div class="row governors"> -->
-   $findrecords = "select * from memberlist WHERE isboardmember = true";
-   $result = _mysql_query($connection1,$findrecords);
-   //if query is successful display the vice president always use bold
+   $findrecords = "select * from memberlist WHERE issecretary = true";
+   $result = _mysql_query($connection1, $findrecords);
+   //if query is successful display the secretary always use bold
    if($result)
    {
       while($row = _mysql_fetch_assoc($connection1, $result))
       {
-         echo '<div class="row governors">';
-         echo '<div class="col-xs-3 col-xs-offset-4 string">';
+         echo '<div class="row officers">';
+         echo '<div class="col-xs-3 col-xs-offset-2 string">';
+         displayStartTitleBold("Secretary");
+         echo '</div><div class="col-xs-3 string">';
          displayFullName($row);
          echo '</div><div class="col-xs-3 string">';
          displayCallAndQRZLink($row);
@@ -213,29 +168,67 @@ else
          echo '</div>';
       }
    }
-   //<!-- </div> -->
-   echo '<h2 class="header"> List of Members';
-   //show the sort button to show the option for sort by last name
-   //or suffix depending on what will load now
-   if( ! empty($_GET["sort"]))
+   $findrecords = "select * from memberlist WHERE istreasurer = true";
+   $result = _mysql_query($connection1, $findrecords);
+   //if query is successful display the treasurer always use bold
+   if($result)
    {
-      //the current is sorted by call suffix
-      //display a button to change to last name order
-      echo ' (<a href="#/members">Order By Name</a>)';
+      while($row = _mysql_fetch_assoc($connection1, $result))
+      {
+         echo '<div class="row officers">';
+         echo '<div class="col-xs-3 col-xs-offset-2 string">';
+         displayStartTitleBold("Treasurer");
+         echo '</div><div class="col-xs-3 string">';
+         displayFullName($row);
+         echo '</div><div class="col-xs-3 string">';
+         displayCallAndQRZLink($row);
+         echo '</div>';
+         echo '</div>';
+      }
    }
-   else
+}
+//<!-- </div> -->
+echo '<h2 class="header"> Board Of Govenors </h2>';
+//<!-- <div class="row governors"> -->
+$findrecords = "select * from memberlist WHERE isboardmember = true";
+$result = _mysql_query($connection1, $findrecords);
+//if query is successful display the vice president always use bold
+if($result)
+{
+   while($row = _mysql_fetch_assoc($connection1, $result))
    {
-      //the current is sorted by last name
-      echo ' (<a href="#/membersbycall">Order By Call</a>)';
+      echo '<div class="row governors">';
+      echo '<div class="col-xs-3 col-xs-offset-4 string">';
+      displayFullName($row);
+      echo '</div><div class="col-xs-3 string">';
+      displayCallAndQRZLink($row);
+      echo '</div>';
+      echo '</div>';
    }
-   echo '</h2>';
-   //<!-- <div class="row memberlist"> -->
-   //run the query to get the current membership
-   //get the tag to see if we are sorting by member name or
-   //call sign
-   if( ! empty($_GET["sort"]))
-   {
-      $findrecords = "SELECT *
+}
+//<!-- </div> -->
+echo '<h2 class="header"> List of Members';
+//show the sort button to show the option for sort by last name
+//or suffix depending on what will load now
+if( ! empty($_GET["sort"]))
+{
+   //the current is sorted by call suffix
+   //display a button to change to last name order
+   echo ' (<a href="#/members">Order By Name</a>)';
+}
+else
+{
+   //the current is sorted by last name
+   echo ' (<a href="#/membersbycall">Order By Call</a>)';
+}
+echo '</h2>';
+//<!-- <div class="row memberlist"> -->
+//run the query to get the current membership
+//get the tag to see if we are sorting by member name or
+//call sign
+if( ! empty($_GET["sort"]))
+{
+   $findrecords = "SELECT *
      , SUBSTRING(fcccall
        , LEAST(
           if (Locate('0',fcccall) >0,Locate('0',fcccall),99),
@@ -252,44 +245,43 @@ else
        ) AS fccsuffix
  FROM memberlist
  ORDER BY (CASE WHEN fcccall IS NULL THEN 1 ELSE 0 END) ASC" .
-      ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
-      " fccsuffix, lastname, firstname";
-   }
-   //otherwise do the default
-   else
+   ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
+   " fccsuffix, lastname, firstname";
+}
+//otherwise do the default
+else
+{
+   $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
+}
+$result = _mysql_query($connection1, $findrecords);
+//if query is successful display the member list
+//use bold type for current paid memmbers based on the expiration
+//date in the database
+if($result)
+{
+   while($row = _mysql_fetch_assoc($connection1, $result))
    {
-      $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
-   }
-   $result = _mysql_query($connection1,$findrecords);
-   //if query is successful display the member list
-   //use bold type for current paid memmbers based on the expiration
-   //date in the database
-   if($result)
-   {
-      while($row = _mysql_fetch_assoc($connection1, $result))
+      $datenow = time();
+      $recorddate = strtotime($row['expires']);
+      if($recorddate >= $datenow)
       {
-         $datenow = time();
-         $recorddate = strtotime($row['expires']);
-         if($recorddate >= $datenow)
-         {
-            $current = 'current';
-         }
-         else
-         {
-            $current = '';
-         }
-         echo '<div class="row memberlist">';
-         echo '<div class="col-xs-3 col-xs-offset-3 string ' . $current . '">';
-         displayFullName($row);
-         echo '</div><div class="col-xs-2 ' . $current . '">';
-         displayMemberIcon($row);
-         echo '</div><div class="col-xs-2 string ' . $current . '">';
-         displayCallAndQRZLink($row);
-         echo '</div>';
-         echo '</div>';
-      }//end while
-   }//end if
-}//end else
+         $current = 'current';
+      }
+      else
+      {
+         $current = '';
+      }
+      echo '<div class="row memberlist">';
+      echo '<div class="col-xs-3 col-xs-offset-3 string ' . $current . '">';
+      displayFullName($row);
+      echo '</div><div class="col-xs-2 ' . $current . '">';
+      displayMemberIcon($row);
+      echo '</div><div class="col-xs-2 string ' . $current . '">';
+      displayCallAndQRZLink($row);
+      echo '</div>';
+      echo '</div>';
+   }//end while
+}//end if
 ?>
            <!-- </div> -->
         </body>
