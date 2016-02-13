@@ -18,6 +18,7 @@ Module7=index.html
 Module8=app\getmemberslist.php
 Module9=app\queryannouncements.php
 Module10=app\voxeditorlogin.php
+Module11=..\Widow\index.php
 
 [includes\sqlfunctions.inc.php]
 Line=54
@@ -52,9 +53,13 @@ Line=19
 Position=35
 
 [app\voxeditorlogin.php]
+Line=18
+Position=56
+
+[..\Widow\index.php]
 Line=0
 Position=0
 
 [Status]
-OpenModule=app\voxeditorlogin.php
+OpenModule=..\Widow\index.php
 

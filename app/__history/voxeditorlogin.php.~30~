@@ -27,5 +27,5 @@ $VOXEditorLogin->loadResource(__FILE__);
 
 //Shows the form
 $VOXEditorLogin->show();
-
+*/
 ?>
