@@ -34,12 +34,6 @@ function dbConnectOtherUsers($username,$password)
 
    // Connection code
    $conn = _mysql_connect($hostname, $username, $password);
-   if( ! $conn)
-   {
-      header("Location: /unavailable.html");
-      exit;
-   }
-   _mysql_select_db($conn, $dbname);
    return $conn;
 }
 ?>

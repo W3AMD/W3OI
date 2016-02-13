@@ -16,6 +16,7 @@ class VOXEditorLogin extends Page
    public $Label3 = null;
    public $Password = null;
    public $LogIn = null;
+    public $LoginStatus = null;
    function LogInClick($sender, $params)
    {
       //check the user log in against the database
@@ -23,11 +24,13 @@ class VOXEditorLogin extends Page
       $this->Password->Text);
       if($dbconnection)
       {
-         echo 'success';
+         $this->LoginStatus->Font->Color=Green;
+         $this->LoginStatus->Caption='Success';
       }
       else
       {
-         echo 'failure';
+         $this->LoginStatus->Font->Color=Red;
+         $this->LoginStatus->Caption='Incorrect username or password';
       }
    }
 }

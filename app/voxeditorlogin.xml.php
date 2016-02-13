@@ -68,5 +68,18 @@
     <property name="Width">75</property>
     <property name="OnClick">LogInClick</property>
   </object>
+  <object class="Label" name="LoginStatus" >
+    <property name="Alignment">agCenter</property>
+    <property name="Animations">a:0:{}</property>
+    <property name="Font">
+    <property name="Color">Crimson</property>
+    </property>
+    <property name="Height">13</property>
+    <property name="Left">6</property>
+    <property name="Name">LoginStatus</property>
+    <property name="ParentFont">0</property>
+    <property name="Top">136</property>
+    <property name="Width">382</property>
+  </object>
 </object>
 ?>
