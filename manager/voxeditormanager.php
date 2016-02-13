@@ -9,6 +9,8 @@ include('../includes/connection.inc.php');
 //Class definition
 class VOXEditorLogin extends Page
 {
+    public $Label5 = null;
+    public $Label4 = null;
     public $LoginStatus = null;
     public $Panel1 = null;
     public $Label1 = null;
@@ -17,9 +19,9 @@ class VOXEditorLogin extends Page
     public $Label3 = null;
     public $Password = null;
     public $LogIn = null;
-    public $Panel2 = null;
+    public $AddPanel = null;
     public $AddButton = null;
-    public $Panel3 = null;
+    public $UploadPanel = null;
     public $Upload1 = null;
     public $UploadButton = null;
    function LogInClick($sender, $params)
@@ -32,15 +34,29 @@ class VOXEditorLogin extends Page
       {
          $this->LoginStatus->Font->Color=Green;
          $this->LoginStatus->Caption='Success';
-         //disable the first panel
-
+         //enable add panel
+         $this->AddPanel->Visible=true;
       }
       else
       {
+         $this->AddPanel->Visible=false;
+         $this->UploadPanel->Visible=false;
          $this->LoginStatus->Font->Color=Red;
          $this->LoginStatus->Caption='Incorrect username or password';
       }
    }
+    function AddButtonClick($sender, $params)
+    {
+         //enable add panel
+         $this->UploadPanel->Visible=true;
+    }
+    function UploadButtonClick($sender, $params)
+    {
+     //check the file format for MMMYYVOX.pdf
+     //check that this year directory exists
+     //check that the file doesn't already exist
+     //upload the file
+    }
 }
 
 global $application;

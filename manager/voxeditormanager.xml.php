@@ -91,13 +91,14 @@
       <property name="Width">363</property>
     </object>
   </object>
-  <object class="Panel" name="Panel2" >
+  <object class="Panel" name="AddPanel" >
     <property name="Animations">a:0:{}</property>
-    <property name="Caption">Panel2</property>
+    <property name="Caption">AddPanel</property>
     <property name="Height">59</property>
     <property name="Left">5</property>
-    <property name="Name">Panel2</property>
+    <property name="Name">AddPanel</property>
     <property name="Top">176</property>
+    <property name="Visible">0</property>
     <property name="Width">395</property>
     <object class="Button" name="AddButton" >
       <property name="Animations">a:0:{}</property>
@@ -107,14 +108,16 @@
       <property name="Name">AddButton</property>
       <property name="Top">17</property>
       <property name="Width">75</property>
+      <property name="OnClick">AddButtonClick</property>
     </object>
   </object>
-  <object class="Panel" name="Panel3" >
+  <object class="Panel" name="UploadPanel" >
     <property name="Animations">a:0:{}</property>
-    <property name="Caption">Panel3</property>
+    <property name="Caption">UploadPanel</property>
     <property name="Height">91</property>
-    <property name="Name">Panel3</property>
+    <property name="Name">UploadPanel</property>
     <property name="Top">240</property>
+    <property name="Visible">0</property>
     <property name="Width">400</property>
     <object class="Upload" name="Upload1" >
       <property name="Animations">a:0:{}</property>
@@ -132,6 +135,25 @@
       <property name="Name">UploadButton</property>
       <property name="Top">48</property>
       <property name="Width">75</property>
+      <property name="OnClick">UploadButtonClick</property>
+    </object>
+    <object class="Label" name="Label4" >
+      <property name="Animations">a:0:{}</property>
+      <property name="Caption">VOX file format must be MMMYYVOX.pdf</property>
+      <property name="Height">13</property>
+      <property name="Left">112</property>
+      <property name="Name">Label4</property>
+      <property name="Top">48</property>
+      <property name="Width">277</property>
+    </object>
+    <object class="Label" name="Label5" >
+      <property name="Animations">a:0:{}</property>
+      <property name="Caption">Example: Jun13VOX.pdf</property>
+      <property name="Height">13</property>
+      <property name="Left">110</property>
+      <property name="Name">Label5</property>
+      <property name="Top">64</property>
+      <property name="Width">279</property>
     </object>
   </object>
 </object>
