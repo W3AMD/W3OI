@@ -3,7 +3,7 @@
   <property name="Animations">a:0:{}</property>
   <property name="Background"></property>
   <property name="Caption">VOX Editor Login</property>
-  <property name="Height">348</property>
+  <property name="Height">619</property>
   <property name="HiddenFields">a:0:{}</property>
   <property name="Name">VOXEditorLogin</property>
   <property name="UseAjax">1</property>
@@ -69,6 +69,7 @@
     </object>
     <object class="Button" name="LogIn" >
       <property name="Animations">a:0:{}</property>
+      <property name="ButtonType">btNormal</property>
       <property name="Caption">Log In</property>
       <property name="Height">25</property>
       <property name="Left">250</property>
@@ -83,7 +84,7 @@
       <property name="Font">
       <property name="Color">Crimson</property>
       </property>
-      <property name="Height">19</property>
+      <property name="Height">27</property>
       <property name="Left">16</property>
       <property name="Name">LoginStatus</property>
       <property name="ParentFont">0</property>
@@ -102,6 +103,7 @@
     <property name="Width">395</property>
     <object class="Button" name="AddButton" >
       <property name="Animations">a:0:{}</property>
+      <property name="ButtonType">btNormal</property>
       <property name="Caption">Add</property>
       <property name="Height">25</property>
       <property name="Left">11</property>
@@ -114,7 +116,7 @@
   <object class="Panel" name="UploadPanel" >
     <property name="Animations">a:0:{}</property>
     <property name="Caption">UploadPanel</property>
-    <property name="Height">91</property>
+    <property name="Height">371</property>
     <property name="Name">UploadPanel</property>
     <property name="Top">240</property>
     <property name="Visible">0</property>
@@ -126,16 +128,8 @@
       <property name="Name">Upload1</property>
       <property name="Top">16</property>
       <property name="Width">260</property>
-    </object>
-    <object class="Button" name="UploadButton" >
-      <property name="Animations">a:0:{}</property>
-      <property name="Caption">Upload</property>
-      <property name="Height">25</property>
-      <property name="Left">16</property>
-      <property name="Name">UploadButton</property>
-      <property name="Top">48</property>
-      <property name="Width">75</property>
-      <property name="OnClick">UploadButtonClick</property>
+      <property name="OnSubmit">Upload1Submit</property>
+      <property name="OnUploaded">Upload1Uploaded</property>
     </object>
     <object class="Label" name="Label4" >
       <property name="Animations">a:0:{}</property>
@@ -154,6 +148,43 @@
       <property name="Name">Label5</property>
       <property name="Top">64</property>
       <property name="Width">279</property>
+    </object>
+    <object class="Button" name="UploadVOX" >
+      <property name="Animations">a:0:{}</property>
+      <property name="Caption">Upload VOX</property>
+      <property name="Height">25</property>
+      <property name="Left">16</property>
+      <property name="Name">UploadVOX</property>
+      <property name="Top">48</property>
+      <property name="Width">75</property>
+      <property name="OnClick">UploadVOXClick</property>
+    </object>
+    <object class="Label" name="UploadStatus" >
+      <property name="Alignment">agCenter</property>
+      <property name="Animations">a:0:{}</property>
+      <property name="Height">13</property>
+      <property name="Left">5</property>
+      <property name="Name">UploadStatus</property>
+      <property name="Top">88</property>
+      <property name="Width">390</property>
+    </object>
+    <object class="Label" name="UploadStatus2" >
+      <property name="Alignment">agCenter</property>
+      <property name="Animations">a:0:{}</property>
+      <property name="Height">13</property>
+      <property name="Left">8</property>
+      <property name="Name">UploadStatus2</property>
+      <property name="Top">120</property>
+      <property name="Width">385</property>
+    </object>
+    <object class="Memo" name="Memo1" >
+      <property name="Animations">a:0:{}</property>
+      <property name="Height">211</property>
+      <property name="Left">8</property>
+      <property name="Lines">a:0:{}</property>
+      <property name="Name">Memo1</property>
+      <property name="Top">141</property>
+      <property name="Width">386</property>
     </object>
   </object>
 </object>
