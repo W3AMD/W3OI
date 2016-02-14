@@ -83,8 +83,8 @@ class VOXEditorLogin extends Page
       $uploadloc=$_SERVER['DOCUMENT_ROOT'] . '\upload\\' . $this->Upload1->FileName;
       $this->Memo1->AddLine('Upload location: ' .$uploadloc);
       $this->Memo1->AddLine('Files to upload:' . $_FILES["fileToUpload"]["tmp_name"]);
-/*
-      if(move_uploaded_file($this->Upload1->FileTmpName,$uploadloc))
+
+      if(@move_uploaded_file($this->Upload1->FileTmpName,$uploadloc))
       {
          $this->UploadStatus2->Caption = 'Got milkhouse? Yes we do. Thanks for the VOX';
       }
@@ -92,7 +92,6 @@ class VOXEditorLogin extends Page
       {
          $this->UploadStatus2->Caption = 'No milkhouse! No VOX';
       }
-*/
    }
    function Upload1Uploaded($sender, $params)
    {
