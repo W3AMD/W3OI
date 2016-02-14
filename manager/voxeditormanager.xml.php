@@ -128,8 +128,6 @@
       <property name="Name">Upload1</property>
       <property name="Top">16</property>
       <property name="Width">260</property>
-      <property name="OnSubmit">Upload1Submit</property>
-      <property name="OnUploaded">Upload1Uploaded</property>
     </object>
     <object class="Label" name="Label4" >
       <property name="Animations">a:0:{}</property>
@@ -168,22 +166,13 @@
       <property name="Top">88</property>
       <property name="Width">390</property>
     </object>
-    <object class="Label" name="UploadStatus2" >
-      <property name="Alignment">agCenter</property>
-      <property name="Animations">a:0:{}</property>
-      <property name="Height">13</property>
-      <property name="Left">8</property>
-      <property name="Name">UploadStatus2</property>
-      <property name="Top">120</property>
-      <property name="Width">385</property>
-    </object>
     <object class="Memo" name="Memo1" >
       <property name="Animations">a:0:{}</property>
-      <property name="Height">211</property>
-      <property name="Left">8</property>
+      <property name="Height">245</property>
+      <property name="Left">9</property>
       <property name="Lines">a:0:{}</property>
       <property name="Name">Memo1</property>
-      <property name="Top">141</property>
+      <property name="Top">107</property>
       <property name="Width">386</property>
     </object>
   </object>

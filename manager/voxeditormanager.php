@@ -10,7 +10,6 @@ include('../includes/connection.inc.php');
 class VOXEditorLogin extends Page
 {
    public $Memo1 = null;
-   public $UploadStatus2 = null;
    public $UploadStatus = null;
    public $UploadVOX = null;
    public $Label5 = null;
@@ -52,54 +51,65 @@ class VOXEditorLogin extends Page
    {
       //enable add panel
       $this->UploadPanel->Visible = true;
-      //$this->Upload1->FileTmpName='test.pdf';
    }
    function UploadVOXClick($sender, $params)
    {
-      //check the file format for MMMYYVOX.pdf
-      //check that this year directory exists
-      //check that the file doesn't already exist
       //upload the file
-      $this->UploadStatus->Caption = 'VOXClick ' . $this->Upload1->FileName;
-      $this->Memo1->AddLine('FileTmpName: ' . $this->Upload1->FileTmpName);
+      $this->Memo1->Clear();
+      $this->Memo1->AddLine('Server says version: ' . phpversion());
+      $this->Memo1->AddLine('*FileTmpName: ' . $this->Upload1->FileTmpName);
       $this->Memo1->AddLine('FileName: ' . $this->Upload1->FileTmpName);
       $this->Memo1->AddLine('FileSize: ' . $this->Upload1->FileSize);
       $this->Memo1->AddLine('FileType: ' . $this->Upload1->FileType);
       $this->Memo1->AddLine('FileSubType : ' . $this->Upload1->FileSubType);
-      $this->Memo1->AddLine('GraphicWidth: ' . $this->Upload1->GraphicWidth);
-      $this->Memo1->AddLine('GraphicHeihgt: ' . $this->Upload1->GraphicHeight);
-      if($this->Upload1->isGIF())
-         $tmp = ' is gif';
-      if($this->Upload1->isJPEG())
-         $tmp = ' is jpeg';
-      if($this->Upload1->isPNG())
-         $tmp = ' is png';
-      $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt . $tmp);
+      $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt);
       $this->Memo1->AddLine('File userfile: ' . $_FILES['userfile']['tmp_name']);
-      $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt . $tmp);
       $this->Memo1->AddLine('Server says File userfile: ' . ($_FILES['userfile']));
       $this->Memo1->AddLine('Server says File tmp_name: ' . ($_FILES['tmp_name']));
-      $this->Memo1->AddLine('Server says version: ' . phpversion());
-      $uploadloc=$_SERVER['DOCUMENT_ROOT'] . '\upload\\' . $this->Upload1->FileName;
-      $this->Memo1->AddLine('Upload location: ' .$uploadloc);
       $this->Memo1->AddLine('Files to upload:' . $_FILES["fileToUpload"]["tmp_name"]);
-
-      if(@move_uploaded_file($this->Upload1->FileTmpName,$uploadloc))
+      //check that the file extension is a pdf file
+      if($this->Upload1->FileExt != 'pdf')
       {
-         $this->UploadStatus2->Caption = 'Got milkhouse? Yes we do. Thanks for the VOX';
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption = 'File type is not a PDF document. Please try again.';
+         return;
+      }
+      //check the file format for MMMYYVOX.pdf
+      $day = '01';
+      $month = substr($this->Upload1->FileName, 0, 3);
+      $year = substr($this->Upload1->FileName, 3, 2);
+      $time = strtotime($day . $month . $year);
+      if( ! $time)
+      {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption
+          = 'File is not in the correct format of MMMYYVOX.PDF. Please try again.';
+         return;
+      }
+      //check that this year directory exists
+      $thisyear=idate('Y',$time);
+      $dir='../newsletter/'. $thisyear;
+      if( ! is_dir($dir))
+      {
+          $this->Memo1->AddLine('Directory ' . $dir . ' does not exist. Creating.');
+          mkdir($dir);
       }
       else
       {
-         $this->UploadStatus2->Caption = 'No milkhouse! No VOX';
+          $this->Memo1->AddLine('Directory ' . $dir . ' exists.');
       }
-   }
-   function Upload1Uploaded($sender, $params)
-   {
-      $this->UploadStatus2->Caption = $this->Upload1->FileTmpName;
-   }
-   function Upload1Submit($sender, $params)
-   {
-      $this->Memo1->AddLine('Submit');
+      $uploaddoc=$dir . '/' .$this->Upload1->FileName;
+      $this->Memo1->AddLine('*Upload location: ' . $uploaddoc);
+      if(@move_uploaded_file($this->Upload1->FileTmpName, $uploaddoc))
+      {
+      $this->UploadStatus->Font->Color = Green;
+      $this->UploadStatus->Caption = 'Upload successful. Thanks for the VOX.';
+      }
+      else
+      {
+      $this->UploadStatus->Font->Color = Red;
+      $this->UploadStatus->Caption = 'Upload failure. Please try again.';
+      }
    }
 }
 
