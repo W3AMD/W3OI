@@ -62,7 +62,7 @@ class VOXEditorLogin extends Page
       //upload the file
       $this->UploadStatus->Caption = 'VOXClick ' . $this->Upload1->FileName;
       $this->Memo1->AddLine('FileTmpName: ' . $this->Upload1->FileTmpName);
-      $this->Memo1->AddLine('FileName: ' . $this->Upload1->FileName);
+      $this->Memo1->AddLine('FileName: ' . $this->Upload1->FileTmpName);
       $this->Memo1->AddLine('FileSize: ' . $this->Upload1->FileSize);
       $this->Memo1->AddLine('FileType: ' . $this->Upload1->FileType);
       $this->Memo1->AddLine('FileSubType : ' . $this->Upload1->FileSubType);
@@ -75,15 +75,24 @@ class VOXEditorLogin extends Page
       if($this->Upload1->isPNG())
          $tmp = ' is png';
       $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt . $tmp);
-      if(move_uploaded_file($this->Upload1->FileTmpName, $this->Upload1->FileName))
+      $this->Memo1->AddLine('File userfile: ' . $_FILES['userfile']['tmp_name']);
+      $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt . $tmp);
+      $this->Memo1->AddLine('Server says File userfile: ' . ($_FILES['userfile']));
+      $this->Memo1->AddLine('Server says File tmp_name: ' . ($_FILES['tmp_name']));
+      $this->Memo1->AddLine('Server says version: ' . phpversion());
+      $uploadloc=$_SERVER['DOCUMENT_ROOT'] . '\upload\\' . $this->Upload1->FileName;
+      $this->Memo1->AddLine('Upload location: ' .$uploadloc);
+      $this->Memo1->AddLine('Files to upload:' . $_FILES["fileToUpload"]["tmp_name"]);
+/*
+      if(move_uploaded_file($this->Upload1->FileTmpName,$uploadloc))
       {
-         echo "File is valid, and was successfully uploaded.\n";
+         $this->UploadStatus2->Caption = 'Got milkhouse? Yes we do. Thanks for the VOX';
       }
       else
       {
-         echo "Possible file upload attack!\n";
+         $this->UploadStatus2->Caption = 'No milkhouse! No VOX';
       }
-
+*/
    }
    function Upload1Uploaded($sender, $params)
    {

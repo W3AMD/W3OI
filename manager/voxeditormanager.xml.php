@@ -20,7 +20,7 @@
       <property name="Animations">a:0:{}</property>
       <property name="Caption">VOX Editor Login</property>
       <property name="Font">
-      <property name="Color">Blue</property>
+      <property name="Color">Green</property>
       <property name="Size">20px</property>
       </property>
       <property name="Height">27</property>
