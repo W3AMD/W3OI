@@ -63,7 +63,6 @@
       <property name="InputType">cePassword</property>
       <property name="Left">100</property>
       <property name="Name">Password</property>
-      <property name="Text">O63dtg!4</property>
       <property name="Top">106</property>
       <property name="Width">121</property>
     </object>
