@@ -78,6 +78,26 @@ class VOXEditorLogin extends Page
       $day = '01';
       $month = substr($this->Upload1->FileName, 0, 3);
       $year = substr($this->Upload1->FileName, 3, 2);
+      $testtimemonth = strtotime($day . $month . '00');
+      $testtimeyear = strtotime($day . '12' . $year);
+      //test the month and the year to see if it's an integer
+      if( !$testtimemonth)
+      {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption
+          = 'The month is not a 3 character month. The file is not in the '
+          . 'correct format of MMMYYVOX.PDF. Please try again.';
+         return;
+      }
+      //test the year to see if it's an integer
+      if( !$testtimeyear)
+      {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption
+          = 'The year is not a 2 character year. The file is not in the '
+          . 'correct format of MMMYYVOX.PDF. Please try again.';
+         return;
+      }
       $time = strtotime($day . $month . $year);
       if( ! $time)
       {
@@ -87,28 +107,28 @@ class VOXEditorLogin extends Page
          return;
       }
       //check that this year directory exists
-      $thisyear=idate('Y',$time);
-      $dir='../newsletter/'. $thisyear;
+      $thisyear = idate('Y', $time);
+      $dir = '../newsletter/' . $thisyear;
       if( ! is_dir($dir))
       {
-          $this->Memo1->AddLine('Directory ' . $dir . ' does not exist. Creating.');
-          mkdir($dir);
+         $this->Memo1->AddLine('Directory ' . $dir . ' does not exist. Creating.');
+         mkdir($dir);
       }
       else
       {
-          $this->Memo1->AddLine('Directory ' . $dir . ' exists.');
+         $this->Memo1->AddLine('Directory ' . $dir . ' exists.');
       }
-      $uploaddoc=$dir . '/' .$this->Upload1->FileName;
+      $uploaddoc = $dir . '/' . $this->Upload1->FileName;
       $this->Memo1->AddLine('*Upload location: ' . $uploaddoc);
       if(@move_uploaded_file($this->Upload1->FileTmpName, $uploaddoc))
       {
-      $this->UploadStatus->Font->Color = Green;
-      $this->UploadStatus->Caption = 'Upload successful. Thanks for the VOX.';
+         $this->UploadStatus->Font->Color = Green;
+         $this->UploadStatus->Caption = 'Upload successful. Thanks for the VOX.';
       }
       else
       {
-      $this->UploadStatus->Font->Color = Red;
-      $this->UploadStatus->Caption = 'Upload failure. Please try again.';
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption = 'Upload failure. Please try again.';
       }
    }
 }

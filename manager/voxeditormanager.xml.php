@@ -160,7 +160,7 @@
     <object class="Label" name="UploadStatus" >
       <property name="Alignment">agCenter</property>
       <property name="Animations">a:0:{}</property>
-      <property name="Height">13</property>
+      <property name="Height">35</property>
       <property name="Left">5</property>
       <property name="Name">UploadStatus</property>
       <property name="Top">88</property>
@@ -168,11 +168,11 @@
     </object>
     <object class="Memo" name="Memo1" >
       <property name="Animations">a:0:{}</property>
-      <property name="Height">245</property>
+      <property name="Height">223</property>
       <property name="Left">9</property>
       <property name="Lines">a:0:{}</property>
       <property name="Name">Memo1</property>
-      <property name="Top">107</property>
+      <property name="Top">129</property>
       <property name="Width">386</property>
     </object>
   </object>
