@@ -75,6 +75,15 @@ class VOXEditorLogin extends Page
       if($this->Upload1->isPNG())
          $tmp = ' is png';
       $this->Memo1->AddLine('File Ext: ' . $this->Upload1->FileExt . $tmp);
+      if(move_uploaded_file($this->Upload1->FileTmpName, $this->Upload1->FileName))
+      {
+         echo "File is valid, and was successfully uploaded.\n";
+      }
+      else
+      {
+         echo "Possible file upload attack!\n";
+      }
+
    }
    function Upload1Uploaded($sender, $params)
    {
