@@ -28,6 +28,13 @@ class VOXEditorLogin extends Page
    public $Upload1 = null;
    function LogInClick($sender, $params)
    {
+      //check that the user name is 'w3oivoxeditor'
+      if($this->Username->Text != 'w3oivoxeditor') {
+         $this->AddPanel->Visible = false;
+         $this->UploadPanel->Visible = false;
+         $this->LoginStatus->Font->Color = Red;
+         $this->LoginStatus->Caption = 'Incorrect username or password';
+      }
       //check the user log in against the database
       $dbconnection = dbConnectOtherUsers($this->Username->Text,
       $this->Password->Text);
