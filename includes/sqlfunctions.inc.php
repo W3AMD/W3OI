@@ -67,7 +67,7 @@ function _mysql_fetch_assoc($connection, $result)
    }
    else
    {
-      $row = mysqli_fetch_assoc($connection, $result);
+      $row = mysqli_fetch_assoc($result);
    }
    return $row;
 }
