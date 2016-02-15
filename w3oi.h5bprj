@@ -281,6 +281,7 @@ Item276=manager\membershipphotomanager.php
 Item277=manager\vetestschedulemanager.php
 Item278=manager\announcementmanager.php
 Item279=manager\managementconsole.php
+Item280=manager\announcementeditor.php
 
 [MainScript]
 Script=

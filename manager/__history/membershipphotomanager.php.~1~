@@ -1,17 +1,20 @@
 <?php
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers
 require_once("rpcl/rpcl.inc.php");
 //Includes
 use_unit("forms.inc.php");
 use_unit("extctrls.inc.php");
 use_unit("stdctrls.inc.php");
-use_unit("comctrls.inc.php");
 include('../includes/sqlfunctions.inc.php');
 include('../includes/connection.inc.php');
 
 //Class definition
-class AnnouncementController extends Page
+class MembershipPhotoController extends Page
 {
-   public $LoginPanel = null;
+   public $RemoveMember = null;
+   public $UpdateMember = null;
+   public $AddMember = null;
    public $Label1 = null;
    public $Label2 = null;
    public $Username = null;
@@ -19,9 +22,12 @@ class AnnouncementController extends Page
    public $Label3 = null;
    public $Password = null;
    public $LoginStatus = null;
+   public $LoginPanel = null;
+   public $ButtonPanel = null;
    function LogInClick($sender, $params)
    {
       //reset the button panel to non visible
+      $this->ButtonPanel->Visible = false;
       //check login info
       //only two accounts are allowed admin and board members for modification
       //of records
@@ -42,34 +48,27 @@ class AnnouncementController extends Page
       {
          $this->LoginStatus->Font->Color = DarkGreen;
          $this->LoginStatus->Caption = 'Success';
-         //redirect
-         ?>
-         <script>
-         window.location = 'announcementeditor.php';
-         </script>
-         <?php
-
+         $this->ButtonPanel->Visible = true;
       }
       else
       {
          $this->LoginStatus->Font->Color = Red;
          $this->LoginStatus->Caption = 'Incorrect username or password';
       }
-
    }
 }
 
 global $application;
 
-global $AnnouncementController;
+global $MembershipPhotoController;
 
 //Creates the form
-$AnnouncementController = new AnnouncementController($application);
+$MembershipPhotoController = new MembershipPhotoController($application);
 
 //Read from resource file
-$AnnouncementController->loadResource(__FILE__);
+$MembershipPhotoController->loadResource(__FILE__);
 
 //Shows the form
-$AnnouncementController->show();
+$MembershipPhotoController->show();
 
 ?>

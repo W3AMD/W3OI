@@ -4,6 +4,8 @@ require_once("rpcl/rpcl.inc.php");
 use_unit("forms.inc.php");
 use_unit("extctrls.inc.php");
 use_unit("stdctrls.inc.php");
+use_unit("Zend/zdate.inc.php");
+use_unit("Zend/zgdatacalendar.inc.php");
 use_unit("comctrls.inc.php");
 include('../includes/sqlfunctions.inc.php');
 include('../includes/connection.inc.php');
@@ -45,7 +47,7 @@ class AnnouncementController extends Page
          //redirect
          ?>
          <script>
-         window.location = 'announcementeditor.php';
+         window.location = 'announcementcontroller.php';
          </script>
          <?php
 

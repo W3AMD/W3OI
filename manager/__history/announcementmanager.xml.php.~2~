@@ -123,5 +123,60 @@
       <property name="Width">577</property>
     </object>
   </object>
+  <object class="Panel" name="ButtonPanel" >
+    <property name="Animations">a:0:{}</property>
+    <property name="Caption">ButtonPanel</property>
+    <property name="Color">#6666FF</property>
+    <property name="Height">43</property>
+    <property name="Name">ButtonPanel</property>
+    <property name="ParentColor">0</property>
+    <property name="Top">164</property>
+    <property name="Visible">0</property>
+    <property name="Width">596</property>
+    <object class="Button" name="AddMember" >
+      <property name="Animations">a:0:{}</property>
+      <property name="ButtonType">btNormal</property>
+      <property name="Caption">Add</property>
+      <property name="Color">Silver</property>
+      <property name="Height">25</property>
+      <property name="Left">13</property>
+      <property name="Name">AddMember</property>
+      <property name="ParentColor">0</property>
+      <property name="Top">9</property>
+      <property name="Width">75</property>
+      <property name="OnClick">LogInClick</property>
+    </object>
+    <object class="Button" name="UpdateMember" >
+      <property name="Animations">a:0:{}</property>
+      <property name="ButtonType">btNormal</property>
+      <property name="Caption">Update</property>
+      <property name="Color">Silver</property>
+      <property name="Height">25</property>
+      <property name="Left">108</property>
+      <property name="Name">UpdateMember</property>
+      <property name="ParentColor">0</property>
+      <property name="Top">9</property>
+      <property name="Width">75</property>
+      <property name="OnClick">LogInClick</property>
+    </object>
+    <object class="Button" name="RemoveMember" >
+      <property name="Animations">a:0:{}</property>
+      <property name="ButtonType">btNormal</property>
+      <property name="Caption">Remove</property>
+      <property name="Color">Silver</property>
+      <property name="Height">25</property>
+      <property name="Left">202</property>
+      <property name="Name">RemoveMember</property>
+      <property name="ParentColor">0</property>
+      <property name="Top">9</property>
+      <property name="Width">75</property>
+      <property name="OnClick">LogInClick</property>
+    </object>
+  </object>
+  <object class="ZGDataCalendar" name="ZGDataCalendar1" >
+        <property name="Left">32</property>
+        <property name="Top">240</property>
+    <property name="Name">ZGDataCalendar1</property>
+  </object>
 </object>
 ?>
