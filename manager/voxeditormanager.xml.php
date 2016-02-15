@@ -44,7 +44,6 @@
       <property name="Height">20</property>
       <property name="Left">100</property>
       <property name="Name">Username</property>
-      <property name="Text">w3oivoxeditor</property>
       <property name="Top">64</property>
       <property name="Width">121</property>
     </object>
