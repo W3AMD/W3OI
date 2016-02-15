@@ -29,7 +29,7 @@ class MembershipPhotoController extends Page
       //reset the button panel to non visible
       $this->ButtonPanel->Visible = false;
       //check login info
-      //only two accounts are allowed admin and treasury for modification
+      //only two accounts are allowed admin and board members for modification
       //of records
       //check that the user name is 'w3oiboardmem' or
       //check that the user name is 'w3oiadmin'
