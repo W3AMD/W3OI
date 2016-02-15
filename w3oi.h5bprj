@@ -278,6 +278,8 @@ Item273=includes\sqlfunctions.inc.php
 Item274=manager\voxeditormanager.php
 Item275=manager\testupload.php
 Item276=manager\fileupload.html
+Item277=manager\membershipmanager.php
+Item278=manager\membershipphotomanager.php
 
 [MainScript]
 Script=

@@ -1,4 +1,6 @@
 <?php
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers
 require_once("rpcl/rpcl.inc.php");
 //Includes
 use_unit("forms.inc.php");
@@ -34,6 +36,7 @@ class VOXEditorLogin extends Page
          $this->UploadPanel->Visible = false;
          $this->LoginStatus->Font->Color = Red;
          $this->LoginStatus->Caption = 'Incorrect username or password';
+         return;
       }
       //check the user log in against the database
       $dbconnection = dbConnectOtherUsers($this->Username->Text,

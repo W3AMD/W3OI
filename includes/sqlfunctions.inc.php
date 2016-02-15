@@ -1,4 +1,6 @@
 <?php
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers And KC3ASC Igor Kasriel
 //check the version to be capable with the function calls
 function check_sql_version()
 {

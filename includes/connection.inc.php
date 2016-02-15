@@ -1,4 +1,6 @@
 <?php
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers And KC3ASC Igor Kasriel
 function dbConnect()
 {
    // $hostname='108.2.206.24:3306';
