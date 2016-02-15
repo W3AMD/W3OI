@@ -6,6 +6,11 @@
 
 include('../layout/modalimages.inc.php');
 
+class Img {
+   public $url = "";
+   public $thumbUrl = "";
+}
+
 function listFolderFiles($dir, $currentdir, $imagefiles)
 {
    $ffs = scandir($dir);
@@ -27,9 +32,12 @@ function listFolderFiles($dir, $currentdir, $imagefiles)
             // echo '<div><span>' . $pathfile . '</span> : ';
             // echo '<span>' . $previewfile . '</span></div>';
 
-            $currentimage[] = array('url' => "$pathfile" ,'thumbUrl' => "$previewfile");
+            $currentimage = new Img();
+            $currentimage->url = $pathfile;
+            $currentimage->thumbUrl = $previewfile;
+            echo json_encode($currentimage);
 
-            array_push($imagefiles, $pathfile, $previewfile);
+            array_push($imagefiles, $currentimage);
          }
          else if(is_dir($dir . '/' . $ff))
          {
@@ -48,7 +56,7 @@ function listFolderFiles($dir, $currentdir, $imagefiles)
 $imagefiles = array();
 $imagefiles = listFolderFiles('../clubphotos', NULL, $imagefiles);
 // echo $imagefiles;
-// echo json_encode($imagefiles);
+echo json_encode($imagefiles);
 
 while(count($imagefiles))
 {
