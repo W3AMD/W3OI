@@ -213,7 +213,7 @@ myApp.controller('HamlinksController', function($scope, $rootScope) {
 
 }); //HamlinksController
 
-myApp.controller('PicturesController', function($scope, $rootScope, $http, Lightbox) {
+myApp.controller('PicturesController', function($scope, $rootScope, $http) {
 
 		$rootScope.pagetitle = "W3OI - Club pictures";
 		document.title = "W3OI - Club pictures";
