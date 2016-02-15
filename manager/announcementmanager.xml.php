@@ -60,7 +60,6 @@
       <property name="Left">196</property>
       <property name="Name">Username</property>
       <property name="ParentFont">0</property>
-      <property name="Text">w3oiboardmem</property>
       <property name="Top">48</property>
       <property name="Width">121</property>
     </object>
@@ -102,7 +101,6 @@
       <property name="Left">196</property>
       <property name="Name">Password</property>
       <property name="ParentFont">0</property>
-      <property name="Text">qWmc18^3</property>
       <property name="Top">95</property>
       <property name="Width">121</property>
     </object>
