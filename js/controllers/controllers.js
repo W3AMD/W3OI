@@ -59,7 +59,7 @@ myApp.controller('MembershipControllerByCall', function($scope, $rootScope, $htt
 			//console.log(error);
 		});
 
-}); //MembershipController
+}); //MembershipControllerByCall
 
 myApp.controller('JoinRenewController', function($scope, $rootScope, $http) {
 
@@ -213,9 +213,23 @@ myApp.controller('HamlinksController', function($scope, $rootScope) {
 
 }); //HamlinksController
 
-myApp.controller('PicturesController', function($scope, $rootScope) {
+myApp.controller('PicturesController', function($scope, $rootScope, $http) {
 
 		$rootScope.pagetitle = "W3OI - Club pictures";
 		document.title = "W3OI - Club pictures";
 
-}); //HamlinksController
+		var req = {
+			method: 'POST',
+			url: 'app/getimages.php'
+		};
+
+		$http(req).success(function(data){
+			$('#clubpictures').html(data);
+			//console.log(data);
+		})
+		.error(function(error){
+			$('#clubpictures').html(error);
+			//console.log(error);
+		});
+
+}); //PicturesController
