@@ -1,6 +1,7 @@
 <?php
 include('includes/corefuncs.inc.php');
-include('includes/adminconnection.inc.php');
+include('../includes/sqlfunctions.inc.php');
+include('../includes/connection.inc.php');
 
 $id = $_POST['id'];
 $description = $_POST['description'];
@@ -31,7 +32,7 @@ else
 	die('Unknown action: '.$action);
 }
 
-$result = mysqli_query( $conn, $sql ) or die ( mysqli_error($conn) );
+$result = _mysql_query( $conn, $sql );
 
 die($result);
 //die($sql.' '.$currtime);

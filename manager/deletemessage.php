@@ -1,6 +1,7 @@
 <?php
 include('includes/corefuncs.inc.php');
-include('includes/adminconnection.inc.php');
+include('../includes/sqlfunctions.inc.php');
+include('../includes/connection.inc.php');
 
 $id = $_POST['id'];
 
@@ -13,7 +14,7 @@ $conn = dbConnect();
 
 $sql  = 'UPDATE announcements SET active = "0", updated = "'.$currtime.'" WHERE id = "'.$id.'"';
 
-$result = mysqli_query( $conn, $sql ) or die ( mysql_error( $conn ) );
+$result = _mysql_query( $conn, $sql );
 
 die($result);
 //die($sql.' '.$currtime);
