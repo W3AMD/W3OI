@@ -3,7 +3,7 @@
   <property name="Alignment">agCenter</property>
   <property name="Animations">a:0:{}</property>
   <property name="Background"></property>
-  <property name="Caption">MemberCtrl</property>
+  <property name="Caption">Member Photo Ctrl</property>
   <property name="Color">#66FF99</property>
   <property name="Height">593</property>
   <property name="HiddenFields">a:0:{}</property>

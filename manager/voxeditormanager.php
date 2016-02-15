@@ -30,8 +30,11 @@ class VOXEditorLogin extends Page
    public $Upload1 = null;
    function LogInClick($sender, $params)
    {
-      //check that the user name is 'w3oivoxeditor'
-      if($this->Username->Text != 'w3oivoxeditor') {
+      //check that the user name is 'w3oivoxeditor' or
+      //check that the user name is 'w3oiadmin'
+      if(($this->Username->Text != 'w3oivoxeditor') &&
+      ($this->Username->Text != 'w3oiadmin'))
+      {
          $this->AddPanel->Visible = false;
          $this->UploadPanel->Visible = false;
          $this->LoginStatus->Font->Color = Red;
@@ -91,7 +94,7 @@ class VOXEditorLogin extends Page
       $testtimemonth = strtotime($day . $month . '00');
       $testtimeyear = strtotime($day . '12' . $year);
       //test the month and the year to see if it's an integer
-      if( !$testtimemonth)
+      if( ! $testtimemonth)
       {
          $this->UploadStatus->Font->Color = Red;
          $this->UploadStatus->Caption
@@ -100,7 +103,7 @@ class VOXEditorLogin extends Page
          return;
       }
       //test the year to see if it's an integer
-      if( !$testtimeyear)
+      if( ! $testtimeyear)
       {
          $this->UploadStatus->Font->Color = Red;
          $this->UploadStatus->Caption

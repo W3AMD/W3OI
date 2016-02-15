@@ -279,6 +279,8 @@ Item274=manager\voxeditormanager.php
 Item275=manager\membershipmanager.php
 Item276=manager\membershipphotomanager.php
 Item277=manager\vetestschedulemanager.php
+Item278=manager\announcementmanager.php
+Item279=manager\managementconsole.php
 
 [MainScript]
 Script=
