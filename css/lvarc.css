@@ -107,3 +107,10 @@ table.course_listing td {
 .newsletter {
   font-size: 1.4em;
 }
+
+.event_name {
+  font-size: 3vw; /* 3% viewport width */
+  font-weight: bold;
+  text-align: center;
+  padding-top: 20px;
+}

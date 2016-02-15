@@ -213,23 +213,9 @@ myApp.controller('HamlinksController', function($scope, $rootScope) {
 
 }); //HamlinksController
 
-myApp.controller('PicturesController', function($scope, $rootScope, $http) {
+myApp.controller('PicturesController', function($scope, $rootScope) {
 
 		$rootScope.pagetitle = "W3OI - Club pictures";
 		document.title = "W3OI - Club pictures";
-
-		var req = {
-			method: 'POST',
-			url: 'app/getimages.php'
-		};
-
-		$http(req).success(function(data){
-			$('#clubpictures').html(data);
-			//console.log(data);
-		})
-		.error(function(error){
-			$('#clubpictures').html(error);
-			//console.log(error);
-		});
 
 }); //PicturesController

@@ -1,4 +1,11 @@
 <h2 class="header">Pictures (Temporary display)</h2>
 <div class="pagetext">
-	<div class="pagetext" id="clubpictures"></div>
+	<ul class="gallery gallery1" ng-controller="GalleryController">
+		<li ng-repeat="image in images">
+			<a ng-click="openLightboxModal($index)">
+				<img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
+			</a>
+		</li>
+	</ul>
 </div>
+<div id="errormsg"></div>
