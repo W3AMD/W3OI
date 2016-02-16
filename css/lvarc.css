@@ -114,3 +114,12 @@ table.course_listing td {
   text-align: center;
   padding-top: 20px;
 }
+
+div.gallery_image {
+  display: inline;
+}
+
+.img-thumbnail {
+  padding: 5px;
+  margin: 20px;
+}
