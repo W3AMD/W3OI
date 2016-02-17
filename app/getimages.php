@@ -7,6 +7,7 @@
 class Img {
    public $url = "";
    public $thumbUrl = "";
+   public $folderName = "";
 }
 
 function listFolderFiles($dir, $currentdir, $imagefiles)
@@ -29,6 +30,7 @@ function listFolderFiles($dir, $currentdir, $imagefiles)
             $currentimage = new Img();
             $currentimage->url = $pathfile;
             $currentimage->thumbUrl = $previewfile;
+            $currentimage->folderName = $currentdir;
 
             array_push($imagefiles, $currentimage);
          }

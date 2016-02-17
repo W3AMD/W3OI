@@ -11,10 +11,12 @@
 
 <div class="pagetext">
 	<div class="gallery gallery1" ng-controller="GalleryController">
-		<div class="gallery_image" ng-repeat="image in images">
+		<div class="gallery_image" ng-repeat="image in images | orderBy : folderName | orderBy : url">
+			<div class="event_name" ng-if="image.folderName !== $parent.oldFolderName">{{image.folderName}}</div>
 			<a ng-click="openLightboxModal($index)">
 				<img ng-src="{{image.thumbUrl}}" class="img-thumbnail">
 			</a>
+			{{$parent.oldFolderName = image.folderName;""}}
 		</div>
 	</div>
 </div>

@@ -218,4 +218,6 @@ myApp.controller('PicturesController', function($scope, $rootScope) {
 		$rootScope.pagetitle = "W3OI - Club pictures";
 		document.title = "W3OI - Club pictures";
 
+		$scope.oldFolderName = "";
+
 }); //PicturesController
