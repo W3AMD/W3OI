@@ -93,13 +93,15 @@ table.course_listing td {
 
 .header {
   width: 98%;
-  font-size: 3vw; /* 3% viewport width */
+  /*font-size: 3vw;*/ /* 3% viewport width */
+  font-size: 1.4em;
   font-weight: bold;
   text-align: center;
 }
 
 .newsletter_year, .document_folder {
-  font-size: 2vw; /* 3% viewport width */
+  /*font-size: 2vw;*/ /* 3% viewport width */
+  font-size: 1.4em;
   font-weight: bold;
   padding-top: 20px;
 }
@@ -109,7 +111,8 @@ table.course_listing td {
 }
 
 .event_name {
-  font-size: 3vw; /* 3% viewport width */
+  /*font-size: 3vw;*/ /* 3% viewport width */
+  font-size: 1.4em;
   font-weight: bold;
   text-align: center;
   padding-top: 20px;

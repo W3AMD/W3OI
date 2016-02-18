@@ -122,11 +122,11 @@ if($result)
    while($row = _mysql_fetch_assoc($connection1, $result))
    {
       echo '<div class="row officers">';
-      echo '<div class="col-md-3 col-md-offset-2 col-xs-3 col-xs-offset-1 string">';
+      echo '<div class="col-md-3 col-md-offset-2 col-xs-4 col-xs-offset-0 string">';
       displayStartTitleBold("President");
-      echo '</div><div class="col-md-5 col-xs-3 string">';
+      echo '</div><div class="col-md-3 col-xs-4 string">';
       displayFullName($row);
-      echo '</div><div class="col-md-2 col-xs-3 string">';
+      echo '</div><div class="col-md-3 col-xs-2 string">';
       displayCallAndQRZLink($row);
       echo '</div>';
       echo '</div>';
@@ -139,11 +139,11 @@ if($result)
       while($row = _mysql_fetch_assoc($connection1, $result))
       {
          echo '<div class="row officers">';
-         echo '<div class="col-md-3 col-md-offset-2 col-xs-3 col-xs-offset-1 string">';
+         echo '<div class="col-md-3 col-md-offset-2 col-xs-4 col-xs-offset-0 string">';
          displayStartTitleBold("Vice President");
-         echo '</div><div class="col-md-5 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-4 string">';
          displayFullName($row);
-         echo '</div><div class="col-md-2 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-2 string">';
          displayCallAndQRZLink($row);
          echo '</div>';
          echo '</div>';
@@ -157,11 +157,11 @@ if($result)
       while($row = _mysql_fetch_assoc($connection1, $result))
       {
          echo '<div class="row officers">';
-         echo '<div class="col-md-3 col-md-offset-2 col-xs-3 col-xs-offset-1 string">';
+         echo '<div class="col-md-3 col-md-offset-2 col-xs-4 col-xs-offset-0 string">';
          displayStartTitleBold("Secretary");
-         echo '</div><div class="col-md-5 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-4 string">';
          displayFullName($row);
-         echo '</div><div class="col-md-2 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-2 string">';
          displayCallAndQRZLink($row);
          echo '</div>';
          echo '</div>';
@@ -175,11 +175,11 @@ if($result)
       while($row = _mysql_fetch_assoc($connection1, $result))
       {
          echo '<div class="row officers">';
-         echo '<div class="col-md-3 col-md-offset-2 col-xs-3 col-xs-offset-1 string">';
+         echo '<div class="col-md-3 col-md-offset-2 col-xs-4 col-xs-offset-0 string">';
          displayStartTitleBold("Treasurer");
-         echo '</div><div class="col-md-5 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-4 string">';
          displayFullName($row);
-         echo '</div><div class="col-md-2 col-xs-3 string">';
+         echo '</div><div class="col-md-3 col-xs-2 string">';
          displayCallAndQRZLink($row);
          echo '</div>';
          echo '</div>';
@@ -197,9 +197,9 @@ if($result)
    while($row = _mysql_fetch_assoc($connection1, $result))
    {
       echo '<div class="row governors">';
-      echo '<div class="col-md-3 col-md-offset-4 col-xs-4 col-xs-offset-2 string">';
+      echo '<div class="col-md-3 col-md-offset-4 col-xs-7 col-xs-offset-0 string">';
       displayFullName($row);
-      echo '</div><div class="col-md-3 col-xs-4 string">';
+      echo '</div><div class="col-md-3 col-xs-2 string">';
       displayCallAndQRZLink($row);
       echo '</div>';
       echo '</div>';
@@ -271,11 +271,11 @@ if($result)
          $current = '';
       }
       echo '<div class="row memberlist">';
-      echo '<div class="col-md-3 col-md-offset-3 col-xs-3 col-xs-offset-1 string ' . $current . '">';
+      echo '<div class="col-md-3 col-md-offset-3 col-xs-4 col-xs-offset-0 string ' . $current . '">';
       displayFullName($row);
-      echo '</div><div class="col-md-2 col-xs-4 ' . $current . '">';
+      echo '</div><div class="col-md-2 col-xs-3 ' . $current . '">';
       displayMemberIcon($row);
-      echo '</div><div class="col-md-2 col-xs-3 string ' . $current . '">';
+      echo '</div><div class="col-md-2 col-xs-3 col-xs-offset-1 string ' . $current . '">';
       displayCallAndQRZLink($row);
       echo '</div>';
       echo '</div>';
