@@ -25,7 +25,10 @@
 					}
 					break;
 				case 'clubinfo':
-					if ( current === 'members' || current === 'newsletter' || current === 'calendar' || current === 'location' || current === 'repeaters' || current === 'documents' || current === 'moprogs' || current === 'pictures' ) {
+					if ( current === 'members' || current === 'joinrenew' || current === 'newsletter' || 
+						 current === 'calendar' || current === 'location' || current === 'repeaters' || 
+						 current === 'documents' || current === 'moprogs' || current === 'pictures' ) {
+						
 						return "active";
 					}
 					break;

@@ -20,11 +20,11 @@ myApp.controller('MembershipController', function($scope, $rootScope, $http) {
 		};
 
 		$http(req).success(function(data){
-			$('#membership').html(data);
+			$('#memberslist').html(data);
 			//console.log(data);
 		})
 		.error(function(error){
-			$('#membership').html(error);
+			$('#memberslist').html(error);
 			//console.log(error);
 		});
 
