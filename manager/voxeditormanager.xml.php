@@ -213,13 +213,24 @@
     <object class="Memo" name="Memo1" >
       <property name="Animations">a:0:{}</property>
       <property name="Color">#99CC66</property>
-      <property name="Height">223</property>
+      <property name="Height">193</property>
       <property name="Left">9</property>
       <property name="Lines">a:0:{}</property>
       <property name="Name">Memo1</property>
       <property name="ParentColor">0</property>
-      <property name="Top">129</property>
+      <property name="Top">159</property>
       <property name="Width">386</property>
+    </object>
+    <object class="CheckBox" name="Overwrite" >
+      <property name="Animations">a:0:{}</property>
+      <property name="Caption">Overwrite Existing File</property>
+      <property name="Color">#99CC66</property>
+      <property name="Height">21</property>
+      <property name="Left">16</property>
+      <property name="Name">Overwrite</property>
+      <property name="ParentColor">0</property>
+      <property name="Top">126</property>
+      <property name="Width">155</property>
     </object>
   </object>
 </object>

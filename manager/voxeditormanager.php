@@ -11,6 +11,7 @@ include('../includes/connection.inc.php');
 //Class definition
 class VOXEditorLogin extends Page
 {
+    public $Overwrite = null;
    public $Memo1 = null;
    public $UploadStatus = null;
    public $UploadVOX = null;
@@ -133,6 +134,16 @@ class VOXEditorLogin extends Page
       }
       $uploaddoc = $dir . '/' . $this->Upload1->FileName;
       $this->Memo1->AddLine('*Upload location: ' . $uploaddoc);
+      //check if the file already exists
+      if(file_exists($uploaddoc) && ($this->Overwrite->Checked==false))
+      {
+         //if the file already exists the user must be warned that they will
+         //overwrite an existing file
+        $this->UploadStatus->Caption="Failed. File already exists." .
+        "Please choose the overwrite file checkbox if you want to update this"
+        ."file.";
+        return;
+      }
       if(@move_uploaded_file($this->Upload1->FileTmpName, $uploaddoc))
       {
          $this->UploadStatus->Font->Color = Green;
