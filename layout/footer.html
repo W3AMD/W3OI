@@ -1,21 +1,23 @@
 <footer>
 	<div class="container-fluid">
+		<!-- <div class="row"> -->
+			<!-- <div class="col-sm-10 col-sm-offset-1"> -->
+				<!-- <span id="sendlink" name="sendlink"></span> -->
+			<!-- </div> --><!-- col-sm-10 col-sm-offset-1 -->
+		<!-- </div> --><!-- row -->
 		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-				<span id="sendlink" name="sendlink"></span>
-			</div><!-- col-sm-8 col-sm-offset-2 -->
+			<div class="col-xs-12">
+        This site is dedicated to Paul Ryan (N0KIA) for his orginal contributions
+        in creating and maintaining this site and its database.
+			</div><!-- col-xs-10 col-sm-offset-1 -->
 		</div><!-- row -->
 		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-        This site is dedicated to Paul Ryan, N0KIA, for his orginal contributions
-        in creating this site, maintaining it and it's database.
-s				Today is : <span id="todaysdate" name="todaysdate"></span>
-			</div><!-- col-sm-8 col-sm-offset-2 -->
-		</div><!-- row -->
-		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-xs-4 string">
 				<span id="copyright" name="copyright">Copyright 2016 LVARC W3OI</span>
-			</div><!-- col-sm-8 col-sm-offset-2 -->
+			</div><!-- col-xs-4 col-xs-offset-1 -->
+			<div class="col-xs-7 col-xs-offset-1 number">
+				Today is : <span id="todaysdate" name="todaysdate"></span>
+			</div><!-- col-xs-7 col-xs-offset-1 -->
 		</div><!-- row -->
 
 	</div><!-- container-fluid -->
@@ -29,6 +31,8 @@ s				Today is : <span id="todaysdate" name="todaysdate"></span>
 	// content = content + "?subject=Palmertonrgc.org%20Web%20Site%20questions";
 	// content = content + "'>webmaster</a>";
 	// document.getElementById('sendlink').innerHTML = content;
-	document.getElementById('todaysdate').innerHTML = Date();
+	// var dateFormat = require('dateformat');
+	var now = new Date();
+	document.getElementById('todaysdate').innerHTML = now.format("dddd, mmmm dS, yyyy, h:MM:ss TT Z");
 
 </script>

@@ -87,6 +87,10 @@ table.course_listing td {
   text-align: left;
 }
 
+.number {
+  text-align: right;
+}
+
 .governors, .officers {
   font-size: 1.4em;
 }
