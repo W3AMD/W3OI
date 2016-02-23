@@ -187,21 +187,8 @@ myApp.controller('DstarController', function($scope, $rootScope) {
 
 myApp.controller('VEDataController', function($scope, $rootScope) {
 
-		$rootScope.pagetitle = "W3OI - VE Testing";
-		document.title = "W3OI - VE Testing";
-		var req = {
-			method: 'GET',
-			url: 'app/getveschedulepagelist.php'
-		};
-
-		$http(req).success(function(data){
-			$('#vedata').html(data);
-			//console.log(data);
-		})
-		.error(function(error){
-			$('#vedata').html(error);
-			//console.log(error);
-		});
+		$rootScope.pagetitle = "W3OI - VEData";
+		document.title = "W3OI - VEData";
 
 }); //VEDataController
 
