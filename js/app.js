@@ -1,4 +1,4 @@
-var myApp = angular.module('LVARC', ['ngRoute', 'appControllers', 'ui.bootstrap', 'uiGmapgoogle-maps', 'bootstrapLightbox'])
+var myApp = angular.module('LVARC', ['ngRoute', 'appControllers', 'ui.bootstrap', 'uiGmapgoogle-maps', 'bootstrapLightbox', 'ngTouch'])
 
 var appControllers = angular.module('appControllers', ['uiGmapgoogle-maps']);
 
