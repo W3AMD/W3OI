@@ -1,17 +1,30 @@
 <?php
-$client_id = 'w3oi.lvarc.apps.googleusercontent.com';
-$service_account = 'w3oi.lvarc@developer.gserviceaccount.com';
-$p12 = 'client_secret.json';
-
+echo 'start session<br>';
 session_start();
+echo 'autoload<br>';
 require_once '../googleapi/src/Google/autoload.php';
+echo 'client<br>';
 require_once '../googleapi/src/Google/Client.php';
-//require_once '../googleapi/src/Google/Service.php';
+echo 'calendar<br>';
 require_once '../googleapi/src/Google/Service/Calendar.php';
+
+echo 'create client<br>';
+
+$client = new Google_Client();
+echo 'load key file<br>';
+try {
+$client->setAuthConfigFile('client_secret.json');
+}
+catch (Google_Exception $e) {
+echo 'Goog says: ' . $e;
+}
+/*
+//$client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 
 $client = new Google_Client();
 $client->setApplicationName("W3OICalender");
-
+*/
+/*
 if (isset($_SESSION['token'])) {
  $client->setAccessToken($_SESSION['token']);
 }
@@ -48,5 +61,5 @@ while(true) {
   } else {
     break;
   }
-}
+} */
 ?>
