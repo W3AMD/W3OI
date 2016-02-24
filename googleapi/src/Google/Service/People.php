@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2016 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -100,14 +98,14 @@ class Google_Service_People extends Google_Service
               'path' => 'v1/people:batchGet',
               'httpMethod' => 'GET',
               'parameters' => array(
+                'requestMask.includeField' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'resourceNames' => array(
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
-                ),
-                'requestMask.includeField' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),
@@ -129,14 +127,6 @@ class Google_Service_People extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'sortOrder' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -145,7 +135,15 @@ class Google_Service_People extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
                 'requestMask.includeField' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -174,9 +172,11 @@ class Google_Service_People_People_Resource extends Google_Service_Resource
    * `people/me` to indicate the authenticated user. (people.get)
    *
    * @param string $resourceName The resource name of the person to provide
-   * information about. - To get information about the authenticated user, specify
-   * `people/me`. - To get information about any user, specify the resource name
-   * that identifies the user, such as the resource names returned by
+   * information about.
+   *
+   * - To get information about the authenticated user, specify `people/me`. - To
+   * get information about any user, specify the resource name that   identifies
+   * the user, such as the resource names returned by
    * [`people.connections.list`](/people/api/rest/v1/people.connections/list).
    * @param array $optParams Optional parameters.
    *
@@ -200,14 +200,14 @@ class Google_Service_People_People_Resource extends Google_Service_Resource
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string resourceNames The resource name, such as one returned by
-   * [`people.connections.list`](/people/api/rest/v1/people.connections/list), of
-   * one of the people to provide information about. You can include this
-   * parameter up to 50 times in one request.
    * @opt_param string requestMask.includeField Comma-separated list of fields to
    * be included in the response. Omitting this field will include all fields.
    * Each path should start with `person.`: for example, `person.names` or
    * `person.photos`.
+   * @opt_param string resourceNames The resource name, such as one returned by
+   * [`people.connections.list`](/people/api/rest/v1/people.connections/list), of
+   * one of the people to provide information about. You can include this
+   * parameter up to 50 times in one request.
    * @return Google_Service_People_GetPeopleResponse
    */
   public function getBatchGet($optParams = array())
@@ -237,18 +237,18 @@ class Google_Service_People_PeopleConnections_Resource extends Google_Service_Re
    * `people/me` is valid.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken The token of the page to be returned.
-   * @opt_param int pageSize The number of connections to include in the response.
-   * Valid values are between 1 and 500, inclusive. Defaults to 100.
    * @opt_param string sortOrder The order in which the connections should be
    * sorted. Defaults to `LAST_MODIFIED_ASCENDING`.
    * @opt_param string syncToken A sync token, returned by a previous call to
    * `people.connections.list`. Only resources changed since the sync token was
    * created are returned.
+   * @opt_param int pageSize The number of connections to include in the response.
+   * Valid values are between 1 and 500, inclusive. Defaults to 100.
    * @opt_param string requestMask.includeField Comma-separated list of fields to
    * be included in the response. Omitting this field will include all fields.
    * Each path should start with `person.`: for example, `person.names` or
    * `person.photos`.
+   * @opt_param string pageToken The token of the page to be returned.
    * @return Google_Service_People_ListConnectionsResponse
    */
   public function listPeopleConnections($resourceName, $optParams = array())

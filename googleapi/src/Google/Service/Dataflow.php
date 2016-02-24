@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2016 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -3764,7 +3762,6 @@ class Google_Service_Dataflow_WorkerPool extends Google_Collection
   protected $taskrunnerSettingsType = 'Google_Service_Dataflow_TaskRunnerSettings';
   protected $taskrunnerSettingsDataType = '';
   public $teardownPolicy;
-  public $workerHarnessContainerImage;
   public $zone;
 
 
@@ -3895,14 +3892,6 @@ class Google_Service_Dataflow_WorkerPool extends Google_Collection
   public function getTeardownPolicy()
   {
     return $this->teardownPolicy;
-  }
-  public function setWorkerHarnessContainerImage($workerHarnessContainerImage)
-  {
-    $this->workerHarnessContainerImage = $workerHarnessContainerImage;
-  }
-  public function getWorkerHarnessContainerImage()
-  {
-    return $this->workerHarnessContainerImage;
   }
   public function setZone($zone)
   {

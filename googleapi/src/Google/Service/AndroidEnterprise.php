@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2016 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -2092,14 +2090,8 @@ class Google_Service_AndroidEnterprise_Products_Resource extends Google_Service_
   }
 
   /**
-   * This method has been deprecated. To programmatically approve applications,
-   * you must use the iframe mechanism via the  generateApprovalUrl and  approve
-   * methods of the Products resource. For more information, see the  Play EMM API
-   * usage requirements.
-   *
-   * The updatePermissions method (deprecated) updates the set of Android app
-   * permissions for this app that have been accepted by the enterprise.
-   * (products.updatePermissions)
+   * Updates the set of Android app permissions for this app that have been
+   * accepted by the enterprise. (products.updatePermissions)
    *
    * @param string $enterpriseId The ID of the enterprise.
    * @param string $productId The ID of the product.

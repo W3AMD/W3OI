@@ -1,7 +1,5 @@
 <?php
 /*
- * Copyright 2016 Google Inc.
- *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -2151,7 +2149,6 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public $query;
   protected $tableDefinitionsType = 'Google_Service_Bigquery_ExternalDataConfiguration';
   protected $tableDefinitionsDataType = 'map';
-  public $useLegacySql;
   public $useQueryCache;
   protected $userDefinedFunctionResourcesType = 'Google_Service_Bigquery_UserDefinedFunctionResource';
   protected $userDefinedFunctionResourcesDataType = 'array';
@@ -2237,14 +2234,6 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public function getTableDefinitions()
   {
     return $this->tableDefinitions;
-  }
-  public function setUseLegacySql($useLegacySql)
-  {
-    $this->useLegacySql = $useLegacySql;
-  }
-  public function getUseLegacySql()
-  {
-    return $this->useLegacySql;
   }
   public function setUseQueryCache($useQueryCache)
   {
@@ -2572,15 +2561,13 @@ class Google_Service_Bigquery_JobStatistics extends Google_Model
 
 class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
 {
-  protected $collection_key = 'referencedTables';
+  protected $collection_key = 'queryPlan';
   protected $internal_gapi_mappings = array(
   );
   public $billingTier;
   public $cacheHit;
   protected $queryPlanType = 'Google_Service_Bigquery_ExplainQueryStage';
   protected $queryPlanDataType = 'array';
-  protected $referencedTablesType = 'Google_Service_Bigquery_TableReference';
-  protected $referencedTablesDataType = 'array';
   public $totalBytesBilled;
   public $totalBytesProcessed;
 
@@ -2608,14 +2595,6 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   public function getQueryPlan()
   {
     return $this->queryPlan;
-  }
-  public function setReferencedTables($referencedTables)
-  {
-    $this->referencedTables = $referencedTables;
-  }
-  public function getReferencedTables()
-  {
-    return $this->referencedTables;
   }
   public function setTotalBytesBilled($totalBytesBilled)
   {
@@ -2873,7 +2852,6 @@ class Google_Service_Bigquery_QueryRequest extends Google_Model
   public $preserveNulls;
   public $query;
   public $timeoutMs;
-  public $useLegacySql;
   public $useQueryCache;
 
 
@@ -2932,14 +2910,6 @@ class Google_Service_Bigquery_QueryRequest extends Google_Model
   public function getTimeoutMs()
   {
     return $this->timeoutMs;
-  }
-  public function setUseLegacySql($useLegacySql)
-  {
-    $this->useLegacySql = $useLegacySql;
-  }
-  public function getUseLegacySql()
-  {
-    return $this->useLegacySql;
   }
   public function setUseQueryCache($useQueryCache)
   {
