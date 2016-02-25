@@ -1,5 +1,7 @@
 <?php
 /*
+ * Copyright 2016 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -30,7 +32,7 @@ class Google_Service_Script extends Google_Service
 {
   /** View and manage your mail. */
   const MAIL_GOOGLE_COM =
-      "https://mail.google.com/";
+      "https://mail.google.com";
   /** Manage your calendars. */
   const WWW_GOOGLE_COM_CALENDAR_FEEDS =
       "https://www.google.com/calendar/feeds";

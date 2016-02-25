@@ -1,5 +1,7 @@
 <?php
 /*
+ * Copyright 2016 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -2385,6 +2387,7 @@ class Google_Service_Drive_DriveFileCapabilities extends Google_Model
   public $canComment;
   public $canCopy;
   public $canEdit;
+  public $canReadRevisions;
   public $canShare;
 
 
@@ -2411,6 +2414,14 @@ class Google_Service_Drive_DriveFileCapabilities extends Google_Model
   public function getCanEdit()
   {
     return $this->canEdit;
+  }
+  public function setCanReadRevisions($canReadRevisions)
+  {
+    $this->canReadRevisions = $canReadRevisions;
+  }
+  public function getCanReadRevisions()
+  {
+    return $this->canReadRevisions;
   }
   public function setCanShare($canShare)
   {

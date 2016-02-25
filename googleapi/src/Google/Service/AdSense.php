@@ -1,5 +1,7 @@
 <?php
 /*
+ * Copyright 2016 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -2238,7 +2240,6 @@ class Google_Service_AdSense_AdClient extends Google_Model
   protected $internal_gapi_mappings = array(
   );
   public $arcOptIn;
-  public $arcReviewMode;
   public $id;
   public $kind;
   public $productCode;
@@ -2252,14 +2253,6 @@ class Google_Service_AdSense_AdClient extends Google_Model
   public function getArcOptIn()
   {
     return $this->arcOptIn;
-  }
-  public function setArcReviewMode($arcReviewMode)
-  {
-    $this->arcReviewMode = $arcReviewMode;
-  }
-  public function getArcReviewMode()
-  {
-    return $this->arcReviewMode;
   }
   public function setId($id)
   {
