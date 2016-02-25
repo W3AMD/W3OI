@@ -7,9 +7,11 @@ echo 'client<br>';
 require_once '../googleapi/src/Google/Client.php';
 echo 'calendar<br>';
 require_once '../googleapi/src/Google/Service/Calendar.php';
+//client id: 863828392170-moqrthsgtg2gen6tgtq3s85h3nl68mgd.apps.googleusercontent.com
 
 
-$client_id = '100246733343874029792';
+
+$client_id = '863828392170-moqrthsgtg2gen6tgtq3s85h3nl68mgd.apps.googleusercontent.com';
 $Email_address = 'calanderservice@w3oi-1231.iam.gserviceaccount.com';
 echo 'create google client<br>';
 $client = new Google_Client();
