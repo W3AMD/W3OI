@@ -41,18 +41,7 @@ function displayMemberIcon($row)
 {
    //do this only if an image file exists
    $callsign = $row['fcccall'];
-
-   // echo $_SERVER['DOCUMENT_ROOT'];
-   // echo '<br/>';
-   // echo $_SERVER['SCRIPT_FILENAME'];
-
-   //$pos = strrpos($_SERVER['SCRIPT_FILENAME'], "/");
-   //$dir = substr($_SERVER['SCRIPT_FILENAME'], 0, $pos);
    $fulldir/*$dir . */ = '..\members\images\thumbs\\';
-   //echo '<br/>';
-   //echo 'pos:' , $pos . ' dir:';
-   //echo dir . ' ';
-   //echo 'fulldir: ' . $fulldir . $callsign . ".jpg";
 
    $exists = file_exists($fulldir . $callsign . ".jpg");
    //echo $fulldir . $callsign . '.jpg<br>';
@@ -60,14 +49,6 @@ function displayMemberIcon($row)
    {
       echo '<img src="members/images/thumbs/' . $callsign .
       '.jpg" width="100" height="auto" alt="" class="memberIcon">';
-      /*
-      // display image file name as link
-      echo "<a href=\"{$img['file']}\">", basename($img['file']), "</a><br>\n";
-      // display image dimenstions
-      echo "({$img['size'][0]} x {$img['size'][1]} pixels)<br>\n";
-      // display mime_type
-      echo $img['size']['mime'];
-      */
    }
    else
    {
