@@ -26,6 +26,10 @@ header .row {
 	text-align: center;
 }
 
+footer {
+  margin-bottom: 5px;
+}
+
 footer .row {
 	padding: 5px;
 	padding-left: 20px;
@@ -129,4 +133,8 @@ div.gallery_image {
 .img-thumbnail {
   padding: 5px;
   margin: 20px;
+}
+
+#copyright {
+  font-style: italic;
 }
