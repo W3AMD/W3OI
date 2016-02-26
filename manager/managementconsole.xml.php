@@ -2,7 +2,7 @@
 <object class="ManagementConsole" name="ManagementConsole" baseclass="Page">
   <property name="Animations">a:0:{}</property>
   <property name="Background"></property>
-  <property name="Caption">Managment Cnsl</property>
+  <property name="Caption">Management Console</property>
   <property name="Color">#336666</property>
   <property name="Height">370</property>
   <property name="HiddenFields">a:0:{}</property>
