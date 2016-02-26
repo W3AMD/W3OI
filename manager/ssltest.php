@@ -28,7 +28,7 @@ if (!$publicKey = openssl_pkey_get_public($public)) die('Loading Public Key fail
 $encrypted = '';
 $decrypted = '';
 
-$plaintext = 'This is just some text to encrypt';
+$plaintext = 'This is a secret encrypted club message';
 
 echo '<p>$plaintext = ' . $plaintext . '<p>';
 
