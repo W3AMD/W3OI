@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-include_once __DIR__ . '/../vendor/autoload.php';
-include_once "templates/base.php";
+include_once '/../src/Google/autoload.php';
+//include_once "templates/base.php";
 
 echo pageHeader("Service Account Access");
 
@@ -52,7 +52,7 @@ if ($credentials_file = checkServiceAccountCredentialsFile()) {
 }
 
 $client->setApplicationName("Client_Library_Examples");
-$client->setScopes(['https://www.googleapis.com/auth/books']);
+$client->setScopes(array('https://www.googleapis.com/auth/books'));
 $service = new Google_Service_Books($client);
 
 /************************************************

@@ -280,6 +280,7 @@ Item275=manager\announcementeditor.php
 Item276=app\getveschedulepagelist.php
 Item277=views\VETesting.html
 Item278=manager\getcalendar.php
+Item279=manager\ssltest.php
 
 [MainScript]
 Script=
