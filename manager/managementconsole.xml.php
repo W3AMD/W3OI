@@ -47,7 +47,7 @@
     <property name="Caption">Announcement Editor</property>
     <property name="Color">#C0C0C0</property>
     <property name="Height">25</property>
-    <property name="Left">304</property>
+    <property name="Left">192</property>
     <property name="Name">Announcements</property>
     <property name="ParentColor">0</property>
     <property name="Top">56</property>
@@ -63,7 +63,8 @@
     <property name="Left">104</property>
     <property name="Name">Members</property>
     <property name="ParentColor">0</property>
-    <property name="Top">56</property>
+    <property name="Top">88</property>
+    <property name="Visible">0</property>
     <property name="Width">99</property>
     <property name="OnClick">MembersClick</property>
   </object>
@@ -73,7 +74,7 @@
     <property name="Caption">Vox Editor</property>
     <property name="Color">#C0C0C0</property>
     <property name="Height">25</property>
-    <property name="Left">216</property>
+    <property name="Left">104</property>
     <property name="Name">VoxEditor</property>
     <property name="ParentColor">0</property>
     <property name="Top">56</property>
@@ -86,10 +87,11 @@
     <property name="Caption">VE Test Scheduling</property>
     <property name="Color">#C0C0C0</property>
     <property name="Height">25</property>
-    <property name="Left">448</property>
+    <property name="Left">336</property>
     <property name="Name">VETest</property>
     <property name="ParentColor">0</property>
     <property name="Top">56</property>
+    <property name="Visible">0</property>
     <property name="Width">115</property>
     <property name="OnClick">VETestClick</property>
   </object>
@@ -99,10 +101,11 @@
     <property name="Caption">Members Photos Editor</property>
     <property name="Color">#C0C0C0</property>
     <property name="Height">25</property>
-    <property name="Left">104</property>
+    <property name="Left">216</property>
     <property name="Name">MembersPhotos</property>
     <property name="ParentColor">0</property>
-    <property name="Top">96</property>
+    <property name="Top">88</property>
+    <property name="Visible">0</property>
     <property name="Width">131</property>
     <property name="OnClick">MembersPhotosClick</property>
   </object>
