@@ -13,7 +13,7 @@ $conn = dbConnect();
 $sql = 'SELECT * FROM announcements WHERE id = "'.$id.'"';
 $result = _mysql_query( $conn, $sql );
 $strReturn = array();
-while ( $row = _mysql_fetch_assoc( $result ) ) {
+while ( $row = _mysql_fetch_assoc( $conn, $result ) ) {
 	$strReturn['id'] = $row['id'];
 	$strReturn['description'] = $row['description'];
 	$strReturn['startdate'] = $row['startdate'];
