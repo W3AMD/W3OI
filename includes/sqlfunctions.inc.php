@@ -73,4 +73,26 @@ function _mysql_fetch_assoc($connection, $result)
    }
    return $row;
 }
+function _mysql_begin_transaction($connection,$param) {
+   if(check_sql_version())
+   {
+      //no transaction available in older versions
+   }
+   else
+   {
+      //open the transaction in newer versions
+      $connection->begin_transaction($param);
+   }
+}
+function _mysql_commit($connection,$param) {
+   if(check_sql_version())
+   {
+      //no transaction available in older versions
+   }
+   else
+   {
+      //close the transaction in newer versions
+      $connection->commit();
+   }
+}
 ?>
