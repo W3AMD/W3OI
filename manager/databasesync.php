@@ -49,6 +49,7 @@ class DatabaseSync extends Page
       //parse the file
       //create the working file on the server
       //add the database to be using
+      //show progress to the user as we go along
       try
       {
          $this->UploadStatus->Caption = 'Parsing file.';
@@ -82,10 +83,9 @@ class DatabaseSync extends Page
             $this->SyncProgress->Position = $x;
          }
       }
-      catch(Exception$e)
+      catch(Exception $e)
       {
       }
-      //show progress to the user as we go along
       //start a transaction (all or nothing change)
       //run the query
       //end the transaction
