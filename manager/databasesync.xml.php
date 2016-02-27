@@ -42,5 +42,17 @@
     <property name="Top">104</property>
     <property name="Width">323</property>
   </object>
+  <object class="ProgressBar" name="SyncProgress" >
+    <property name="Animations">a:0:{}</property>
+    <property name="Height">17</property>
+    <property name="Left">16</property>
+    <property name="Min">0</property>
+    <property name="Name">SyncProgress</property>
+    <property name="Orientation">pbHorizontal</property>
+    <property name="ParentShowHint"></property>
+    <property name="Position">0</property>
+    <property name="Top">128</property>
+    <property name="Width">200</property>
+  </object>
 </object>
 ?>
