@@ -100,8 +100,13 @@ class DatabaseSync extends Page
          //start a transaction (all or nothing change)
          $result = _mysql_begin_transaction($connection, $param);
          _mysql_query($dbconnection, 'use W3OI;');
+         $this->SyncProgress->Max = strlen($sqlstatement);
          while(strlen($sqlstatement) > 0)
          {
+            //update the progress bar position
+            $positionnow = $this->SyncProgress->Max -
+            strlen($sqlstatement);
+            $this->SyncProgress->Position = $positionnow;
             //break apart the sql commands
             $position = strpos($sqlstatement, ";\n");
             if($position === false)
