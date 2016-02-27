@@ -17,7 +17,7 @@
   </object>
   <object class="Label" name="Label1" >
     <property name="Animations">a:0:{}</property>
-    <property name="Caption">Select W3OI Original Database Dump File To Import</property>
+    <property name="Caption"><![CDATA[Select W3OI Original Database Dump File To Import &amp; Syncronize]]></property>
     <property name="Height">13</property>
     <property name="Left">16</property>
     <property name="Name">Label1</property>
@@ -53,6 +53,14 @@
     <property name="Position">0</property>
     <property name="Top">128</property>
     <property name="Width">200</property>
+  </object>
+  <object class="Label" name="CallsignCheck" >
+    <property name="Animations">a:0:{}</property>
+    <property name="Height">13</property>
+    <property name="Left">248</property>
+    <property name="Name">CallsignCheck</property>
+    <property name="Top">128</property>
+    <property name="Width">75</property>
   </object>
 </object>
 ?>

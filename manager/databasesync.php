@@ -13,6 +13,7 @@ include('../includes/connection.inc.php');
 //Class definition
 class DatabaseSync extends Page
 {
+    public $CallsignCheck = null;
    public $SyncProgress = null;
    public $Upload1 = null;
    public $Label1 = null;
@@ -34,7 +35,7 @@ class DatabaseSync extends Page
       $uploaddoc = $dir . '/' . $this->Upload1->FileName;
       if(@move_uploaded_file($this->Upload1->FileTmpName, $uploaddoc))
       {
-         //show success with success
+         //show success to the user
          $this->UploadStatus->Font->Color = Green;
          $this->UploadStatus->Caption = 'Upload successful.';
       }
@@ -49,11 +50,19 @@ class DatabaseSync extends Page
       //the following need to be done with the file
       //add the database to be using
       //remove the comment lines
+      //test for the following
+      //comment lines beginning with /*
+      //comment lines beginning with --
       //show progress to the user as we go along
       //start a transaction (all or nothing change)
       //run the query
       //end the transaction
       //test success
+      //if the database has been successfully updated syncronize the data
+      //test members by callsign
+      //update any non matching record
+      //check the board records
+      //check the paid status
    }
 }
 
