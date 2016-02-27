@@ -13,7 +13,7 @@ include('../includes/connection.inc.php');
 //Class definition
 class DatabaseSync extends Page
 {
-    public $CallsignCheck = null;
+   public $CallsignCheck = null;
    public $SyncProgress = null;
    public $Upload1 = null;
    public $Label1 = null;
@@ -47,12 +47,35 @@ class DatabaseSync extends Page
          return;
       }
       //parse the file
-      //the following need to be done with the file
+      //create the working file on the server
       //add the database to be using
-      //remove the comment lines
-      //test for the following
-      //comment lines beginning with /*
-      //comment lines beginning with --
+      try
+      {
+         //create the work file
+         $sqlworkingfile = fopen("uploadsync.sql", "w");
+         $sqluploadedfile = fopen($uploaddoc, "r");
+         //add the sql statement to use the w3oi database
+         $usedb = 'use W3OI\n';
+         //write this to the file
+         fwrite($sqlworkingfile, $usedb);
+         //get the number of lines in the file
+         $numorginallines = count(file($uploaddoc));
+         //set the progress bar to the max count of the lines
+         $this->SyncProgress->Max = $numorginallines;
+         //loop through the lines from the uploaded file
+         for($x = 0; $x <= $numorginallines; $x++)
+         {
+            $line=fgets ($sqluploadedfile);
+            $this->SyncProgress->Position = $x;
+         }
+         //remove the comment lines
+         //test for the following
+         //comment lines beginning with /*
+         //comment lines beginning with --
+      }
+      catch(Exception$e)
+      {
+      }
       //show progress to the user as we go along
       //start a transaction (all or nothing change)
       //run the query
