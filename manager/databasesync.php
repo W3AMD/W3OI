@@ -51,11 +51,12 @@ class DatabaseSync extends Page
       //add the database to be using
       try
       {
+         $this->UploadStatus->Caption = 'Parsing file.';
          //create the work file
-         $sqlworkingfile = fopen("uploadsync.sql", "w");
+         $sqlworkingfile = fopen($dir . '/' . "uploadsync.sql", "w");
          $sqluploadedfile = fopen($uploaddoc, "r");
          //add the sql statement to use the w3oi database
-         $usedb = 'use W3OI\n';
+         $usedb = "use W3OI;\n";
          //write this to the file
          fwrite($sqlworkingfile, $usedb);
          //get the number of lines in the file
@@ -65,7 +66,8 @@ class DatabaseSync extends Page
          //loop through the lines from the uploaded file
          for($x = 0; $x <= $numorginallines; $x++)
          {
-            $line=fgets ($sqluploadedfile);
+            $line = fgets($sqluploadedfile);
+            fwrite($sqlworkingfile, $line);
             $this->SyncProgress->Position = $x;
          }
          //remove the comment lines
