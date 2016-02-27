@@ -67,13 +67,20 @@ class DatabaseSync extends Page
          for($x = 0; $x <= $numorginallines; $x++)
          {
             $line = fgets($sqluploadedfile);
-            fwrite($sqlworkingfile, $line);
+            //remove the comment lines
+            //test for the following
+            //comment lines beginning with /* AND
+            //comment lines beginning with --
+            $findcomment1 = strpos($line, '/*');
+            $findcomment2 = strpos($line, '--');
+            if(($findcomment1 === false) && ($findcomment2 === false))
+            {
+               //if this line doesn't have these comments write to the
+               //sql command temp file
+               fwrite($sqlworkingfile, $line);
+            }
             $this->SyncProgress->Position = $x;
          }
-         //remove the comment lines
-         //test for the following
-         //comment lines beginning with /*
-         //comment lines beginning with --
       }
       catch(Exception$e)
       {
