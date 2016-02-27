@@ -37,7 +37,7 @@
   <object class="Label" name="UploadStatus" >
     <property name="Animations">a:0:{}</property>
     <property name="Height">13</property>
-    <property name="Left">8</property>
+    <property name="Left">16</property>
     <property name="Name">UploadStatus</property>
     <property name="Top">104</property>
     <property name="Width">323</property>

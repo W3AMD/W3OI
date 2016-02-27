@@ -21,25 +21,39 @@ class DatabaseSync extends Page
    function UploadSyncClick($sender, $params)
    {
       //upload the file
+      //test if the working directory exists
       $dir = 'dbsync';
       if( ! is_dir($dir))
       {
+         //create the directory
          $this->UploadStatus->Caption = 'Directory ' . $dir .
          ' does not exist. Creating.';
          mkdir($dir);
       }
+      //upload the file
       $uploaddoc = $dir . '/' . $this->Upload1->FileName;
       if(@move_uploaded_file($this->Upload1->FileTmpName, $uploaddoc))
       {
+         //show success with success
          $this->UploadStatus->Font->Color = Green;
          $this->UploadStatus->Caption = 'Upload successful.';
       }
       else
       {
+         //exit on failure
          $this->UploadStatus->Font->Color = Red;
          $this->UploadStatus->Caption = 'Upload failure.';
+         return;
       }
       //parse the file
+      //the following need to be done with the file
+      //add the database to be using
+      //remove the comment lines
+      //show progress to the user as we go along
+      //start a transaction (all or nothing change)
+      //run the query
+      //end the transaction
+      //test success
    }
 }
 
