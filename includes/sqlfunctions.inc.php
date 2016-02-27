@@ -77,22 +77,24 @@ function _mysql_begin_transaction($connection,$param) {
    if(check_sql_version())
    {
       //no transaction available in older versions
+      return true;
    }
    else
    {
       //open the transaction in newer versions
-      $connection->begin_transaction($param);
+      return $connection->begin_transaction($param);
    }
 }
 function _mysql_commit($connection) {
    if(check_sql_version())
    {
       //no transaction available in older versions
+      return true;
    }
    else
    {
       //close the transaction in newer versions
-      $connection->commit();
+      return $connection->commit();
    }
 }
 ?>
