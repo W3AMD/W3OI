@@ -282,6 +282,7 @@ Item277=views\VETesting.html
 Item278=manager\getcalendar.php
 Item279=manager\ssltest.php
 Item280=manager\databasesync.php
+Item281=manager\dbaccessrightstest.php
 
 [MainScript]
 Script=

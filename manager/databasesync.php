@@ -57,10 +57,6 @@ class DatabaseSync extends Page
          //create the work file
          $sqlworkingfile = fopen($dir . '/uploadsync.sql', "w");
          $sqluploadedfile = fopen($uploaddoc, "r");
-         //add the sql statement to use the w3oi database
-         $usedb = "use W3OI;\n";
-         //write this to the file
-         fwrite($sqlworkingfile, $usedb);
          //get the number of lines in the file
          $numorginallines = count(file($uploaddoc));
          //set the progress bar to the max count of the lines
@@ -98,15 +94,26 @@ class DatabaseSync extends Page
       try
       {
          //for testing login previously required will handle this
-         $dbconnection = dbConnectOtherUsers('kc3ase', 'TDU8SiteCooler!');
-         //start a transaction (all or nothing change)
-         $result = _mysql_begin_transaction($connection, $param);
+         $dbconnection = dbConnect();
          //copy the entire file into a query
          $sqlstatement = file_get_contents($dir . '/uploadsync.sql');
-         //run the query
-         //$sqlstatement = "use W3OI;DROP TABLE bogdesc\n";
-         mysql_query('DROP TABLE IF EXISTS `w3oi`.`bogdesc`') or die(mysql_error());
-         // $result = _mysql_query($dbconnection, $sqlstatement);
+         //start a transaction (all or nothing change)
+         $result = _mysql_begin_transaction($connection, $param);
+         _mysql_query($dbconnection, 'use W3OI;');
+         while(strlen($sqlstatement) > 0)
+         {
+            //break apart the sql commands
+            $position = strpos($sqlstatement, ";\n");
+            if($position === false)
+            {
+               break;
+            }
+            $sqlcommand = substr($sqlstatement, 0, $position + 1);
+            //run the query
+            $result = _mysql_query($dbconnection, $sqlcommand);
+            //now strip this done command from the the sql statement
+            $sqlstatement = substr($sqlstatement, $position + 1);
+         }
          $this->UploadStatus->Caption = 'SQL statement update successful.';
          //end the transaction
          $result = _mysql_commit($connection);
