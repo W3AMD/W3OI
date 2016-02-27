@@ -46,6 +46,7 @@ class DatabaseSync extends Page
          $this->UploadStatus->Caption = 'Upload failure.';
          return;
       }
+      //stage 1
       //parse the file
       //create the working file on the server
       //add the database to be using
@@ -54,7 +55,7 @@ class DatabaseSync extends Page
       {
          $this->UploadStatus->Caption = 'Parsing file.';
          //create the work file
-         $sqlworkingfile = fopen($dir . '/' . "uploadsync.sql", "w");
+         $sqlworkingfile = fopen($dir . '/uploadsync.sql', "w");
          $sqluploadedfile = fopen($uploaddoc, "r");
          //add the sql statement to use the w3oi database
          $usedb = "use W3OI;\n";
@@ -82,13 +83,42 @@ class DatabaseSync extends Page
             }
             $this->SyncProgress->Position = $x;
          }
+         //close the original file and the working file since inside a try block
+         fclose($sqluploadedfile);
+         fclose($sqlworkingfile);
       }
-      catch(Exception $e)
+      catch(Exception$e)
       {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption = 'Trouble in stage 1.' . $e;
+         return;
       }
-      //start a transaction (all or nothing change)
-      //run the query
-      //end the transaction
+      //stage 2
+      //connect to the database
+      try
+      {
+         //for testing login previously required will handle this
+         $dbconnection = dbConnectOtherUsers('kc3ase', 'TDU8SiteCooler!');
+         //start a transaction (all or nothing change)
+         $result = _mysql_begin_transaction($connection, $param);
+         //copy the entire file into a query
+         $sqlstatement = file_get_contents($dir . '/uploadsync.sql');
+         //run the query
+         //$sqlstatement = "use W3OI;DROP TABLE bogdesc\n";
+         mysql_query('DROP TABLE IF EXISTS `w3oi`.`bogdesc`') or die(mysql_error());
+         // $result = _mysql_query($dbconnection, $sqlstatement);
+         $this->UploadStatus->Caption = 'SQL statement update successful.';
+         //end the transaction
+         $result = _mysql_commit($connection);
+
+      }
+      catch(Exception$e)
+      {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption = 'Trouble in stage 2. ' . $e;
+         return;
+      }
+
       //test success
       //if the database has been successfully updated syncronize the data
       //test members by callsign
