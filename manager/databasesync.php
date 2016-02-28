@@ -91,14 +91,14 @@ class DatabaseSync extends Page
       }
       //stage 2
       //connect to the database
+      $dbconnection = dbConnect();
       try
       {
          //for testing login previously required will handle this
-         $dbconnection = dbConnect();
          //copy the entire file into a query
          $sqlstatement = file_get_contents($dir . '/uploadsync.sql');
          //start a transaction (all or nothing change)
-         $result = _mysql_begin_transaction($connection, $param);
+         $result = _mysql_begin_transaction($dbconnection, $param);
          _mysql_query($dbconnection, 'use W3OI;');
          $this->SyncProgress->Max = strlen($sqlstatement);
          while(strlen($sqlstatement) > 0)
@@ -121,7 +121,7 @@ class DatabaseSync extends Page
          }
          $this->UploadStatus->Caption = 'SQL statement update successful.';
          //end the transaction
-         $result = _mysql_commit($connection);
+         $result = _mysql_commit($dbconnection);
 
       }
       catch(Exception$e)
@@ -131,12 +131,31 @@ class DatabaseSync extends Page
          return;
       }
 
-      //test success
       //if the database has been successfully updated syncronize the data
-      //test members by callsign
-      //update any non matching record
-      //check the board records
-      //check the paid status
+      try
+      {
+         //delete the member table
+         $sqlstatement = 'DROP TABLE IF EXISTS members;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         //copy from the old style table
+         $sqlstatement = 'CREATE TABLE members LIKE w3oi_mbr;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         //insert members into the new table
+         $sqlstatement = 'INSERT members SELECT * FROM w3oi_mbr;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         //drop the unwanted columns
+         //check the board records
+         //check the paid status
+
+         $this->UploadStatus->Caption = 'SQL transfer successful.';
+      }
+      catch(Exception$e)
+      {
+         $this->UploadStatus->Font->Color = Red;
+         $this->UploadStatus->Caption = 'Trouble in stage 2. ' . $e;
+         return;
+      }
+
    }
 }
 
@@ -152,5 +171,55 @@ $DatabaseSync->loadResource(__FILE__);
 
 //Shows the form
 $DatabaseSync->show();
-
+/*save for later
+while($row = _mysql_fetch_assoc($dbconnection, $result))
+{
+$recordarry = array(
+"id"=>$row['id'],
+"title"=>$row['title'],
+"fname"=>$row['fname'],
+"mid"=>$row['mid'],
+"lname"=>$row['lname'],
+"suffix"=>$row['suffix'],
+"fcccall"=>$row['fcccall'],
+"class"=>$row['class'],
+"type"=>$row['type'],
+"mail"=>$row['mail'],
+"patch"=>$row['patch'],
+"adial"=>$row['adial'],
+"addr1"=>$row['addr1'],
+"addr2"=>$row['addr2'],
+"city"=>$row['city'],
+"state"=>$row['state'],
+"zip"=>$row['zip'],
+"county"=>$row['county'],
+"tag"=>$row['tag'],
+"tag2"=>$row['tag2'],
+"email"=>$row['email'],
+"hfone"=>$row['hfone'],
+"busfone"=>$row['busfone'],
+"vox"=>$row['vox'],
+"lastupdt"=>$row['lastupdt'],
+"unlfone"=>$row['unlfone'],
+"note"=>$row['note'],
+"bdbdg"=>$row['bdbdg'],
+"ndcard"=>$row['ndcard'],
+"pd00"=>$row['pd00'],
+"pd01"=>$row['pd01'],
+"pd02"=>$row['pd02'],
+"pd03"=>$row['pd03'],
+"pd04"=>$row['pd04'],
+"pd05"=>$row['pd05'],
+"pd06"=>$row['pd06'],
+"pd07"=>$row['pd07'],
+"pd08"=>$row['pd08'],
+"pd09"=>$row['pd09'],
+"pd10"=>$row['pd10'],
+"pd11"=>$row['pd11'],
+"pd12"=>$row['pd12'],
+"pd13"=>$row['pd13'],
+"pd14"=>$row['pd14'],
+"pd15"=>$row['pd15'],
+"pd16"=>$row['pd16']);
+*/
 ?>

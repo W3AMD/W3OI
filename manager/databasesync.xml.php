@@ -52,7 +52,6 @@
     <property name="ParentShowHint"></property>
     <property name="Position">0</property>
     <property name="Top">128</property>
-    <property name="Type">pbsMeterBar</property>
     <property name="Width">200</property>
   </object>
   <object class="Label" name="CallsignCheck" >
