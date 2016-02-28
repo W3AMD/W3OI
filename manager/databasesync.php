@@ -145,6 +145,7 @@ class DatabaseSync extends Page
          $result = _mysql_query($dbconnection, $sqlstatement);
          //drop the unwanted columns
          $sqlstatement = 'ALTER TABLE `members`' .
+         'CHANGE `id` `member_id` INT,' .
          'DROP `pd00`,' .
          'DROP `pd01`,' .
          'DROP `pd02`,' .
@@ -177,15 +178,37 @@ class DatabaseSync extends Page
          $result = _mysql_query($dbconnection, $sqlstatement);
          $sqlstatement = 'DELETE FROM `paid`;';
          $result = _mysql_query($dbconnection, $sqlstatement);
-         $sqlstatement = 'INSERT paid SELECT (id AS member_id) FROM w3oi_mbr;';
-         $result = _mysql_query($dbconnection, $sqlstatement);
+         //loop through each year
+         for($year = 0; $year <= 16; $year++)
+         {
+            /*SELECT `id` AS `member_id`, pdXX FROM w3oi_mbr WHERE pdXX NOT LIKE '' */
+            $yearastwodec = sprintf("%1$02d", $year);
+            $sqlstatement = 'SELECT `id` AS `member_id`, `pd'
+             . $yearastwodec . '` FROM `w3oi_mbr`' .
+            ' WHERE `pd' . $yearastwodec . "` NOT LIKE ''";
+            $result = _mysql_query($dbconnection, $sqlstatement);
+            while($row = _mysql_fetch_assoc($dbconnection, $result))
+            {
+               //get the member id
+               $memberid = $row['member_id'];
+               //get the paid status
+               //convert to a 4 decimal year
+               $yearpull = '1/1/20' . $yearastwodec;
+               //now push the record
+               //
+               $sqlupdate = 'insert into paid ' .
+               '(`year`, `member_id`) ' .
+               "VALUES ('$yearpull', '$memberid');";
+               $result = _mysql_query($dbconnection, $sqlupdate);
+            }
+         }
          //check the board records
          //check the paid status
-
          $this->UploadStatus->Caption = 'SQL transfer successful.';
       }
       catch(Exception$e)
       {
+         echo $sqlupdate . '<br>';;
          $this->UploadStatus->Font->Color = Red;
          $this->UploadStatus->Caption = 'Trouble in stage 2. ' . $e;
          return;
