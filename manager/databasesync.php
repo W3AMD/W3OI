@@ -144,6 +144,41 @@ class DatabaseSync extends Page
          $sqlstatement = 'INSERT members SELECT * FROM w3oi_mbr;';
          $result = _mysql_query($dbconnection, $sqlstatement);
          //drop the unwanted columns
+         $sqlstatement = 'ALTER TABLE `members`' .
+         'DROP `pd00`,' .
+         'DROP `pd01`,' .
+         'DROP `pd02`,' .
+         'DROP `pd03`,' .
+         'DROP `pd04`,' .
+         'DROP `pd05`,' .
+         'DROP `pd06`,' .
+         'DROP `pd07`,' .
+         'DROP `pd08`,' .
+         'DROP `pd09`,' .
+         'DROP `pd10`,' .
+         'DROP `pd11`,' .
+         'DROP `pd12`,' .
+         'DROP `pd13`,' .
+         'DROP `pd14`,' .
+         'DROP `pd15`,' .
+         'DROP `pd16`,' .
+         'DROP `pd17`,' .
+         'DROP `pd18`,' .
+         'DROP `pd19`,' .
+         'DROP `bogpos`,' .
+         'DROP `acode`,' .
+         'DROP `xchg`,' .
+         'DROP `fone`,' .
+         'DROP `csz`,' .
+         'DROP `cty_st`,' .
+         'DROP `fullname`,' .
+         'DROP `pid`,' .
+         'DROP `expires`;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         $sqlstatement = 'DELETE FROM `paid`;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         $sqlstatement = 'INSERT paid SELECT (id AS member_id) FROM w3oi_mbr;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
          //check the board records
          //check the paid status
 
