@@ -85,7 +85,14 @@ class VOXEditorLogin extends Page
       if($this->Upload1->FileExt != 'pdf')
       {
          $this->UploadStatus->Font->Color = Red;
-         $this->UploadStatus->Caption = 'File type is not a PDF document. Please try again.';
+         if($this->Upload1->FileTmpName == '')
+         {
+            $this->UploadStatus->Caption = 'No file received by the server. Please try again.';
+         }
+         else
+         {
+            $this->UploadStatus->Caption = 'File type is not a PDF document. Please try again.';
+         }
          return;
       }
       //check the file format for MMMYYVOX.pdf
