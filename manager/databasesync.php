@@ -8,7 +8,7 @@ use_unit("extctrls.inc.php");
 use_unit("stdctrls.inc.php");
 use_unit("comctrls.inc.php");
 include('../includes/sqlfunctions.inc.php');
-include('../includes/connection.inc.php');
+include('../includes/connection2.inc.php');
 
 //Class definition
 class DatabaseSync extends Page
@@ -99,7 +99,7 @@ class DatabaseSync extends Page
          $sqlstatement = file_get_contents($dir . '/uploadsync.sql');
          //start a transaction (all or nothing change)
          $result = _mysql_begin_transaction($dbconnection, $param);
-         _mysql_query($dbconnection, 'use W3OI;');
+         _mysql_query($dbconnection, 'use w3oiworkinprog;');
          $this->SyncProgress->Max = strlen($sqlstatement);
          while(strlen($sqlstatement) > 0)
          {
@@ -178,31 +178,37 @@ class DatabaseSync extends Page
          $result = _mysql_query($dbconnection, $sqlstatement);
          $sqlstatement = 'DELETE FROM `paid`;';
          $result = _mysql_query($dbconnection, $sqlstatement);
-         /*unworking section
          //loop through each year
+         $sqlstatementarray = array();
          for($year = 0; $year <= 16; $year++)
          {
-         $yearastwodec = sprintf("%1$02d", $year);
-         $sqlstatement = 'SELECT `id` AS `member_id`, `pd'
-         . $yearastwodec . '` FROM `w3oi_mbr`' .
-         ' WHERE `pd' . $yearastwodec . "` <> NULL";
-         $result = _mysql_query($dbconnection, $sqlstatement);
-         while($row = _mysql_fetch_assoc($dbconnection, $result))
+            $yearastwodec = sprintf("%1$02d", $year);
+            $sqlstatement = 'SELECT `id` AS `member_id`, `pd'
+             . $yearastwodec . '` FROM `w3oi_mbr`' .
+            ' WHERE `pd' . $yearastwodec . "` <> ''";
+            echo '<p>' . $sqlstatement . '</p>';
+            $result = _mysql_query($dbconnection, $sqlstatement);
+            while($row = _mysql_fetch_assoc($dbconnection, $result))
+            {
+               //get the member id
+               $memberid = $row['member_id'];
+               //get the paid status
+               //convert to a 4 decimal year
+               $yearpull = '20' . $yearastwodec . '-12-31';
+               //now push the record
+               //echo $memberid . ' ' . $yearpull . '<br>';
+               $sqlupdate = 'insert into `paid` ' .
+               '(`year`, `member_id`) ' .
+               "VALUES ('$yearpull', '$memberid');";
+               //echo $sqlupdate . '<br>';
+               array_push($sqlstatementarray, $sqlupdate);
+            }
+         }
+         foreach($sqlstatementarray as $sqlstatement)
          {
-         //get the member id
-         $memberid = $row['member_id'];
-         //get the paid status
-         //convert to a 4 decimal year
-         $yearpull = '12/31/20' . $yearastwodec;
-         //now push the record
-         //
-         $sqlupdate = 'insert into paid ' .
-         '(`year`, `member_id`) ' .
-         "VALUES ('$yearpull', '$memberid');";
-         $result = _mysql_query($dbconnection, $sqlupdate);
+            //now loop through the array and post the updates
+            $result = _mysql_query($dbconnection, $sqlstatement);
          }
-         }
-         */
          //check the board records
          //check the paid status
          $this->UploadStatus->Caption = 'SQL transfer successful.';
