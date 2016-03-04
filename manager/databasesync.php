@@ -7,6 +7,8 @@ use_unit("forms.inc.php");
 use_unit("extctrls.inc.php");
 use_unit("stdctrls.inc.php");
 use_unit("comctrls.inc.php");
+use_unit("Zend/zfeedwriter.inc.php");
+use_unit("Zend/zpdf.inc.php");
 include('../includes/sqlfunctions.inc.php');
 include('../includes/connection2.inc.php');
 
