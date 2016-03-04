@@ -41,7 +41,7 @@ function displayMemberIcon($row)
 {
    //do this only if an image file exists
    $callsign = $row['fcccall'];
-   $fulldir/*$dir . */ = '..\members\images\thumbs\\';
+   $fulldir/*$dir . */ = '../members/images/thumbs/';
 
    $exists = file_exists($fulldir . $callsign . ".jpg");
    //echo $fulldir . $callsign . '.jpg<br>';
