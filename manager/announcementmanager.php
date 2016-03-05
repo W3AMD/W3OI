@@ -30,7 +30,7 @@ class AnnouncementController extends Page
       if(($this->Username->Text != 'w3oiboardmem') &&
       ($this->Username->Text != 'w3oiadmin'))
       {
-         $this->LoginStatus->Font->Color = Red;
+         $this->LoginStatus->Font->Color = 'Red';
          $this->LoginStatus->Caption = 'Incorrect username or password';
          return;
       }
@@ -40,7 +40,7 @@ class AnnouncementController extends Page
       //check for database connection success
       if($dbconnection)
       {
-         $this->LoginStatus->Font->Color = DarkGreen;
+         $this->LoginStatus->Font->Color = 'DarkGreen';
          $this->LoginStatus->Caption = 'Success';
          //redirect
          ?>
@@ -52,7 +52,7 @@ class AnnouncementController extends Page
       }
       else
       {
-         $this->LoginStatus->Font->Color = Red;
+         $this->LoginStatus->Font->Color = 'Red';
          $this->LoginStatus->Caption = 'Incorrect username or password';
       }
 
