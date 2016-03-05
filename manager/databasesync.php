@@ -210,6 +210,8 @@ class DatabaseSync extends Page
             //now loop through the array and post the updates
             $result = _mysql_query($dbconnection, $sqlstatement);
          }
+         $sqlstatement = 'DELETE FROM `officersboard`;';
+         $result = _mysql_query($dbconnection, $sqlstatement);
          //check the board records
          $sqlstatement = 'SELECT * FROM boghistory;';
          //echo '<p>' . $sqlstatement . '</p>';
