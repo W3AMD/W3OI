@@ -11,7 +11,7 @@
 
 //see lvarc.css for visual display and orientation classes
 include('../includes/sqlfunctions.inc.php');
-include('../includes/connection.inc.php');
+include('../includes/connection2.inc.php');
 
 //function to display the call sign from the database and it's associated
 //QRZ link if displayaslink is true or no second parameter are given
@@ -52,7 +52,8 @@ function displayMemberIcon($row)
    }
    else
    {
-      echo '<img src="members/images/thumbs/anon.jpg" width="100" height="auto" alt="" class="memberIcon">';
+      echo '<img src="members/images/thumbs/anon.jpg" width="100" height="auto"
+      alt="" class="memberIcon">';
    }
 }
 
