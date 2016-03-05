@@ -62,7 +62,8 @@ function displayMemberIcon($row)
 //it takes in the SQl query row from the membership database
 function displayFullName($row)
 {
-   echo $row['fullname'] . " ";
+   echo $row['title'] . " " . $row['fname'] . " " . $row['mid'] . " " .
+   $row['lname'] . " " . $row['suffix'];
 }
 
 //this function displays a string to the output in bold and continues bold
@@ -87,7 +88,8 @@ function displayStartTitleBold($output, $addspace = true, $addcolon = true)
 <body>
 <h2 class="header"> Officers For
 <?php
-echo date("Y");
+$year = date("Y");
+echo $year;
 ?>
 </h2>
 <div class="marginOfficers">
@@ -95,7 +97,10 @@ echo date("Y");
 <?php
 $connection1 = dbConnect();
 //run the query to get the current officers
-$findrecords = "select * from memberlist WHERE ispresident = true";
+$yearfull = $year . '-00-00';
+$findrecords = "select * from members, officersboard " .
+"Where (`members`.`member_id` = `officersboard`.`member_id`) AND" .
+" (year > '$yearfull') AND (`officersboard`.`type`='P');";
 $result = _mysql_query($connection1, $findrecords);
 //<!-- <div class="row officers"> -->
 //if query is successful display the president always use bold
@@ -113,7 +118,9 @@ if($result)
       echo '</div>';
       echo '</div>';
    }
-   $findrecords = "select * from memberlist WHERE isvicepresident = true";
+   $findrecords = "select * from members, officersboard " .
+   "Where (`members`.`member_id` = `officersboard`.`member_id`) AND" .
+   " (year > '$yearfull') AND (`officersboard`.`type`='V');";
    $result = _mysql_query($connection1, $findrecords);
    //if query is successful display the vice president always use bold
    if($result)
@@ -131,7 +138,9 @@ if($result)
          echo '</div>';
       }
    }
-   $findrecords = "select * from memberlist WHERE issecretary = true";
+   $findrecords = "select * from members, officersboard " .
+   "Where (`members`.`member_id` = `officersboard`.`member_id`) AND" .
+   " (year > '$yearfull') AND (`officersboard`.`type`='S');";
    $result = _mysql_query($connection1, $findrecords);
    //if query is successful display the secretary always use bold
    if($result)
@@ -149,7 +158,9 @@ if($result)
          echo '</div>';
       }
    }
-   $findrecords = "select * from memberlist WHERE istreasurer = true";
+   $findrecords = "select * from members, officersboard " .
+   "Where (`members`.`member_id` = `officersboard`.`member_id`) AND" .
+   " (year > '$yearfull') AND (`officersboard`.`type`='T');";
    $result = _mysql_query($connection1, $findrecords);
    //if query is successful display the treasurer always use bold
    if($result)
@@ -171,7 +182,9 @@ if($result)
 //<!-- </div> -->
 echo '<h2 class="header"> Board Of Govenors </h2>';
 //<!-- <div class="row governors"> -->
-$findrecords = "select * from memberlist WHERE isboardmember = true";
+$findrecords = "select * from members, officersboard " .
+"Where (`members`.`member_id` = `officersboard`.`member_id`) AND" .
+" (year > '$yearfull') AND (`officersboard`.`type`='B');";
 $result = _mysql_query($connection1, $findrecords);
 //if query is successful display the vice president always use bold
 if($result)
@@ -223,16 +236,22 @@ if( ! empty($_GET["sort"]))
           if (Locate('8',fcccall) >0,Locate('8',fcccall),99),
           if (Locate('9',fcccall) >0,Locate('9',fcccall),99)
          )+1,3
-       ) AS fccsuffix
- FROM memberlist
- ORDER BY (CASE WHEN fcccall IS NULL THEN 1 ELSE 0 END) ASC" .
+       ) AS fccsuffix " .
+   "FROM members, paid " .
+   "Where (`members`.`member_id` = `paid`.`member_id`) AND " .
+   "(year > '$yearfull') " .
+   "ORDER BY (CASE WHEN fcccall IS NULL THEN 1 ELSE 0 END) ASC" .
    ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
-   " fccsuffix, lastname, firstname";
+   " fccsuffix, lname, fname;";
+   echo $findrecords . '<br>';
 }
 //otherwise do the default
 else
 {
-   $findrecords = "select * from memberlist ORDER BY lastname, firstname, fcccall";
+   $findrecords = "select * from members, paid " .
+   "Where (`members`.`member_id` = `paid`.`member_id`) AND " .
+   "(year > '$yearfull') " .
+   "ORDER BY lname, fname, fcccall";
 }
 $result = _mysql_query($connection1, $findrecords);
 //if query is successful display the member list
@@ -242,16 +261,8 @@ if($result)
 {
    while($row = _mysql_fetch_assoc($connection1, $result))
    {
-      $datenow = time();
-      $recorddate = strtotime($row['expires']);
-      if($recorddate >= $datenow)
-      {
-         $current = 'current';
-      }
-      else
-      {
-         $current = '';
-      }
+      //$datenow = time();
+      $current = 'current';
       echo '<div class="row memberlist">';
       echo '<div class="col-md-3 col-md-offset-3 col-xs-4 col-xs-offset-0 string ' . $current . '">';
       displayFullName($row);
