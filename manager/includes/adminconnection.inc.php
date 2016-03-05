@@ -22,10 +22,10 @@ function dbConnect()
    // $user = 'lvarcftp_test';
    // $pwd = 'RW22qhHO62HO';
 
-   $hostname = '198.71.227.91:3306';
-   $dbname = 'W3OI';
-   $user = 'w3oiuser';
-   $pwd = '146.94';
+   $hostname = 'localhost:3306';
+   $dbname = 'lvarcftp_w3oi';
+   $user = 'lvarcftp_w3oimgr';
+   $pwd = '6JMw&eU]7CVr';
 
    $oldphp = getdbVersion();
 

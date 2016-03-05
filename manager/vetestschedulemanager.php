@@ -31,8 +31,9 @@ class VETestController extends Page
       //of records
       //check that the user name is 'w3oive' or
       //check that the user name is 'w3oiadmin'
-      if(($this->Username->Text != 'w3oive') &&
-      ($this->Username->Text != 'w3oiadmin'))
+      if(($this->Username->Text != 'lvarcftp_w3oive') &&
+      ($this->Username->Text != 'lvarcftp_w3oimgr') &&
+      ($this->Username->Text != 'lvarcftp_w3oiadm'))
       {
          $this->LoginStatus->Font->Color = Red;
          $this->LoginStatus->Caption = 'Incorrect username or password';

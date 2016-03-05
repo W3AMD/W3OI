@@ -1,7 +1,7 @@
 <?php
 include('includes/corefuncs.inc.php');
 include('../includes/sqlfunctions.inc.php');
-include('../includes/connection.inc.php');
+include('includes/adminconnection.inc.php');
 
 $id = $_POST['id'];
 $description = $_POST['description'];

@@ -1,7 +1,7 @@
 <?php
 include('includes/corefuncs.inc.php');
 include('../includes/sqlfunctions.inc.php');
-include('../includes/connection.inc.php');
+include('includes/adminconnection.inc.php');
 if(function_exists('nukeMagicQuotes'))
 {
    nukeMagicQuotes();

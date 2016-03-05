@@ -33,8 +33,9 @@ class VOXEditorLogin extends Page
    {
       //check that the user name is 'w3oivoxeditor' or
       //check that the user name is 'w3oiadmin'
-      if(($this->Username->Text != 'w3oivoxeditor') &&
-      ($this->Username->Text != 'w3oiadmin'))
+      if(($this->Username->Text != 'lvarcftp_w3oivoxeditor') &&
+      ($this->Username->Text != 'lvarcftp_w3oimgr') &&
+      ($this->Username->Text != 'lvarcftp_w3oiadm'))
       {
          $this->AddPanel->Visible = false;
          $this->UploadPanel->Visible = false;

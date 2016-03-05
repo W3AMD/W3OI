@@ -11,7 +11,7 @@
 
 //see lvarc.css for visual display and orientation classes
 include('../includes/sqlfunctions.inc.php');
-include('../includes/connection2.inc.php');
+include('../includes/connection.inc.php');
 
 //function to display the call sign from the database and it's associated
 //QRZ link if displayaslink is true or no second parameter are given
