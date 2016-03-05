@@ -243,7 +243,7 @@ if( ! empty($_GET["sort"]))
    "ORDER BY (CASE WHEN fcccall IS NULL THEN 1 ELSE 0 END) ASC" .
    ",(CASE WHEN SUBSTRING(fcccall,1,1) = ' ' THEN 1 ELSE 0 END) ASC," .
    " fccsuffix, lname, fname;";
-   echo $findrecords . '<br>';
+   //echo $findrecords . '<br>';
 }
 //otherwise do the default
 else
