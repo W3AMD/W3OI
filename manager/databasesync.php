@@ -7,8 +7,6 @@ use_unit("forms.inc.php");
 use_unit("extctrls.inc.php");
 use_unit("stdctrls.inc.php");
 use_unit("comctrls.inc.php");
-use_unit("Zend/zfeedwriter.inc.php");
-use_unit("Zend/zpdf.inc.php");
 include('../includes/sqlfunctions.inc.php');
 include('../includes/connection2.inc.php');
 
@@ -188,20 +186,21 @@ class DatabaseSync extends Page
             $sqlstatement = 'SELECT `id` AS `member_id`, `pd'
              . $yearastwodec . '` FROM `w3oi_mbr`' .
             ' WHERE `pd' . $yearastwodec . "` <> ''";
-            echo '<p>' . $sqlstatement . '</p>';
+            //echo '<p>' . $sqlstatement . '</p>';
             $result = _mysql_query($dbconnection, $sqlstatement);
             while($row = _mysql_fetch_assoc($dbconnection, $result))
             {
                //get the member id
                $memberid = $row['member_id'];
                //get the paid status
+               $paidtype = $row["pd$yearastwodec"];
                //convert to a 4 decimal year
                $yearpull = '20' . $yearastwodec . '-12-31';
                //now push the record
                //echo $memberid . ' ' . $yearpull . '<br>';
                $sqlupdate = 'insert into `paid` ' .
-               '(`year`, `member_id`) ' .
-               "VALUES ('$yearpull', '$memberid');";
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$paidtype');";
                //echo $sqlupdate . '<br>';
                array_push($sqlstatementarray, $sqlupdate);
             }
@@ -212,7 +211,76 @@ class DatabaseSync extends Page
             $result = _mysql_query($dbconnection, $sqlstatement);
          }
          //check the board records
-         //check the paid status
+         $sqlstatement = 'SELECT * FROM boghistory;';
+         //echo '<p>' . $sqlstatement . '</p>';
+         $result = _mysql_query($dbconnection, $sqlstatement);
+         $sqlstatementboardarray = array();
+         //loop through each year
+         while($row = _mysql_fetch_assoc($dbconnection, $result))
+         {
+               //get the year, common to all the data
+               $year = $row['year'];
+               $yearpull = $year . '-12-31';
+               $memberid = $row['pid'];
+               $type = 'P';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['vid'];
+               $type = 'V';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['sid'];
+               $type = 'S';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['tid'];
+               $type = 'T';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['m1id'];
+               $type = 'B';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['m2id'];
+               $type = 'B';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['m3id'];
+               $type = 'B';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['m4id'];
+               $type = 'B';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+               $memberid = $row['m5id'];
+               $type = 'B';
+               $sqlupdate = 'insert into `officersboard` ' .
+               '(`year`, `member_id`, `type`) ' .
+               "VALUES ('$yearpull', '$memberid', '$type');";
+               array_push($sqlstatementboardarray, $sqlupdate);
+         }
+         foreach($sqlstatementboardarray as $sqlstatement)
+         {
+            //now loop through the array and post the updates
+            $result = _mysql_query($dbconnection, $sqlstatement);
+         }
          $this->UploadStatus->Caption = 'SQL transfer successful.';
       }
       catch(Exception$e)
