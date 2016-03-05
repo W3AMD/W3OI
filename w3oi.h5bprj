@@ -283,6 +283,7 @@ Item278=manager\getcalendar.php
 Item279=manager\ssltest.php
 Item280=manager\databasesync.php
 Item281=includes\connection2.inc.php
+Item282=manager\membereditor.php
 
 [MainScript]
 Script=
