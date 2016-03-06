@@ -1,5 +1,5 @@
 <?php
-<object class="membereditor" name="membereditor" baseclass="Page">
+<object class="Page3" name="Page3" baseclass="Page">
   <property name="Animations">a:0:{}</property>
   <property name="AutoSize">1</property>
   <property name="Background"></property>
@@ -15,7 +15,7 @@
   <property name="Layout">
   <property name="Type">REL_XY_LAYOUT</property>
   </property>
-  <property name="Name">membereditor</property>
+  <property name="Name">Page3</property>
   <property name="Width">970</property>
   <object class="Label" name="Label1" >
     <property name="Animations">a:0:{}</property>

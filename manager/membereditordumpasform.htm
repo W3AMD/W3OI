@@ -9,7 +9,7 @@ use_unit("db.inc.php");
 use_unit("dbctrls.inc.php");
 
 //Class definition
-class membereditor extends Page
+class Page3 extends Page
 {
    public $Label34 = null;
    public $lnamesearch = null;
@@ -136,15 +136,15 @@ class membereditor extends Page
 
 global $application;
 
-global $membereditor;
+global $Page3;
 
 //Creates the form
-$membereditor = new membereditor($application);
+$Page3 = new Page3($application);
 
 //Read from resource file
-$membereditor->loadResource(__FILE__);
+$Page3->loadResource(__FILE__);
 
 //Shows the form
-$membereditor->show();
+$Page3->show();
 
 ?>
