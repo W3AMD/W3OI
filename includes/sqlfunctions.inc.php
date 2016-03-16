@@ -73,6 +73,33 @@ function _mysql_fetch_assoc($connection, $result)
    }
    return $row;
 }
+
+function _mysql_fetch_row($connection, $result)
+{
+   if(check_sql_version())
+   {
+      $row = mysql_fetch_row($result);
+   }
+   else
+   {
+      $row = mysqli_fetch_row($result);
+   }
+   return $row;
+}
+
+function _mysql_real_escape_string($connection, $value)
+{
+   if(check_sql_version())
+   {
+      $str = mysql_real_escape_string($value);
+   }
+   else
+   {
+      $str = mysqli_real_escape_string($connection, $value);
+   }
+   return $str;
+}
+
 function _mysql_begin_transaction($connection,$param) {
    if(check_sql_version())
    {

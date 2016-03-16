@@ -42,11 +42,11 @@ function dbConnect()
    //mysql_select_db( $dbname ) or die ( 'Cannot open database' );
    if($oldphp)
    {
-      mysql_select_db($dbname) or die('Cannot open database');
+      mysql_select_db($conn, $dbname) or die('Cannot open database');
    }
    else
    {
-      mysqli_select_db($dbname) or die('Cannot open database');
+      mysqli_select_db($conn, $dbname) or die('Cannot open database');
    }
    return $conn;
 }?>
