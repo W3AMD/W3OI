@@ -34,7 +34,7 @@
     <!-- /.navbar-collapse -->
   </div>
   <!-- /.container-fluid -->
-</nav>
+  <div class="row">
 <form method="post" name="membersform" class="col-sm-5 col-md-3" id="memberseditorform">
   <label for="textfield">Member ID:</label>
   <input type="text" name="textfield" id="memberid">
@@ -50,5 +50,27 @@
   <label for="textfield">Suffix:</label>
   <input type="text" name="textfield" id="namesuffix">
 </form>
+    <div class="col-md-4">
+<form method="post" name="membersform" class="col-sm-5 col-md-12" id="memberseditorform">
+      <h5><strong>Address Information:</strong></h5>
+      <label for="textfield">Address 1:</label>
+      <input name="textfield" type="text" class="glyphicon-text-width" id="addr1">
+      <label for="textfield">Address 2:</label>
+      <input type="text" name="textfield" id="addr2">
+      <br><label for="textfield">City:</label>
+      <input type="text" name="textfield" id="addrcity">
+      <br><label for="textfield">State:</label>
+      <input type="text" name="textfield" id="addrstate">
+      <br><label for="textfield">Zip:</label>
+      <input type="text" name="textfield" id="addrzip">
+</form>
+</div>
+<form method="post" name="membersform" class="col-md-4" id="memberseditorform">
+      <h5><strong>License Information:</strong></h5>
+      <label for="textfield">Callsign:</label>
+      <input name="textfield" type="text" class="glyphicon-text-width" id="addr1">
+      <br>
+</form>
+</nav>
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
