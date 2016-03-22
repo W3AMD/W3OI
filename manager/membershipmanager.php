@@ -28,31 +28,27 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search For Member">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Search</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li></li>
-        <li class="dropdown">
-<ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
     </div>
     <!-- /.navbar-collapse -->
   </div>
   <!-- /.container-fluid -->
 </nav>
-<input type="text">
-<form id="memberseditorform" name="membersform" method="post">
-  <label for="textfield">Member ID::</label>
+<form method="post" name="membersform" class="col-sm-4" id="memberseditorform">
+  <label for="textfield">Member ID:</label>
   <input type="text" name="textfield" id="memberid">
-  <label for="textfield">Last Name::</label>
-  <input type="text" name="textfield" id="lastname">
+  <BR><strong>Name Information:</strong><BR>
+  <label for="textfield">Prefix:</label>
+  <input type="text" name="textfield" id="nameprefix">
+  <label for="textfield">First Name:</label>
+  <input type="text" name="textfield" id="namefirst">
+  <label for="textfield">Middle Initial:</label>
+  <input type="text" name="textfield" id="namemid">
+  <label for="textfield">Last Name:</label>
+  <input type="text" name="textfield" id="namelast">
+  <label for="textfield">Suffix:</label>
+  <input type="text" name="textfield" id="namesuffix">
 </form>
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
