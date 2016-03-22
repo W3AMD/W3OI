@@ -35,17 +35,17 @@
   </div>
   <!-- /.container-fluid -->
 </nav>
-<form method="post" name="membersform" class="col-sm-4" id="memberseditorform">
+<form method="post" name="membersform" class="col-sm-5 col-md-3" id="memberseditorform">
   <label for="textfield">Member ID:</label>
   <input type="text" name="textfield" id="memberid">
-  <BR><strong>Name Information:</strong><BR>
+  <h5><strong>Name Information:</strong></h5>
   <label for="textfield">Prefix:</label>
   <input type="text" name="textfield" id="nameprefix">
-  <label for="textfield">First Name:</label>
+  <label for="textfield">First:</label>
   <input type="text" name="textfield" id="namefirst">
-  <label for="textfield">Middle Initial:</label>
+  <label for="textfield">Middle:</label>
   <input type="text" name="textfield" id="namemid">
-  <label for="textfield">Last Name:</label>
+  <label for="textfield">Last:</label>
   <input type="text" name="textfield" id="namelast">
   <label for="textfield">Suffix:</label>
   <input type="text" name="textfield" id="namesuffix">
