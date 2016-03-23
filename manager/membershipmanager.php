@@ -21,7 +21,7 @@
             <li><a href="#">Add</a></li>
             <li><a href="#">Update</a></li>
             <li><a href="#">Add Payment Record</a></li>
-            </ul>
+          </ul>
         </li>
       </ul>
       <form class="navbar-form" role="search">
@@ -36,7 +36,7 @@
   <!-- /.container-fluid -->
   <div class="row">
 <form method="post" name="membersform" class="col-sm-5 col-md-3" id="memberseditorform">
-  <label for="textfield">Member ID:</label>
+<label for="textfield">Member ID:</label>
   <input type="text" name="textfield" id="memberid">
   <h5><strong>Name Information:</strong></h5>
   <label for="textfield">Prefix:</label>
@@ -49,9 +49,15 @@
   <input type="text" name="textfield" id="namelast">
   <label for="textfield">Suffix:</label>
   <input type="text" name="textfield" id="namesuffix">
+  <br>
+  <label for="checkbox">Silent Key </label>
+  <input type="checkbox" name="checkbox" id="membersilent">
+  <br>
+  <label for="checkbox">Paid </label>
+  <input type="checkbox" name="checkbox" id="memberpaid">
 </form>
     <div class="col-md-4">
-<form method="post" name="membersform" class="col-sm-5 col-md-12" id="memberseditorform">
+<form method="post" name="membersform" class="col-md-12" id="memberseditorform">
       <h5><strong>Address Information:</strong></h5>
       <label for="textfield">Address 1:</label>
       <input name="textfield" type="text" class="glyphicon-text-width" id="addr1">
@@ -68,8 +74,14 @@
 <form method="post" name="membersform" class="col-md-4" id="memberseditorform">
       <h5><strong>License Information:</strong></h5>
       <label for="textfield">Callsign:</label>
-      <input name="textfield" type="text" class="glyphicon-text-width" id="addr1">
+  <input name="textfield" type="text" class="glyphicon-text-width" id="licensecall">
       <br>
+      <label for="textfield">Class:</label>
+      <input name="textfield" type="text" class="glyphicon-text-width" id="licsenseclass
+      ">
+      <br>
+      <h5><strong>Member Last Update:</strong></h5>
+      <label for="textfield">Last Update:</label><input type="date">
 </form>
 </nav>
 <script src="../js/jquery-1.11.3.min.js"></script>
