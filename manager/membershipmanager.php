@@ -77,8 +77,7 @@
   <input name="textfield" type="text" class="glyphicon-text-width" id="licensecall">
       <br>
       <label for="textfield">Class:</label>
-      <input name="textfield" type="text" class="glyphicon-text-width" id="licsenseclass
-      ">
+      <input name="textfield" type="text" class="glyphicon-text-width" id="licsenseclass">
       <br>
       <h5><strong>Member Last Update:</strong></h5>
       <label for="textfield">Last Update:</label><input type="date">
