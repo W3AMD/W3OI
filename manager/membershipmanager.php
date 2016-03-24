@@ -35,19 +35,22 @@
   </div>
   <!-- /.container-fluid -->
   <div class="row">
-<form method="post" name="membersform" class="col-sm-5 col-md-3" id="memberseditorform">
+<form method="post" name="membersform" class="col-sm-5 col-md-3 col-lg-4" id="memberseditorform">
+<h5><strong>Member Information:</strong></h5>
+<br>
 <label for="textfield">Member ID:</label>
   <input type="text" name="textfield" id="memberid">
-  <h5><strong>Name Information:</strong></h5>
-  <label for="textfield">Prefix:</label>
+  <br><h5 class="col-lg-6"><strong>Name Information:</strong></h5><br>
+  <br><label for="textfield">Prefix:</label>
   <input type="text" name="textfield" id="nameprefix">
-  <label for="textfield">First:</label>
+  <br><label for="textfield">First:</label>
   <input type="text" name="textfield" id="namefirst">
+  <br>
   <label for="textfield">Middle:</label>
   <input type="text" name="textfield" id="namemid">
-  <label for="textfield">Last:</label>
+  <br><label for="textfield">Last:</label>
   <input type="text" name="textfield" id="namelast">
-  <label for="textfield">Suffix:</label>
+  <br><label for="textfield">Suffix:</label>
   <input type="text" name="textfield" id="namesuffix">
   <br>
   <label for="checkbox">Silent Key </label>
@@ -56,8 +59,23 @@
   <label for="checkbox">Paid </label>
   <input type="checkbox" name="checkbox" id="memberpaid">
 </form>
-    <div class="col-md-4">
-<form method="post" name="membersform" class="col-md-12" id="memberseditorform">
+<form class="col-sm-5 col-md-3">
+  <h5><strong>Contact Info:</strong></h5>
+  <br>
+  <label for="textfield">Telephone (Home):</label>
+  <input type="text" name="textfield" id="telehome">
+  <br>
+  <label for="textfield">Telephone (Business):</label>
+  <input type="text" name="textfield" id="telebus">
+  <br>
+  <label for="textfield">Telephone (Unlisted):</label>
+  <input type="text" name="textfield" id="teleunl">
+  <br>
+  <br><label for="textfield">Email:</label>
+  <input type="text" name="textfield" id="emailaddr">
+</form>
+    <div class="col-md-4 col-lg-3">
+  <form method="post" name="membersform" class="col-md-12" id="memberseditorform">
       <h5><strong>Address Information:</strong></h5>
       <label for="textfield">Address 1:</label>
       <input name="textfield" type="text" class="glyphicon-text-width" id="addr1">
