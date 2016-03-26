@@ -25,7 +25,7 @@
         </li>
       </ul>
       <form class="navbar-form" role="search">
-        <div class="form-group">
+        <div class="form-group">members
           <input type="text" class="form-control" placeholder="Search For Member">
         </div>
         <button type="submit" class="btn btn-default">Search</button>
