@@ -175,6 +175,16 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     </div>');
     }
     ?>
+    <?php if(isset($_GET['Board'])) {
+	echo ('<div class="btn-group">
+      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board Functions<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li role="presentation"><a href="#">Send BOG Only Email</a></li>
+        <li role="presentation"><a href="#">Send Members Email</a></li>
+      </ul>
+    </div>');
+    }
+    ?>
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav navbar-right">
       <form method="post" class="navbar-form navbar-left"
