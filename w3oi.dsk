@@ -14,6 +14,7 @@ Module3=manager\managementconsole.php
 Module4=manager\announcementeditor.php
 Module5=manager\membereditor.php
 Module6=manager\membershipmanager.php
+Module7=manager\getmemberrecords.php
 
 [manager\announcementmanager.php]
 Line=0
@@ -32,9 +33,13 @@ Line=0
 Position=0
 
 [manager\membershipmanager.php]
-Line=26
-Position=67
+Line=0
+Position=0
+
+[manager\getmemberrecords.php]
+Line=17
+Position=68
 
 [Status]
-OpenModule=manager\membershipmanager.php
+OpenModule=manager\getmemberrecords.php
 

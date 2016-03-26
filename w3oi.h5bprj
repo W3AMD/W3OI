@@ -284,6 +284,7 @@ Item279=manager\ssltest.php
 Item280=manager\databasesync.php
 Item281=includes\connection2.inc.php
 Item282=manager\membereditor.php
+Item283=manager\getmemberrecords.php
 
 [MainScript]
 Script=
