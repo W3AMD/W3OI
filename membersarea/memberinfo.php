@@ -1,41 +1,60 @@
-<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php require_once('../Connections/W3OITesting.php');?>
 <?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+if( ! function_exists("GetSQLValueString"))
 {
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
+   function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
+   {
+      if(PHP_VERSION < 6)
+      {
+         $theValue = get_magic_quotes_gpc()? stripslashes($theValue): $theValue;
+      }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+      $theValue = function_exists("mysql_real_escape_string")? mysql_real_escape_string($theValue): mysql_escape_string($theValue);
 
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
+      switch($theType)
+      {
+         case "text":
+            $theValue = ($theValue != "")? "'" . $theValue . "'": "NULL";
+            break;
+         case "long":
+         case "int":
+            $theValue = ($theValue != "")? intval($theValue): "NULL";
+            break;
+         case "double":
+            $theValue = ($theValue != "")? doubleval($theValue): "NULL";
+            break;
+         case "date":
+            $theValue = ($theValue != "")? "'" . $theValue . "'": "NULL";
+            break;
+         case "defined":
+            $theValue = ($theValue != "")? $theDefinedValue: $theNotDefinedValue;
+            break;
+      }
+      return $theValue;
+   }
 }
 
-$colname_Recordset1 = "-1";
-if (isset($_GET['member_id'])) {
-  $colname_Recordset1 = $_GET['member_id'];
-}
 mysql_select_db($database_W3OITesting, $W3OITesting);
+$colname_Recordset1 = "-1";//placeholder
+//check if direct query for member or search requested
+if(isset($_POST['Search']))
+{
+   //search is requested need to run this query first to get the member_id
+   $search = $_POST['Search'];
+   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
+   "(`lname` LIKE '%$search%')";
+   $Recordset0 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
+   $row_Recordset0 = mysql_fetch_assoc($Recordset0);
+   $colname_Recordset1 = $row_Recordset0['member_id'];
+}
+else
+{
+   //search by url id given
+   if(isset($_GET['member_id']))
+   {
+      $colname_Recordset1 = $_GET['member_id'];
+   }
+}
 $query_Recordset1 = sprintf("SELECT * FROM members WHERE member_id = %s", GetSQLValueString($colname_Recordset1, "int"));
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
@@ -117,11 +136,13 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     ?>
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav navbar-right">
-      <form method="post" class="navbar-form navbar-left" role="search">
+      <form method="post" class="navbar-form navbar-left"
+      action="memberinfo.php">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" name="Search" placeholder="Callsign / Lastname">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        </a>
       </form>
       </ul>
     </div>
@@ -136,30 +157,30 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <div class="container">
 <form>
 <fieldset><legend>Name Information:</legend>
-  <p>Title: </span><?php echo $row_Recordset1['title']; ?></p>
+  <p>Title: </span><?php echo $row_Recordset1['title'];?></p>
   <p>First name:
-    <?php echo $row_Recordset1['fname']; ?>    </p>
-  <p>Middle: <?php echo $row_Recordset1['mid']; ?></p>
-  <p>Last: 
-    <?php echo $row_Recordset1['lname']; ?></p>
-  <p>Suffix: <?php echo $row_Recordset1['suffix']; ?></p>
+<?php echo $row_Recordset1['fname'];?>    </p>
+  <p>Middle: <?php echo $row_Recordset1['mid'];?></p>
+  <p>Last:
+<?php echo $row_Recordset1['lname'];?></p>
+  <p>Suffix: <?php echo $row_Recordset1['suffix'];?></p>
 </fieldset>
 <fieldset><legend>Contact Information:</legend>
-  <p>Email: <?php echo $row_Recordset1['email']; ?>
+  <p>Email: <?php echo $row_Recordset1['email'];?>
   </p>
-  <p>Home Phone: <?php echo $row_Recordset1['hfone']; ?></p>
-  <p>Business Phone: <?php echo $row_Recordset1['busfone']; ?></p>
-  <p>Unlisted Phone: <?php echo $row_Recordset1['unlfone']; ?></p>
+  <p>Home Phone: <?php echo $row_Recordset1['hfone'];?></p>
+  <p>Business Phone: <?php echo $row_Recordset1['busfone'];?></p>
+  <p>Unlisted Phone: <?php echo $row_Recordset1['unlfone'];?></p>
 <fieldset><legend>Address Information:</legend>
-  <p>Address: <?php echo $row_Recordset1['addr1']; ?><br><?php echo $row_Recordset1['addr2']; ?></p>
-  <p>City: <?php echo $row_Recordset1['city']; ?></p>
-  <p>State: <?php echo $row_Recordset1['state']; ?></p>
-  <p>Zip: <?php echo $row_Recordset1['zip']; ?></p>
-  <p>County: <?php echo $row_Recordset1['cnty']; ?></p>
+  <p>Address: <?php echo $row_Recordset1['addr1'];?><br><?php echo $row_Recordset1['addr2'];?></p>
+  <p>City: <?php echo $row_Recordset1['city'];?></p>
+  <p>State: <?php echo $row_Recordset1['state'];?></p>
+  <p>Zip: <?php echo $row_Recordset1['zip'];?></p>
+  <p>County: <?php echo $row_Recordset1['cnty'];?></p>
 </fieldset>
 <fieldset><legend>License Information:</legend>
-  <p>Callsign: <?php echo $row_Recordset1['fcccall']; ?></p>
-  <p>Class: <?php echo $row_Recordset1['class']; ?></p>
+  <p>Callsign: <?php echo $row_Recordset1['fcccall'];?></p>
+  <p>Class: <?php echo $row_Recordset1['class'];?></p>
 </fieldset>
 </form>
 </div>

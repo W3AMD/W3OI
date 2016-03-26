@@ -74,11 +74,13 @@
     ?>
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav navbar-right">
-      <form method="post" class="navbar-form navbar-left" role="search">
+      <form method="post" class="navbar-form navbar-left"
+      action="memberinfo.php">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" name="Search" placeholder="Callsign / Lastname">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        </a>
       </form>
       </ul>
     </div>
