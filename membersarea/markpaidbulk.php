@@ -1,61 +1,38 @@
-<?php require_once('../Connections/W3OITesting.php');?>
+<?php require_once('../Connections/W3OITesting.php'); ?>
 <?php
-if( ! function_exists("GetSQLValueString"))
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
-   function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
-   {
-      if(PHP_VERSION < 6)
-      {
-         $theValue = get_magic_quotes_gpc()? stripslashes($theValue): $theValue;
-      }
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
 
-      $theValue = function_exists("mysql_real_escape_string")? mysql_real_escape_string($theValue): mysql_escape_string($theValue);
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
 
-      switch($theType)
-      {
-         case "text":
-            $theValue = ($theValue != "")? "'" . $theValue . "'": "NULL";
-            break;
-         case "long":
-         case "int":
-            $theValue = ($theValue != "")? intval($theValue): "NULL";
-            break;
-         case "double":
-            $theValue = ($theValue != "")? doubleval($theValue): "NULL";
-            break;
-         case "date":
-            $theValue = ($theValue != "")? "'" . $theValue . "'": "NULL";
-            break;
-         case "defined":
-            $theValue = ($theValue != "")? $theDefinedValue: $theNotDefinedValue;
-            break;
-      }
-      return $theValue;
-   }
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
 }
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
-$colname_Recordset1 = "-1";//placeholder
-//check if direct query for member or search requested
-if(isset($_POST['Search']))
-{
-   //search is requested need to run this query first to get the member_id
-   $search = $_POST['Search'];
-   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
-   "(`lname` LIKE '%$search%')";
-   $Recordset0 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
-   $row_Recordset0 = mysql_fetch_assoc($Recordset0);
-   $colname_Recordset1 = $row_Recordset0['member_id'];
-}
-else
-{
-   //search by url id given
-   if(isset($_GET['member_id']))
-   {
-      $colname_Recordset1 = $_GET['member_id'];
-   }
-}
-$query_Recordset1 = sprintf("SELECT * FROM members WHERE member_id = %s", GetSQLValueString($colname_Recordset1, "int"));
+$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, paid.member_id FROM members, paid WHERE members.member_id=paid.member_id ORDER BY lname ASC, fname ASC, fcccall ASC";
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
@@ -67,7 +44,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Infomation</title>
+<title>Untitled Document</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -165,32 +142,11 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 <form>
-<fieldset><legend>Name Information:</legend>
-  <p>Title: </span><?php echo $row_Recordset1['title'];?></p>
-  <p>First:
-<?php echo $row_Recordset1['fname'];?>    </p>
-  <p>Middle: <?php echo $row_Recordset1['mid'];?></p>
-  <p>Last:
-<?php echo $row_Recordset1['lname'];?></p>
-  <p>Suffix: <?php echo $row_Recordset1['suffix'];?></p>
-</fieldset>
-<fieldset><legend>Contact Information:</legend>
-  <p>Email: <?php echo $row_Recordset1['email'];?>
-  </p>
-  <p>Home Phone: <?php echo $row_Recordset1['hfone'];?></p>
-  <p>Business Phone: <?php echo $row_Recordset1['busfone'];?></p>
-  <p>Unlisted Phone: <?php echo $row_Recordset1['unlfone'];?></p>
-<fieldset><legend>Address Information:</legend>
-  <p>Address: <?php echo $row_Recordset1['addr1'];?><br><?php echo $row_Recordset1['addr2'];?></p>
-  <p>City: <?php echo $row_Recordset1['city'];?></p>
-  <p>State: <?php echo $row_Recordset1['state'];?></p>
-  <p>Zip: <?php echo $row_Recordset1['zip'];?></p>
-  <p>County: <?php echo $row_Recordset1['cnty'];?></p>
-</fieldset>
-<fieldset><legend>License Information:</legend>
-  <p>Callsign: <?php echo $row_Recordset1['fcccall'];?></p>
-  <p>Class: <?php echo $row_Recordset1['class'];?></p>
-</fieldset>
+<?php do { ?>
+  <?php echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
+$row_Recordset1['suffix']);
+echo('<input type="checkbox"><br>');?>
+  <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 </form>
 </div>
 <!-- InstanceEndEditable -->

@@ -166,8 +166,8 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
         <li role="presentation"><a href="#">Add</a></li>
-        <li role="presentation"><a href="#">Update</a></li>
-        <li role="presentation"><a href="#">Add Paid Record</a></li>
+        <li role="presentation"><a href="../membersarea/memberinfoeditor.php">Update</a></li>
+        <li role="presentation"><a href="#">Add Paid Records</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
@@ -179,8 +179,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 	echo ('<div class="btn-group">
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board Functions<span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li role="presentation"><a href="#">Send BOG Only Email</a></li>
-        <li role="presentation"><a href="#">Send Members Email</a></li>
+        <li role="presentation"><a href="#">Send Bulk Email</a></li>
       </ul>
     </div>');
     }
@@ -190,7 +189,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
       <form method="post" class="navbar-form navbar-left"
       action="memberinfo.php">
         <div class="form-group">
-          <input type="text" class="form-control" name="Search" placeholder="Callsign / Lastname">
+          <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
         <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
         </a>
