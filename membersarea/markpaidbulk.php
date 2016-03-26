@@ -32,7 +32,10 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, paid.member_id FROM members, paid WHERE members.member_id=paid.member_id ORDER BY lname ASC, fname ASC, fcccall ASC";
+$yearnow = date("Y").'-01-01';
+$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, paid.member_id FROM members, paid WHERE (members.member_id=paid.member_id) " .
+"AND (year < '$yearnow') " .
+"ORDER BY lname ASC, fname ASC, fcccall ASC";
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
@@ -143,7 +146,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <div class="container">
 <form>
 <?php do { ?>
-  <?php echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
+  <?php echo ($yearnow . $row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
 $row_Recordset1['suffix']);
 echo('<input type="checkbox"><br>');?>
   <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
