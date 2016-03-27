@@ -33,6 +33,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
 $yearnow = date("Y").'-01-01';
+$yearnext = date("Y",strtotime('+1 year')).'-01-01';
 $query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, paid.member_id FROM members, paid WHERE (members.member_id=paid.member_id) " .
 "AND (year < '$yearnow') " .
 "ORDER BY lname ASC, fname ASC, fcccall ASC";
@@ -47,7 +48,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untitled Document</title>
+<title>Bulk Payment Update</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -145,11 +146,14 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 <form>
-<?php do { ?>
-  <?php echo ($yearnow . $row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
+<?php 
+echo ($yearnow . ', ');
+echo ($yearnext . '<br>');
+do { 
+  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
 $row_Recordset1['suffix']);
-echo('<input type="checkbox"><br>');?>
-  <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+echo('<input type="checkbox"><br>');
+  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 </form>
 </div>
 <!-- InstanceEndEditable -->
