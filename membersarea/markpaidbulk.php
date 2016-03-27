@@ -187,7 +187,6 @@ $row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
   <label>
     <input type="radio" name="RadioGroup1" value="L" id="RadioGroup1_3">
     Lifetime</label>
-  <br>
 </p>
 <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 </form>
