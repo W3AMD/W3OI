@@ -32,11 +32,31 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
-$yearnow = date("Y").'-01-01';
-$yearnext = date("Y",strtotime('+1 year')).'-01-01';
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, paid.member_id FROM members, paid WHERE (members.member_id=paid.member_id) " .
-"AND (year < '$yearnow') " .
-"ORDER BY lname ASC, fname ASC, fcccall ASC";
+
+/* target query example
+this gets all the last payment records from members active at least in the 
+last 3 years
+SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
+FROM members
+INNER JOIN
+    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
+    FROM paid
+    GROUP BY paid.member_id) groupedpaid 
+ON members.member_id = groupedpaid.member_id
+Where (MaxDateTime < '2016-12-31') AND
+(MaxDateTime >= '2013-12-31')*/
+$yearnow = date("Y").'-12-31';
+$yearrecent = date("Y",strtotime('-3 year')).'-12-31';
+$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
+"FROM members " .
+"INNER JOIN " .
+    "(SELECT paid.member_id, MAX(paid.year) AS MaxDateTime " .
+    "FROM paid " .
+    "GROUP BY paid.member_id) groupedpaid ".
+    "ON members.member_id = groupedpaid.member_id " .
+"Where (MaxDateTime < '$yearnow') AND ".
+"(MaxDateTime >= '$yearrecent')" .
+"ORDER BY lname, fname, suffix, fcccall";
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
@@ -147,13 +167,29 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <div class="container">
 <form>
 <?php 
-echo ($yearnow . ', ');
-echo ($yearnext . '<br>');
 do { 
   echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix']);
-echo('<input type="checkbox"><br>');
-  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+$row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
+?>
+<p>
+  <label>
+    <input type="radio" name="RadioGroup1" value="R" id="RadioGroup1_0">
+    Regular</label>
+  <br>
+  <label>
+    <input type="radio" name="RadioGroup1" value="F" id="RadioGroup1_1">
+    Family</label>
+  <br>
+  <label>
+    <input type="radio" name="RadioGroup1" value="A" id="RadioGroup1_2">
+    Associate</label>
+  <br>
+  <label>
+    <input type="radio" name="RadioGroup1" value="L" id="RadioGroup1_3">
+    Lifetime</label>
+  <br>
+</p>
+<?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 </form>
 </div>
 <!-- InstanceEndEditable -->
