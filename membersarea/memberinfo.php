@@ -35,30 +35,38 @@ if( ! function_exists("GetSQLValueString"))
 }
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
-$colname_Recordset1 = "-1";//placeholder
+//placeholders
+$colname_Recordset1 = "-1";
+$row_Recordset1 = "-1";
+$colname_Recordset1 = "-1";
+$Recordset1 = "-1";
+$totalRows_Recordset1 = "1";
 //check if direct query for member or search requested
 if(isset($_POST['Search']))
 {
    //search is requested need to run this query first to get the member_id
    $search = $_POST['Search'];
-   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
+   $query_Recordset1 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
    "(`lname` LIKE '%$search%')";
-   $Recordset0 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
-   $row_Recordset0 = mysql_fetch_assoc($Recordset0);
-   $colname_Recordset1 = $row_Recordset0['member_id'];
+   $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+   echo $query_Recordset1;
+   $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+   $colname_Recordset1 = $row_Recordset1['member_id'];
+   $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 }
+/*
 else
 {
    //search by url id given
    if(isset($_GET['member_id']))
    {
       $colname_Recordset1 = $_GET['member_id'];
+      $query_Recordset1 = sprintf("SELECT * FROM members WHERE member_id = %s", GetSQLValueString($colname_Recordset1, "int"));
+      $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+      $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+      $totalRows_Recordset1 = mysql_num_rows($Recordset1);
    }
-}
-$query_Recordset1 = sprintf("SELECT * FROM members WHERE member_id = %s", GetSQLValueString($colname_Recordset1, "int"));
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+}*/
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -164,6 +172,19 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="../js/bootstrap-3.3.6.js"></script>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
+<h4>Number of members found: <?php 
+if($totalRows_Recordset1<1) {
+	echo 'No members found.';
+    return;
+}
+else {
+	echo $totalRows_Recordset1;
+?></h4></div>
+<?php
+}
+do { 
+?>
+<div class="container">
 <form>
 <fieldset><legend>Name Information:</legend>
   <p>Title: </span><?php echo $row_Recordset1['title'];?></p>
@@ -193,6 +214,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 </fieldset>
 </form>
 </div>
+<?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 <!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
