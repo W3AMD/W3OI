@@ -3,10 +3,13 @@
 <file name="membersarea.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047039633568638" remote="131046931800000000" Dst="2" />
 <file name="memberinfo.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046958250201761" remote="131046850200000000" Dst="2" />
 <file name="memberinfoeditor.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046960468611512" remote="131046852600000000" Dst="2" />
-<file name="emailboard.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131035021257218911" remote="131034912600000000" Dst="2" />
+<file name="emailboard.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131035071824241065" remote="131046948000000000" Dst="2" />
 <file name="emailofficers.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131035075280930809" remote="131034966600000000" Dst="2" />
 <file name="markpaidbulk.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046960470031694" remote="131046852000000000" Dst="2" />
 <file name="bulkemaillist.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131035746796726840" remote="131035638600000000" Dst="2" />
 <file name="membershipmanager.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046901308713922" remote="131046793200000000" Dst="2" />
-<file name="login.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047036457235187" remote="131046928200000000" Dst="2" />
+<file name="login.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047053733296722" remote="131046948000000000" Dst="2" />
+<file name="loginfail.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047047526857283" remote="131046940200000000" Dst="2" />
+<file name="loginsuccess.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047052419208450" remote="131046944400000000" Dst="2" />
+<file name="getmemberrecords.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131035053444906377" remote="131046948000000000" Dst="2" />
 </dwsync>

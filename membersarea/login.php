@@ -45,27 +45,27 @@ if (isset($_GET['accesscheck'])) {
 if (isset($_POST['username'])) {
   $loginUsername=$_POST['username'];
   $password=$_POST['password'];
-  $MM_fldUserAuthorization = "level";
-  $MM_redirectLoginSuccess = "membersarea.php";
+  $MM_fldUserAuthorization = "login_id";
+  $MM_redirectLoginSuccess = "loginsuccess.php";
   $MM_redirectLoginFailed = "loginfail.php";
-  $MM_redirecttoReferrer = false;
+  $MM_redirecttoReferrer = true;
   mysql_select_db($database_W3OITesting, $W3OITesting);
   	
-  $LoginRS__query=sprintf("SELECT username, password, level FROM login WHERE username=%s AND password=%s",
+  $LoginRS__query=sprintf("SELECT username, password, login_id FROM login WHERE username=%s AND password=%s",
   GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")); 
    
   $LoginRS = mysql_query($LoginRS__query, $W3OITesting) or die(mysql_error());
   $loginFoundUser = mysql_num_rows($LoginRS);
   if ($loginFoundUser) {
     
-    $loginStrGroup  = mysql_result($LoginRS,0,'level');
+    $loginStrGroup  = mysql_result($LoginRS,0,'login_id');
     
 	if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
     //declare two session variables and assign them
     $_SESSION['MM_Username'] = $loginUsername;
     $_SESSION['MM_UserGroup'] = $loginStrGroup;	      
 
-    if (isset($_SESSION['PrevUrl']) && false) {
+    if (isset($_SESSION['PrevUrl']) && true) {
       $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
     }
     header("Location: " . $MM_redirectLoginSuccess );
@@ -78,6 +78,7 @@ if (isset($_POST['username'])) {
 <!doctype html>
 <html>
 <body>
+<h2>Login to W3OI</h2>
 <div class="container">
 <form ACTION="<?php echo $loginFormAction; ?>" METHOD="POST" name="form">
 <fieldset><legend>Username</legend>
@@ -85,7 +86,7 @@ if (isset($_POST['username'])) {
 <fieldset><legend>Password</legend>
 </fieldset><input type="password" name="password">
 <hr>
-<input type="submit">
+<input type="submit" value="Log In">
 </form></div>
 </body>
 </html>
