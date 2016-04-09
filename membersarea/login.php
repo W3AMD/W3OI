@@ -30,36 +30,50 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
+?>
+<?php
+// *** Validate request to login to this site.
+if (!isset($_SESSION)) {
+  session_start();
+}
 
-mysql_select_db($database_W3OITesting, $W3OITesting);
+$loginFormAction = $_SERVER['PHP_SELF'];
+if (isset($_GET['accesscheck'])) {
+  $_SESSION['PrevUrl'] = $_GET['accesscheck'];
+}
 
-/* target query example
-this gets all the last payment records from members active at least in the 
-last 3 years
-SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
-FROM members
-INNER JOIN
-    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
-    FROM paid
-    GROUP BY paid.member_id) groupedpaid 
-ON members.member_id = groupedpaid.member_id
-Where (MaxDateTime < '2016-12-31') AND
-(MaxDateTime >= '2013-12-31')*/
-$yearnow = date("Y").'-12-31';
-$yearrecent = date("Y",strtotime('-3 year')).'-12-31';
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
-"FROM members " .
-"INNER JOIN " .
-    "(SELECT paid.member_id, MAX(paid.year) AS MaxDateTime " .
-    "FROM paid " .
-    "GROUP BY paid.member_id) groupedpaid ".
-    "ON members.member_id = groupedpaid.member_id " .
-"Where (MaxDateTime < '$yearnow') AND ".
-"(MaxDateTime >= '$yearrecent')" .
-"ORDER BY lname, fname, suffix, fcccall";
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+if (isset($_POST['username'])) {
+  $loginUsername=$_POST['username'];
+  $password=$_POST['password'];
+  $MM_fldUserAuthorization = "level";
+  $MM_redirectLoginSuccess = "loginsuccess.php";
+  $MM_redirectLoginFailed = "loginfail.php";
+  $MM_redirecttoReferrer = false;
+  mysql_select_db($database_W3OITesting, $W3OITesting);
+  	
+  $LoginRS__query=sprintf("SELECT username, password, level FROM login WHERE username=%s AND password=%s",
+  GetSQLValueString($loginUsername, "text"), GetSQLValueString($password, "text")); 
+   
+  $LoginRS = mysql_query($LoginRS__query, $W3OITesting) or die(mysql_error());
+  $loginFoundUser = mysql_num_rows($LoginRS);
+  if ($loginFoundUser) {
+    
+    $loginStrGroup  = mysql_result($LoginRS,0,'level');
+    
+	if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
+    //declare two session variables and assign them
+    $_SESSION['MM_Username'] = $loginUsername;
+    $_SESSION['MM_UserGroup'] = $loginStrGroup;	      
+
+    if (isset($_SESSION['PrevUrl']) && false) {
+      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+    }
+    header("Location: " . $MM_redirectLoginSuccess );
+  }
+  else {
+    header("Location: ". $MM_redirectLoginFailed );
+  }
+}
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -68,7 +82,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bulk Payment Update</title>
+<title>W3OI Member Login</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -165,35 +179,14 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="../js/bootstrap-3.3.6.js"></script>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-<form>
-<?php 
-do { 
-  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
-?>
-<p>
-  <label>
-    <input type="radio" name="RadioGroup1" value="R" id="RadioGroup1_0">
-    Regular</label>
-  <br>
-  <label>
-    <input type="radio" name="RadioGroup1" value="F" id="RadioGroup1_1">
-    Family</label>
-  <br>
-  <label>
-    <input type="radio" name="RadioGroup1" value="A" id="RadioGroup1_2">
-    Associate</label>
-  <br>
-  <label>
-    <input type="radio" name="RadioGroup1" value="L" id="RadioGroup1_3">
-    Lifetime</label>
-</p>
-<?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
-</form>
-</div>
+<form ACTION="<?php echo $loginFormAction; ?>" METHOD="POST" name="form">
+<fieldset><legend>Username</legend>
+</fieldset><input type="text" name="username">
+<fieldset><legend>Password</legend>
+</fieldset><input type="password" name="password">
+<hr>
+<input type="submit">
+</form></div>
 <!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
-<?php
-mysql_free_result($Recordset1);
-?>
