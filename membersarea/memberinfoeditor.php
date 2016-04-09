@@ -31,6 +31,36 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
+  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, unlfone=%s WHERE member_id=%s",
+                       GetSQLValueString($_POST['fname'], "text"),
+                       GetSQLValueString($_POST['mname'], "text"),
+                       GetSQLValueString($_POST['lname'], "text"),
+                       GetSQLValueString($_POST['title'], "text"),
+                       GetSQLValueString($_POST['suffix'], "text"),
+                       GetSQLValueString($_POST['fcccall'], "text"),
+                       GetSQLValueString($_POST['fccclass'], "text"),
+                       GetSQLValueString($_POST['addr1'], "text"),
+                       GetSQLValueString($_POST['addr2'], "text"),
+                       GetSQLValueString($_POST['city'], "text"),
+                       GetSQLValueString($_POST['state'], "text"),
+                       GetSQLValueString($_POST['zip'], "text"),
+                       GetSQLValueString($_POST['county'], "text"),
+                       GetSQLValueString($_POST['email'], "text"),
+                       GetSQLValueString($_POST['busfone'], "text"),
+                       GetSQLValueString($_POST['hfone'], "text"),
+                       GetSQLValueString($_POST['unlfone'], "text"),
+                       GetSQLValueString($_POST['member_id'], "int"));
+
+  mysql_select_db($database_W3OITesting, $W3OITesting);
+  $Result1 = mysql_query($updateSQL, $W3OITesting) or die(mysql_error());
+}
+
 $colname_Recordset1 = "-1";
 if (isset($_GET['member_id'])) {
   $colname_Recordset1 = $_GET['member_id'];
@@ -205,63 +235,66 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="../js/bootstrap-3.3.6.js"></script>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-<form>
+<form method="POST" action="<?php echo $editFormAction; ?>" name="form">
+<fieldset><legend>Member Identification:</legend>
+<p>MemberID: <input type="text" name="member_id" readonly value="<?php echo $row_Recordset1['member_id']; ?>"></p></fieldset>
 <fieldset><legend>Name Information:</legend>
-  <p>Title: <input type="text" id="title" value="<?php echo $row_Recordset1['title']; ?>"></p>
+  <p>Title: <input type="text" name="title" value="<?php echo $row_Recordset1['title']; ?>"></p>
   <p>First name:
-    <input name="textfield" type="text" id="fname" value="<?php echo $row_Recordset1['fname']; ?>">
+    <input name="fname" type="text" value="<?php echo $row_Recordset1['fname']; ?>">
   </p>
   <p>Middle: 
-    <input name="textfield2" type="text" id="mname" value="<?php echo $row_Recordset1['mid']; ?>">
+    <input type="text" name="mname" value="<?php echo $row_Recordset1['mid']; ?>">
   </p>
   <p>Last:
-    <input name="textfield" type="text" id="lname" value="<?php echo $row_Recordset1['lname']; ?>">
+    <input type="text" name="lname" value="<?php echo $row_Recordset1['lname']; ?>">
   </p>
   <p>Suffix: 
-    <input name="textfield" type="text" id="suffix" value="<?php echo $row_Recordset1['suffix']; ?>">
+    <input type="text" name="suffix" value="<?php echo $row_Recordset1['suffix']; ?>">
   </p>
 </fieldset>
 <fieldset><legend>Contact Information:</legend>
   <p>Email: 
-    <input name="email" type="email" id="email" value="<?php echo $row_Recordset1['email']; ?>">
+    <input type="email" name="email" value="<?php echo $row_Recordset1['email']; ?>">
   </p>
   <p>Home Phone: 
-   <input name="tel" type="tel" id="hfone" value="<?php echo $row_Recordset1['hfone']; ?>">
+   <input type="tel" name="hfone" value="<?php echo $row_Recordset1['hfone']; ?>">
   </p>
   <p>Business Phone: 
-    <input name="tel" type="tel" id="busfone" value="<?php echo $row_Recordset1['busfone']; ?>">
+    <input type="tel" name="busfone" value="<?php echo $row_Recordset1['busfone']; ?>">
   </p>
   <p>Unlisted Phone: 
-    <input name="tel" type="tel" id="unlfone" value="<?php echo $row_Recordset1['unlfone']; ?>">
+    <input type="tel" name="unlfone" value="<?php echo $row_Recordset1['unlfone']; ?>">
   </p>
 <fieldset><legend>Address Information:</legend>
   <p>Address1: 
-    <input name="textfield" type="text" id="addr1" value="<?php echo $row_Recordset1['addr1']; ?>"><br></p>
-  <p>Address2:  <input name="textfield" type="text" id="add2" value="<?php echo $row_Recordset1['addr2']; ?>">
+    <input type="text" name="addr1" value="<?php echo $row_Recordset1['addr1']; ?>"><br></p>
+  <p>Address2:  <input type="text" name="addr2" value="<?php echo $row_Recordset1['addr2']; ?>">
     <br>
   </p>
   <p>City: 
-    <input name="textfield" type="text" id="city" value="<?php echo $row_Recordset1['city']; ?>">
+    <input type="text" name="city" value="<?php echo $row_Recordset1['city']; ?>">
   </p>
   <p>State: 
-    <input name="textfield" type="text" id="state" value="<?php echo $row_Recordset1['state']; ?>">
+    <input type="text" name="state" value="<?php echo $row_Recordset1['state']; ?>">
   </p>
   <p>Zip: 
-    <input name="textfield" type="text" id="zip" value="<?php echo $row_Recordset1['zip']; ?>">
+    <input type="text" name="zip" value="<?php echo $row_Recordset1['zip']; ?>">
   </p>
   <p>County: 
-    <input name="textfield2" type="text" id="county" value="<?php echo $row_Recordset1['cnty']; ?>">
+    <input type="text" name="county" value="<?php echo $row_Recordset1['cnty']; ?>">
   </p>
 </fieldset>
 <fieldset><legend>License Information:</legend>
   <p>Callsign: 
-    <input name="textfield" type="text" id="fcccall" value="<?php echo $row_Recordset1['fcccall']; ?>">
+    <input type="text" name="fcccall" value="<?php echo $row_Recordset1['fcccall']; ?>">
   </p>
   <p>Class: 
-    <input name="textfield2" type="text" id="fccclass" value="<?php echo $row_Recordset1['class']; ?>">
+    <input type="text" name="fccclass" value="<?php echo $row_Recordset1['class']; ?>">
   </p>
 </fieldset>
-</form>
+<input type="hidden" name="MM_update" value="form">
+<input type="submit" value="Update"></form>
 </div>
 <!-- InstanceEndEditable -->
 </body>
