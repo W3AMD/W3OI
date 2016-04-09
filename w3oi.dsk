@@ -17,8 +17,8 @@ Line=0
 Position=0
 
 [membersarea\memberinfo.php]
-Line=0
-Position=0
+Line=44
+Position=29
 
 [Status]
 OpenModule=membersarea\memberinfo.php
