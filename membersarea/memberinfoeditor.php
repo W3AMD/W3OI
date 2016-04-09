@@ -235,9 +235,9 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     <input name="tel" type="tel" id="unlfone" value="<?php echo $row_Recordset1['unlfone']; ?>">
   </p>
 <fieldset><legend>Address Information:</legend>
-  <p>Address: 
-    <input name="textfield" type="text" id="addr1" value="<?php echo $row_Recordset1['addr1']; ?>"><br>
-    <input name="textfield" type="text" id="add2" value="<?php echo $row_Recordset1['addr2']; ?>">
+  <p>Address1: 
+    <input name="textfield" type="text" id="addr1" value="<?php echo $row_Recordset1['addr1']; ?>"><br></p>
+  <p>Address2:  <input name="textfield" type="text" id="add2" value="<?php echo $row_Recordset1['addr2']; ?>">
     <br>
   </p>
   <p>City: 

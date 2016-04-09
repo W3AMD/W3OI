@@ -1,3 +1,43 @@
+<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+mysql_select_db($database_W3OITesting, $W3OITesting);
+$query_Recordset1 = "select * from members";
+$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+?>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -34,7 +74,7 @@
     <!-- /.navbar-collapse -->
   </div>
   <!-- /.container-fluid -->
-  <div class="row">
+<div class="row">
 <form method="post" name="membersform" class="col-sm-5 col-md-3 col-lg-4" id="memberseditorform">
 <h5><strong>Member Information:</strong></h5>
 <br>
@@ -74,7 +114,7 @@
   <br><label for="textfield">Email:</label>
   <input type="text" name="textfield" id="emailaddr">
 </form>
-    <div class="col-md-4 col-lg-3">
+    <div class="col-sm-5 col-md-3">
   <form method="post" name="membersform" class="col-md-12" id="memberseditorform">
       <h5><strong>Address Information:</strong></h5>
       <label for="textfield">Address 1:</label>
@@ -89,7 +129,7 @@
       <input type="text" name="textfield" id="addrzip">
 </form>
 </div>
-<form method="post" name="membersform" class="col-md-4" id="memberseditorform">
+<form method="post" name="membersform" class="col-sm-5 col-md-3" id="memberseditorform">
       <h5><strong>License Information:</strong></h5>
       <label for="textfield">Callsign:</label>
   <input name="textfield" type="text" class="glyphicon-text-width" id="licensecall">
@@ -103,3 +143,6 @@
 </nav>
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
+<?php
+mysql_free_result($Recordset1);
+?>
