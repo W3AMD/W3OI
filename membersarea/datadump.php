@@ -223,9 +223,14 @@ while( $row = mysql_fetch_row( $export ) )
 }
 $data = str_replace( "\r" , "" , $data );
 //first delete existing file
-$filename="memberdata" . date ('m-d-Y') . ".csv";
+$filename="memberdata " . date ('m-d-Y G-i') . ".csv";
 //first delete leftover files from the last use guarenteeing only one file in the directory at a time
-unlink("*.csv");
+foreach(glob("memberdata *") as $file)
+    {
+       //echo "Deleting previous member file $file<BR>";
+	   unlink($file);
+    }
+//unlink("memberdata*.csv");
 $myfile = fopen("$filename", "w") or die("Unable to open file!");
 fwrite($myfile, "$eachfield");
 fwrite($myfile, "$data\n");
