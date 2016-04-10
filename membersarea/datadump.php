@@ -1,3 +1,48 @@
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "";
+$MM_donotCheckaccess = "true";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && true) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "login.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
 <?php require_once('../Connections/W3OITesting.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
@@ -30,67 +75,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
-echo 'select db<br>';
 mysql_select_db($database_W3OITesting, $W3OITesting);
-
-/*
-echo 'run query<br>';
-$query_Recordset1 = "SELECT * INTO OUTFILE 'membersdata.csv' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY \"\n\" FROM members;";
-$query_Recordset1 = "SELECT * INTO OUTFILE \"membersdata.csv\" FROM members;";
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-echo 'query completed<br>';
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-echo 'fetch records<br>';
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-echo 'fetch row count<br>';
-*/
-
-$select = "SELECT * FROM members";
-echo 'run query<br>';
-
-$export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
-echo 'fetch row count<br>';
-
-$fields = mysql_num_fields ( $export );
-echo 'list field names<br>';
-
-for ( $i = 0; $i < $fields; $i++ )
-{
-    $header .= mysql_field_name( $export , $i ) . "\t";
-}
-echo 'get rows<br>';
-
-while( $row = mysql_fetch_row( $export ) )
-{
-    $line = '';
-    foreach( $row as $value )
-    {                                            
-        if ( ( !isset( $value ) ) || ( $value == "" ) )
-        {
-            $value = "\t";
-        }
-        else
-        {
-            $value = str_replace( '"' , '""' , $value );
-            $value = '"' . $value . '"' . "\t";
-        }
-        $line .= $value;
-    }
-    $data .= trim( $line ) . "\n";
-}
-$data = str_replace( "\r" , "" , $data );
-
-if ( $data == "" )
-{
-    $data = "\n(0) Records Found!\n";                        
-}
-
-header("Content-type: application/octet-stream");
-header("Content-Disposition: attachment; filename=your_desired_name.xls");
-header("Pragma: no-cache");
-header("Expires: 0");
-print "$header\n$data";
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -102,6 +87,11 @@ print "$header\n$data";
 <title>Member Dump File</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
+<link href="../jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
+<script src="../jQueryAssets/jquery-1.11.1.min.js"></script>
+<script src="../jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
 <!-- InstanceEndEditable -->
 <!-- <link href="file:///C|/Users/John/Documents/HTML5 Builder/Projects/W3OI/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 <link href="../css/bootstrap-3.3.6.css" rel="stylesheet" type="text/css">
@@ -126,7 +116,7 @@ print "$header\n$data";
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="#">Member File</a></li>
+        <li role="presentation"><a href="datadump.php">Member Data File</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
@@ -166,7 +156,7 @@ print "$header\n$data";
     </div>');
     }
     ?>
-<?php if(isset($_GET['Board'])) {
+    <?php if(isset($_GET['Board'])) {
 	echo ('<div class="btn-group">
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board Functions<span class="caret"></span></button>
       <ul class="dropdown-menu">
@@ -175,30 +165,80 @@ print "$header\n$data";
     </div>');
     }
     ?>
-
-<div class="collapse navbar-collapse" id="topFixedNavbar1">
-  <ul class="nav navbar-nav navbar-right">
-    <form method="post" class="navbar-form navbar-left"
+    <div class="collapse navbar-collapse" id="topFixedNavbar1">
+      <ul class="nav navbar-nav navbar-right">
+      <form method="post" class="navbar-form navbar-left"
       action="memberinfo.php">
-      <div class="form-group">
-        <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
-      </div>
-      <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
-      </a>
-    </form>
-  </ul>
-</div>
-<!-- /.navbar-collapse -->
-</div>
-<!-- /.container-fluid -->
+        <div class="form-group">
+          <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
+        </div>
+        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        </a>
+      </form>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>
 <script src="../js/jquery-1.11.3.min.js"></script>
 <!-- <script src="file:///C|/Users/John/AppData/Roaming/Adobe/Dreamweaver CC 2015/en_US/Configuration/Temp/Assets/eam4A93.tmp/js/bootstrap.js"></script> -->
 <script src="../js/bootstrap-3.3.6.js"></script>
 <!-- InstanceBeginEditable name="EditRegion3" -->
-<div class="container"></div>
+<div class="container">
+  <?php
+echo "Please wait...<br>";
+$select = "SELECT title, fname, mid, lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, hfone, busfone, unlfone, email FROM members ORDER BY lname";
+$export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
+$fields = mysql_num_fields ( $export );
+$eachfield = "";
+$data = "";
+for ( $i = 0; $i < $fields; $i++ )
+{
+    $singlefield = mysql_field_name($export , $i);
+	$eachfield .= mysql_field_name($export , $i);
+	if(($i+1)<$fields) {
+	$eachfield .=", ";
+	}
+}
+$eachfield .= "\n";
+//$eachfield = str_replace( "\t" , ", " , $eachfield);
+while( $row = mysql_fetch_row( $export ) )
+{
+    $line = '';
+    foreach( $row as $value )
+    {                                            
+        if ( ( !isset( $value ) ) || ( $value == "" ) )
+        {
+            $value = " , ";
+        }
+        else
+        {
+            //$value = str_replace( '"' , '""' , $value );
+            $value = $value . ", ";
+        }
+        $line .= $value;
+    }
+    $data .= $line . "\n";
+}
+$data = str_replace( "\r" , "" , $data );
+//first delete existing file
+$filename="memberdata" . date ('m-d-Y') . ".csv";
+//first delete leftover files from the last use guarenteeing only one file in the directory at a time
+unlink("*.csv");
+$myfile = fopen("$filename", "w") or die("Unable to open file!");
+fwrite($myfile, "$eachfield");
+fwrite($myfile, "$data\n");
+fclose($myfile);
+echo "Click the link below to download the member list file";
+?>
+<br>
+<?php echo "<a href=\"$filename\">Download</a>";
+?> 
+</div>
 <!-- InstanceEndEditable -->
-</body><!-- InstanceEnd -->
-</html><?php
+</body>
+<!-- InstanceEnd --></html>
+<?php
 mysql_free_result($Recordset1);
 ?>
