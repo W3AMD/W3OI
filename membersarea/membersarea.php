@@ -64,7 +64,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
 <body style="padding-top: 70px">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">

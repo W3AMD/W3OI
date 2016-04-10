@@ -103,7 +103,6 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
 <body style="padding-top: 70px">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -172,7 +171,7 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
-        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
       </ul>

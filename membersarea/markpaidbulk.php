@@ -82,7 +82,6 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
 <body style="padding-top: 70px">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
