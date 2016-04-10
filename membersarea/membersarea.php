@@ -133,7 +133,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
-        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
       </ul>

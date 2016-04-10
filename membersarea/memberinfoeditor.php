@@ -221,7 +221,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
-        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
       </ul>
