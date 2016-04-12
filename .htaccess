@@ -1,0 +1,19 @@
+# -FrontPage-
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+order deny,allow
+deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+AuthName w3oi.org
+AuthUserFile /var/www/vhosts/w3oi.org/httpdocs/_vti_pvt/service.pwd
+AuthGroupFile /var/www/vhosts/w3oi.org/httpdocs/_vti_pvt/service.grp
+
+RewriteEngine on
+

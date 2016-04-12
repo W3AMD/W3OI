@@ -69,7 +69,6 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
 <body style="padding-top: 70px">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -82,7 +81,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="datadump.php">Member Data File</a></li>
+        <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
@@ -138,7 +137,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
-        <button type="submit" class="btn btn-default" id="Submit" >Submit</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
       </ul>
