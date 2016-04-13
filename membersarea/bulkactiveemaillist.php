@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "5";
+$MM_authorizedUsers = "";
 $MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
@@ -43,6 +43,40 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
+<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+mysql_select_db($database_W3OITesting, $W3OITesting);
+?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -50,9 +84,14 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Members Area</title>
+<title>Member Active Email Dump</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
+<link href="../jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
+<script src="../jQueryAssets/jquery-1.11.1.min.js"></script>
+<script src="../jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
 <!-- InstanceEndEditable -->
 <!-- <link href="file:///C|/Users/John/Documents/HTML5 Builder/Projects/W3OI/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 <link href="../css/bootstrap-3.3.6.css" rel="stylesheet" type="text/css">
@@ -147,11 +186,41 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <script src="../js/bootstrap-3.3.6.js"></script>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-<h4>Welcome to the W3OI Members Area</h4>
-<p>
-To lookup a member enter a partial callsign or last name in the search box on the top
-</p>
+<?php
+$timelastyear=time()-31536000;
+$year = date("Y",$timelastyear);
+$yearfull = $year . '-00-00';
+$select = "SELECT DISTINCT email FROM members, paid  " .
+   "Where (`members`.`member_id` = `paid`.`member_id`) AND " .
+   "(year > '$yearfull') AND (email!='')" .
+   "ORDER BY lname, fname";
+$export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
+$fields = mysql_num_fields ( $export );
+$numrows = mysql_num_rows ($export);
+$eachfield = "";
+$data = "";
+$currentrow=0;
+while( $row = mysql_fetch_row( $export ) )
+{
+    $currentrow++;
+	$line = '';
+    foreach( $row as $value )
+    {                                            
+        if($currentrow<$numrows) {
+            $value = $value . ", ";
+		   }
+        $line .= $value;
+    }
+    $data .= $line . "\n";
+}
+$data = str_replace( "\r" , "" , $data );
+echo "$data";
+?>
+<br>
 </div>
 <!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd --></html>
+<?php
+mysql_free_result($Recordset1);
+?>
