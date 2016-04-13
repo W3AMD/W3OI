@@ -56,9 +56,9 @@ myApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/net-roster.html',
 			controller: 'NetRosterController'
 		}).
-		when('/dstarinfo', {
-			templateUrl: 'views/dstarinfo.html',
-			controller: 'DstarController'
+		when('/aresinfo', {
+			templateUrl: 'views/aresinfo.html',
+			controller: 'ARESController'
 		}).
 		when('/VEData', {
 			templateUrl: 'views/VEData.html',

@@ -178,10 +178,10 @@ myApp.controller('NetRosterController', function($scope, $rootScope) {
 
 }); //NetRosterController
 
-myApp.controller('DstarController', function($scope, $rootScope) {
+myApp.controller('ARESController', function($scope, $rootScope) {
 
-		$rootScope.pagetitle = "W3OI - Dstar";
-		document.title = "W3OI - Dstar";
+		$rootScope.pagetitle = "W3OI - ARES";
+		document.title = "W3OI - ARES";
 
 }); //DstarController
 
