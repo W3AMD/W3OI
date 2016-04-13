@@ -165,6 +165,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
         <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
+        <li role="presentation"><a href="bulkactiveemaillist.php">Active Email List</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->

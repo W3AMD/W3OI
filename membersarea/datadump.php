@@ -84,7 +84,7 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Dump File</title>
+<title>Active Member Data File</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="../jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
@@ -116,6 +116,7 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
         <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
+        <li role="presentation"><a href="bulkactiveemaillist.php">Active Email List</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
