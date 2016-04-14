@@ -94,8 +94,8 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="activememberdatadump.php">Active Members Data File</a></li>
-        <li role="presentation"><a href="bulkactiveemaillist.php">Active Email List</a></li>
+        <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
+        <li role="presentation"><a href="bulkactiveemaillist.php">Recent Email List</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
         <!--<li role="presentation"><a href="#">Separated Link</a></li>-->

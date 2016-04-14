@@ -84,7 +84,14 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Active Email Dump</title>
+<title>
+<?php
+$timelastyear=time()-31536000;
+$lastyear = date("y",$timelastyear);
+$thisyear = date("y");
+echo "Active Member ($lastyear/$thisyear) Email List";
+?>
+</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="../jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
@@ -187,6 +194,10 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 <?php
+$timelastyear=time()-31536000;
+$lastyear = date("y",$timelastyear);
+$thisyear = date("y");
+echo "<h2>Active Members For Years ($lastyear/$thisyear) Email Listing</h2>";
 $timelastyear=time()-31536000;
 $year = date("Y",$timelastyear);
 $yearfull = $year . '-00-00';
