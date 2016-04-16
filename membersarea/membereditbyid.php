@@ -188,19 +188,13 @@ $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error())
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 ?>
-<!doctype html>
-<html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
-<meta charset="utf-8">
-<!-- InstanceBeginEditable name="doctitle" -->
+<html><!-- InstanceBegin template="/Templates/W3OImembershipmanager.dwt.php" codeOutsideHTMLIsLocked="false" -->
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Member Infomation</title>
+<!-- InstanceBeginEditable name="TitleEdit" -->TitleEdit
+<title>Member Editor</title>
 <!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<!-- InstanceEndEditable -->
-<!-- <link href="file:///C|/Users/John/Documents/HTML5 Builder/Projects/W3OI/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
-<link href="../css/bootstrap-3.3.6.css" rel="stylesheet" type="text/css">
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -208,154 +202,48 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-</head>
-<body style="padding-top: 70px">
-<nav class="navbar navbar-default navbar-fixed-top">
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+<nav class="navbar navbar-default navbar-fixed-top"><body style="padding-top: 70px">
+  
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
       <a class="navbar-brand" href="membersarea.php">W3OI Members Area</a></div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
-        <li role="presentation"><a href="bulkactiveemaillist.php">Recent Email List</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>
-    <?php if(isset($_GET['Treasury'])) {
-	echo ('<div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Treasury Reports<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li role="presentation"><a href="#">Valid Email List</a></li>
-        <li role="presentation"><a href="#">Busted Email List</a></li>
-        <li role="presentation"><a href="#">BoG Email List</a></li>
-        <li role="presentation"><a href="#">BoG Home Phone List</a></li>
-        <li role="presentation"><a href="#">BoG Data List</a></li>
-        <li role="presentation"><a href="#">Need Badges or Cards List</a></li>
-        <li role="presentation"><a href="#">Associate Members List</a></li>
-        <li role="presentation"><a href="#">Paid Members List</a></li>
-        <li role="presentation"><a href="#">Address Labels List</a></li>
-        <li role="presentation"><a href="#">Overdue Members List</a></li>
-        <li role="presentation"><a href="#">Clear Card And Badges Fields</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Member Editor<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="#">Add</a></li>
-        <li role="presentation"><a href="../membersarea/memberinfoeditor.php">Update</a></li>
-        <li role="presentation"><a href="#">Add Paid Records</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>');
-    }
-    ?>
-    <?php if(isset($_GET['Board'])) {
-	echo ('<div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board Functions<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li role="presentation"><a href="#">Send Bulk Email</a></li>
-      </ul>
-    </div>');
-    }
-    ?>
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Editor<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="addmember.php">Add Member</a></li>
+            <?php
+            if (isset($_GET['member_id'])) {
+                $memberid = $_GET['member_id'];
+                }
+            echo "<li><a href=\"membereditbyid.php?member_id=$memberid\">Update Member</a></li>";
+            ?>
+            <li><a href="updatememberpayment.php">Add Member Payment Record</a></li>
+            <li><a href="markpaidbulk.php">Mark Bulk Payment Records</a></li>
+          </ul>
+        </li>
+      </ul>
       <form method="post" class="navbar-form navbar-left"
-      action="memberinfo.php">
+      action="membershipeditor.php">
         <div class="form-group">
-          <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
+          <input type="text" class="form-control" name="Search" placeholder="Call, Lname, MemberID">
         </div>
         <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
-      </ul>
     </div>
     <!-- /.navbar-collapse -->
   </div>
   <!-- /.container-fluid -->
+  <!-- InstanceBeginEditable name="BodyEditRegion2" -->
+  <!-- InstanceEndEditable -->
+</body>
 </nav>
 <script src="../js/jquery-1.11.3.min.js"></script>
-<!-- <script src="file:///C|/Users/John/AppData/Roaming/Adobe/Dreamweaver CC 2015/en_US/Configuration/Temp/Assets/eam4A93.tmp/js/bootstrap.js"></script> -->
-<script src="../js/bootstrap-3.3.6.js"></script>
-<!-- InstanceBeginEditable name="EditRegion3" -->
-<div class="container">
-<form method="POST" action="<?php echo $editFormAction; ?>" name="form">
-<fieldset><legend>Member Identification:</legend>
-<p>MemberID: <input type="text" name="member_id" readonly value="<?php echo $row_Recordset1['member_id']; ?>"></p></fieldset>
-<fieldset><legend>Name Information:</legend>
-  <p>Title: <input type="text" name="title" value="<?php echo $row_Recordset1['title']; ?>"></p>
-  <p>First name:
-    <input name="fname" type="text" value="<?php echo $row_Recordset1['fname']; ?>">
-  </p>
-  <p>Middle: 
-    <input type="text" name="mname" value="<?php echo $row_Recordset1['mid']; ?>">
-  </p>
-  <p>Last:
-    <input type="text" name="lname" value="<?php echo $row_Recordset1['lname']; ?>">
-  </p>
-  <p>Suffix: 
-    <input type="text" name="suffix" value="<?php echo $row_Recordset1['suffix']; ?>">
-  </p>
-</fieldset>
-<fieldset><legend>Contact Information:</legend>
-  <p>Email: 
-    <input type="email" name="email" value="<?php echo $row_Recordset1['email']; ?>">
-  </p>
-  <p>Home Phone: 
-   <input type="tel" name="hfone" value="<?php echo $row_Recordset1['hfone']; ?>">
-  </p>
-  <p>Business Phone: 
-    <input type="tel" name="busfone" value="<?php echo $row_Recordset1['busfone']; ?>">
-  </p>
-  <p>Unlisted Phone: 
-    <input type="tel" name="unlfone" value="<?php echo $row_Recordset1['unlfone']; ?>">
-  </p>
-<fieldset><legend>Address Information:</legend>
-  <p>Address1: 
-    <input type="text" name="addr1" value="<?php echo $row_Recordset1['addr1']; ?>"><br></p>
-  <p>Address2:  <input type="text" name="addr2" value="<?php echo $row_Recordset1['addr2']; ?>">
-    <br>
-  </p>
-  <p>City: 
-    <input type="text" name="city" value="<?php echo $row_Recordset1['city']; ?>">
-  </p>
-  <p>State: 
-    <input type="text" name="state" value="<?php echo $row_Recordset1['state']; ?>">
-  </p>
-  <p>Zip: 
-    <input type="text" name="zip" value="<?php echo $row_Recordset1['zip']; ?>">
-  </p>
-  <p>County: 
-    <input type="text" name="county" value="<?php echo $row_Recordset1['cnty']; ?>">
-  </p>
-</fieldset>
-<fieldset><legend>License Information:</legend>
-  <p>Callsign: 
-    <input type="text" name="fcccall" value="<?php echo $row_Recordset1['fcccall']; ?>">
-  </p>
-  <p>Class: 
-    <input type="text" name="fccclass" value="<?php echo $row_Recordset1['class']; ?>">
-  </p>
-</fieldset>
-<input type="hidden" name="MM_update" value="form">
-<input type="submit" value="Update"></form>
-</div>
-<!-- InstanceEndEditable -->
-</body>
+<script src="../js/bootstrap.js"></script>
 <!-- InstanceEnd --></html>
-<?php
-mysql_free_result($Recordset1);
-?>

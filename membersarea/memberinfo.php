@@ -49,7 +49,6 @@ if(isset($_POST['Search']))
    $query_Recordset1 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
    "(`lname` LIKE '%$search%')";
    $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-   echo $query_Recordset1;
    $row_Recordset1 = mysql_fetch_assoc($Recordset1);
    $colname_Recordset1 = $row_Recordset1['member_id'];
    $totalRows_Recordset1 = mysql_num_rows($Recordset1);

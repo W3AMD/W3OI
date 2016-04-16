@@ -84,7 +84,7 @@
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav navbar-right">
       <form method="post" class="navbar-form navbar-left"
-      action="../membersarea/memberinfo.php">
+      action="memberinfo.php">
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
         </div>
