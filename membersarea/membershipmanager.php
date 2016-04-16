@@ -104,18 +104,17 @@ if(isset($_POST['Search']))
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="membersarea.php">Members Area<span class="sr-only">(current)</span></a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
+        <li class="dropdown"><a href="membershipmanagerhome.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Add</a></li>
-            <li><a href="editfromid.php?member_id=<?php
-             if($isID) {
-             echo $search;
-             } else {
-             echo "0";
+            <li><a href="addmember.php">Add</a></li>
+            <?php
+            if($isID) {
+            echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
-            ?>">Update</a></li>
+            ?>
+            
             <li role="separator" class="divider"></li>
-            <li><a href="#">Mark Paid Bulk</a></li>
+            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
           </ul>
         </li>
       </ul>
@@ -133,8 +132,6 @@ if(isset($_POST['Search']))
   <!-- /.container-fluid -->
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
-<h2>W3OI Member Management Area</h2>
-<h5>Place user instructions here</h5>
 <div class="container">
 <?php
 echo "You searched for: $search which is";
