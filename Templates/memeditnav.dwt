@@ -37,9 +37,13 @@
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
             ?>
-            
+            <li><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="createfamily.php">Create Family</a></li>
+            <li><a href="editfamily.php">Edit Family</a></li>
+            <li><a href="removefamily.php">Remove Family</a></li>
           </ul>
         </li>
       </ul>

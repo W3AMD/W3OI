@@ -87,7 +87,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
-  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, unlfone=%s WHERE member_id=%s",
+  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, mfone=%s, unlfone=%s WHERE member_id=%s",
                        GetSQLValueString($_POST['fname'], "text"),
                        GetSQLValueString($_POST['mname'], "text"),
                        GetSQLValueString($_POST['lname'], "text"),
@@ -104,6 +104,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
                        GetSQLValueString($_POST['email'], "text"),
                        GetSQLValueString($_POST['busfone'], "text"),
                        GetSQLValueString($_POST['hfone'], "text"),
+                       GetSQLValueString($_POST['mfone'], "text"),
                        GetSQLValueString($_POST['unlfone'], "text"),
                        GetSQLValueString($_POST['member_id'], "int"));
 
@@ -202,9 +203,13 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
             ?>
-            
+            <li><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="createfamily.php">Create Family</a></li>
+            <li><a href="editfamily.php">Edit Family</a></li>
+            <li><a href="removefamily.php">Remove Family</a></li>
           </ul>
         </li>
       </ul>
@@ -253,6 +258,9 @@ exit;
   </p>
   <p>Home Phone: 
    <input type="tel" name="hfone" value="<?php echo $row_Recordset1['hfone']; ?>">
+  </p>
+  <p>Mobile Phone: 
+   <input type="tel" name="mfone" value="<?php echo $row_Recordset1['mfone']; ?>">
   </p>
   <p>Business Phone: 
     <input type="tel" name="busfone" value="<?php echo $row_Recordset1['busfone']; ?>">

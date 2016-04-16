@@ -34,7 +34,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
       $isValid = true; 
     } */ 
   } 
-  return $isValid; 
+  return $isValid;
 }
 
 $MM_restrictGoTo = "login.php";
@@ -56,7 +56,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untitled Document</title>
+<title>Membership Manager Home</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -88,9 +88,13 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
             ?>
-            
+            <li><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="createfamily.php">Create Family</a></li>
+            <li><a href="editfamily.php">Edit Family</a></li>
+            <li><a href="removefamily.php">Remove Family</a></li>
           </ul>
         </li>
       </ul>

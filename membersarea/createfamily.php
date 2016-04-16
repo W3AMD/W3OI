@@ -48,30 +48,60 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   header("Location: ". $MM_restrictGoTo); 
   exit;
 }
-$isID=false;
-mysql_select_db($database_W3OITesting, $W3OITesting);
-if(isset($_POST['Search']))
+?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
-   //search is requested need to run this query first to get the member_id
-   $search = $_POST['Search'];
-   //if the search is an integer then we are searching for member id
-   $isID= is_numeric ($search);
-   if(!$isID) {
-	   $query_Recordset1 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR (`lname` LIKE '%$search%')";
-   }
-   else {
-    $query_Recordset1 = "SELECT * FROM members WHERE member_id = $search";
-   }
-   $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-   $row_Recordset1 = mysql_fetch_assoc($Recordset1);
-   $colname_Recordset1 = $row_Recordset1['member_id'];
-   $totalRows_Recordset1 = mysql_num_rows($Recordset1);
-   //if there is only one record displayed we can get the ID
-   if($totalRows_Recordset1==1) {
-       $isID=true;
-       $search=$row_Recordset1['member_id'];
-   }
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
 }
+}
+
+mysql_select_db($database_W3OITesting, $W3OITesting);
+
+$query_Recordset1 = "SELECT lname, fname, suffix, members.member_id " .
+"FROM members " .
+"GROUP BY lname, fname, suffix";
+$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+
+//if a post is received handle it here
+function getPostArray($array){
+     foreach ($array as $key => $value){
+        echo "$key => $value<br>";
+        if(is_array($value)){ //If $value is an array, get it also
+            getPostArray($value);
+        }  
+    } 
+}
+
+getPostArray($_POST);
+
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -80,7 +110,7 @@ if(isset($_POST['Search']))
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>W3OI Member Manager</title>
+<title>Create Family</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -137,43 +167,33 @@ if(isset($_POST['Search']))
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-<?php
-echo "You searched for: $search which is";
-echo ($isID) ? " an ID." : "n't an ID.";
-echo "<br>";
-?>
-<h4>Number of members found: <?php 
-if($totalRows_Recordset1<1) {
-	echo 'No members found.';
-    return;
-}
-else {
-	echo $totalRows_Recordset1;
-?></h4></div>
-<?php
-}
+  <form method="post" action="createfamily.php">
+  <?php 
+$currentlastname='';
 do { 
+  if($currentlastname!=$row_Recordset1['lname']) {
+	  $newfield=true;
+  }
+  else $newfield=false;
+  $currentlastname=$row_Recordset1['lname'];
+  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
+$row_Recordset1['suffix']);
 ?>
-<div class="container">
-<form>
-<fieldset><legend>Member ID:</legend>
-<p>Member ID Number: </span><?php echo $row_Recordset1['member_id'];?></p>
-<fieldset><legend>Name Information:</legend>
-  <p>Title: </span><?php echo $row_Recordset1['title'];?></p>
-  <p>First:
-<?php echo $row_Recordset1['fname'];?>    </p>
-  <p>Middle: <?php echo $row_Recordset1['mid'];?></p>
-  <p>Last:
-<?php echo $row_Recordset1['lname'];?></p>
-  <p>Suffix: <?php echo $row_Recordset1['suffix'];?></p>
-</fieldset>
-<fieldset><legend>License Information:</legend>
-  <p>Callsign: <?php echo $row_Recordset1['fcccall'];?></p>
-  <p>Class: <?php echo $row_Recordset1['class'];?></p>
-</fieldset>
+  <p>
+    <?php
+    if($newfield) {
+    echo "<fieldset><legend>Family: $row_Recordset1['lname']</legend>";
+	}
+	?>
+    <label>
+      <input type="checkbox" name="<?php echo $row_Recordset1['member_id']?>" value="<?php echo $row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
+$row_Recordset1['suffix'];?>" id="">
+      Family</label>
+  </p>
+  <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+<input type="submit" value="Update"></form>
 </form>
 </div>
-<?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 <?php
 mysql_free_result($Recordset1);
 ?>

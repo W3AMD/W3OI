@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="membersarea.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047067122072035" remote="131046958800000000" Dst="2" />
-<file name="memberinfo.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047140090481300" remote="131047032000000000" Dst="2" />
-<file name="memberinfoeditor.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046960468611512" remote="131046852600000000" Dst="2" />
-<file name="markpaidbulk.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131046960470031694" remote="131046852000000000" Dst="2" />
-<file name="login.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047095963986449" remote="131047030200000000" Dst="2" />
-<file name="loginfail.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047095964021432" remote="131047030200000000" Dst="2" />
-<file name="loginsuccess.php" server="www.ham4ham.com//w3oi.ham4ham.com/" local="131047095964036452" remote="131047030200000000" Dst="2" />
 <file name="loginsuccess.php" server="www.w3oi.org//public_html/" local="131047891151356066" remote="131049681600000000" Dst="2" />
 <file name="loginfail.php" server="www.w3oi.org//public_html/" local="131047891151291056" remote="131049681600000000" Dst="2" />
 <file name="login.php" server="www.w3oi.org//public_html/" local="131047891151251055" remote="131049681600000000" Dst="2" />
@@ -14,11 +7,12 @@
 <file name="membersarea.php" server="www.w3oi.org//public_html/" local="131051280223569296" remote="131051244600000000" Dst="2" />
 <file name="error_log" server="www.w3oi.org//public_html/" local="131049696000000000" remote="131049696000000000" Dst="2" />
 <file name="bulkactiveemaillist.php" server="www.w3oi.org//public_html/" local="131051268010000000" remote="131051231400000000" Dst="2" />
-<file name="markpaidbulk.php" server="www.w3oi.org//public_html/" local="131051280222060427" remote="131051244600000000" Dst="2" />
+<file name="markpaidbulk.php" server="www.w3oi.org//public_html/" local="131053202107669776" remote="131053165800000000" Dst="2" />
 <file name="memberinfoeditor.php" server="www.w3oi.org//public_html/" local="131052899884057365" remote="131052913200000000" Dst="2" />
 <file name="activememberdatadump.php" server="www.w3oi.org//public_html/" local="131051280976733064" remote="131051244600000000" Dst="2" />
 <file name="membershipeditor.php" server="www.w3oi.org//public_html/" local="131052927356265215" remote="131052910200000000" Dst="2" />
-<file name="editfromid.php" server="www.w3oi.org//public_html/" local="131053022286168598" remote="131052985800000000" Dst="2" />
-<file name="membershipmanager.php" server="www.w3oi.org//public_html/" local="131053022255473072" remote="131052985800000000" Dst="2" />
-<file name="membershipmanagerhome.php" server="www.w3oi.org//public_html/" local="131053025410000000" remote="131052989400000000" Dst="2" />
+<file name="editfromid.php" server="www.w3oi.org//public_html/" local="131053197671734021" remote="131053161600000000" Dst="2" />
+<file name="membershipmanager.php" server="www.w3oi.org//public_html/" local="131053197624629226" remote="131053161600000000" Dst="2" />
+<file name="membershipmanagerhome.php" server="www.w3oi.org//public_html/" local="131053197744821099" remote="131053161600000000" Dst="2" />
+<file name="createfamily.php" server="www.w3oi.org//public_html/" local="131053206217218971" remote="131053170000000000" Dst="2" />
 </dwsync>
