@@ -66,6 +66,11 @@ if(isset($_POST['Search']))
    $row_Recordset1 = mysql_fetch_assoc($Recordset1);
    $colname_Recordset1 = $row_Recordset1['member_id'];
    $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+   //if there is only one record displayed we can get the ID
+   if($totalRows_Recordset1==1) {
+       $isID=true;
+       $search=$row_Recordset1['member_id'];
+   }
 }
 ?>
 <!doctype html>
@@ -102,18 +107,13 @@ if(isset($_POST['Search']))
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Add</a></li>
-            <li><a href="editfromid.php?member_id=
-            <?php
-            if(isset($_POST['memberidedit']))
-             {
-              $search = $_POST['memberidedit'];
-              echo $search;
-              } else
-              {
-              echo "0";
-              }           
-            ?>
-            ">Update</a></li>
+            <li><a href="editfromid.php?member_id=<?php
+             if($isID) {
+             echo $search;
+             } else {
+             echo "0";
+             }          
+            ?>">Update</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Mark Paid Bulk</a></li>
           </ul>
@@ -165,19 +165,6 @@ do {
   <p>Last:
 <?php echo $row_Recordset1['lname'];?></p>
   <p>Suffix: <?php echo $row_Recordset1['suffix'];?></p>
-</fieldset>
-<fieldset><legend>Contact Information:</legend>
-  <p>Email: <?php echo $row_Recordset1['email'];?>
-  </p>
-  <p>Home Phone: <?php echo $row_Recordset1['hfone'];?></p>
-  <p>Business Phone: <?php echo $row_Recordset1['busfone'];?></p>
-  <p>Unlisted Phone: <?php echo $row_Recordset1['unlfone'];?></p>
-<fieldset><legend>Address Information:</legend>
-  <p>Address: <?php echo $row_Recordset1['addr1'];?><br><?php echo $row_Recordset1['addr2'];?></p>
-  <p>City: <?php echo $row_Recordset1['city'];?></p>
-  <p>State: <?php echo $row_Recordset1['state'];?></p>
-  <p>Zip: <?php echo $row_Recordset1['zip'];?></p>
-  <p>County: <?php echo $row_Recordset1['cnty'];?></p>
 </fieldset>
 <fieldset><legend>License Information:</legend>
   <p>Callsign: <?php echo $row_Recordset1['fcccall'];?></p>

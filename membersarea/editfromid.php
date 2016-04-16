@@ -152,28 +152,16 @@ if( ! function_exists("GetSQLValueString"))
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
 $colname_Recordset1 = "-1";//placeholder
-//check if direct query for member or search requested
-if(isset($_POST['Search']))
-{
-   //search is requested need to run this query first to get the member_id
-   $search = $_POST['Search'];
-   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" . "(`lname` LIKE '%$search%')";
-}
-else
-{
-   //search by url id given
-   if(isset($_GET['member_id']))
+//search by url id given
+if(isset($_GET['member_id']))
    {
       $memberid = $_GET['member_id'];
-      echo "Get By MemberID: $memberid";
-	  $query_Recordset0 = "SELECT * FROM members WHERE member_id = $memberid";
+ 	  $query_Recordset0 = "SELECT * FROM members WHERE member_id = $memberid";
    }
-}
 $Recordset1 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $colname_Recordset1 = $row_Recordset0['member_id'];
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
-echo "Rows returned: $totalRows_Recordset1";
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -209,18 +197,13 @@ echo "Rows returned: $totalRows_Recordset1";
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Add</a></li>
-            <li><a href="editfromid.php?member_id=
-            <?php
-            if(isset($_POST['memberidedit']))
-             {
-              $search = $_POST['memberidedit'];
-              echo $search;
-              } else
-              {
-              echo "0";
-              }           
-            ?>
-            ">Update</a></li>
+            <li><a href="editfromid.php?member_id=<?php
+             if($isID) {
+             echo $search;
+             } else {
+             echo "0";
+             }          
+            ?>">Update</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Mark Paid Bulk</a></li>
           </ul>
@@ -241,6 +224,12 @@ echo "Rows returned: $totalRows_Recordset1";
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
+<?php
+if($totalRows_Recordset1<1) {
+echo "<h4>Too many members in the search list. Do a search by member ID to update the record.</h4>";
+exit;
+}
+?>
 <form method="POST" action="<?php echo $editFormAction; ?>" name="form">
 <fieldset><legend>Member Identification:</legend>
 <p>MemberID: <input type="text" name="member_id" readonly value="<?php echo $row_Recordset1['member_id']; ?>"></p></fieldset>
