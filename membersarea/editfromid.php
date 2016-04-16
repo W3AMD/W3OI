@@ -209,17 +209,30 @@ echo "Rows returned: $totalRows_Recordset1";
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Add</a></li>
-            <li><a href="#">Update</a></li>
+            <li><a href="editfromid.php?member_id=
+            <?php
+            if(isset($_POST['memberidedit']))
+             {
+              $search = $_POST['memberidedit'];
+              echo $search;
+              } else
+              {
+              echo "0";
+              }           
+            ?>
+            ">Update</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Mark Paid Bulk</a></li>
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form method="post" class="navbar-form navbar-left"
+      action="membershipmanager.php">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Call, Lstname, MemberId">
+          <input type="text" class="form-control" name="Search" placeholder="Call, Lname, MemberID">
         </div>
-        <button type="submit" class="btn btn-default">Search</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
+        </a>
       </form>
     </div>
     <!-- /.navbar-collapse -->

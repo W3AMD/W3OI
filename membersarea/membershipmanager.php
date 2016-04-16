@@ -48,6 +48,25 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   header("Location: ". $MM_restrictGoTo); 
   exit;
 }
+$isID=false;
+mysql_select_db($database_W3OITesting, $W3OITesting);
+if(isset($_POST['Search']))
+{
+   //search is requested need to run this query first to get the member_id
+   $search = $_POST['Search'];
+   //if the search is an integer then we are searching for member id
+   $isID= is_numeric ($search);
+   if(!$isID) {
+	   $query_Recordset1 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR (`lname` LIKE '%$search%')";
+   }
+   else {
+    $query_Recordset1 = "SELECT * FROM members WHERE member_id = $search";
+   }
+   $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+   $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+   $colname_Recordset1 = $row_Recordset1['member_id'];
+   $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+}
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -83,17 +102,30 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Add</a></li>
-            <li><a href="#">Update</a></li>
+            <li><a href="editfromid.php?member_id=
+            <?php
+            if(isset($_POST['memberidedit']))
+             {
+              $search = $_POST['memberidedit'];
+              echo $search;
+              } else
+              {
+              echo "0";
+              }           
+            ?>
+            ">Update</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Mark Paid Bulk</a></li>
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form method="post" class="navbar-form navbar-left"
+      action="membershipmanager.php">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Call, Lstname, MemberId">
+          <input type="text" class="form-control" name="Search" placeholder="Call, Lname, MemberID">
         </div>
-        <button type="submit" class="btn btn-default">Search</button>
+        <button type="submit" class="btn btn-default" id="Submit" >Search</button>
+        </a>
       </form>
     </div>
     <!-- /.navbar-collapse -->
@@ -103,6 +135,60 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <h2>W3OI Member Management Area</h2>
 <h5>Place user instructions here</h5>
+<div class="container">
+<?php
+echo "You searched for: $search which is";
+echo ($isID) ? " an ID." : "n't an ID.";
+echo "<br>";
+?>
+<h4>Number of members found: <?php 
+if($totalRows_Recordset1<1) {
+	echo 'No members found.';
+    return;
+}
+else {
+	echo $totalRows_Recordset1;
+?></h4></div>
+<?php
+}
+do { 
+?>
+<div class="container">
+<form>
+<fieldset><legend>Member ID:</legend>
+<p>Member ID Number: </span><?php echo $row_Recordset1['member_id'];?></p>
+<fieldset><legend>Name Information:</legend>
+  <p>Title: </span><?php echo $row_Recordset1['title'];?></p>
+  <p>First:
+<?php echo $row_Recordset1['fname'];?>    </p>
+  <p>Middle: <?php echo $row_Recordset1['mid'];?></p>
+  <p>Last:
+<?php echo $row_Recordset1['lname'];?></p>
+  <p>Suffix: <?php echo $row_Recordset1['suffix'];?></p>
+</fieldset>
+<fieldset><legend>Contact Information:</legend>
+  <p>Email: <?php echo $row_Recordset1['email'];?>
+  </p>
+  <p>Home Phone: <?php echo $row_Recordset1['hfone'];?></p>
+  <p>Business Phone: <?php echo $row_Recordset1['busfone'];?></p>
+  <p>Unlisted Phone: <?php echo $row_Recordset1['unlfone'];?></p>
+<fieldset><legend>Address Information:</legend>
+  <p>Address: <?php echo $row_Recordset1['addr1'];?><br><?php echo $row_Recordset1['addr2'];?></p>
+  <p>City: <?php echo $row_Recordset1['city'];?></p>
+  <p>State: <?php echo $row_Recordset1['state'];?></p>
+  <p>Zip: <?php echo $row_Recordset1['zip'];?></p>
+  <p>County: <?php echo $row_Recordset1['cnty'];?></p>
+</fieldset>
+<fieldset><legend>License Information:</legend>
+  <p>Callsign: <?php echo $row_Recordset1['fcccall'];?></p>
+  <p>Class: <?php echo $row_Recordset1['class'];?></p>
+</fieldset>
+</form>
+</div>
+<?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+<?php
+mysql_free_result($Recordset1);
+?>
 <!-- InstanceEndEditable -->
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
