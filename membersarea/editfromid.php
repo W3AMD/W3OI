@@ -115,18 +115,6 @@ $colname_Recordset1 = "-1";
 if (isset($_GET['member_id'])) {
   $colname_Recordset1 = $_GET['member_id'];
 }
-mysql_select_db($database_W3OITesting, $W3OITesting);
-//check if direct query for member or search requested
-if(isset($_POST['Search']))
-{
-   //search is requested need to run this query first to get the member_id
-   $search = $_POST['Search'];
-   $query_Recordset1 = "SELECT * FROM members WHERE (`fcccall` LIKE            '%$search%') OR (`lname` LIKE '%$search%') OR `member_id`=$search";
-   $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-   $row_Recordset1 = mysql_fetch_assoc($Recordset1);
-   $colname_Recordset1 = $row_Recordset1['member_id'];
-   $totalRows_Recordset1 = mysql_num_rows($Recordset1);
-}
 
 if( ! function_exists("GetSQLValueString"))
 {
@@ -169,24 +157,23 @@ if(isset($_POST['Search']))
 {
    //search is requested need to run this query first to get the member_id
    $search = $_POST['Search'];
-   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" .
-   "(`lname` LIKE '%$search%')";
-   $Recordset0 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
-   $row_Recordset0 = mysql_fetch_assoc($Recordset0);
-   $colname_Recordset1 = $row_Recordset0['member_id'];
+   $query_Recordset0 = "SELECT * FROM members WHERE (`fcccall` LIKE '%$search%') OR" . "(`lname` LIKE '%$search%')";
 }
 else
 {
    //search by url id given
    if(isset($_GET['member_id']))
    {
-      $colname_Recordset1 = $_GET['member_id'];
+      $memberid = $_GET['member_id'];
+      echo "Get By MemberID: $memberid";
+	  $query_Recordset0 = "SELECT * FROM members WHERE member_id = $memberid";
    }
 }
-$query_Recordset1 = sprintf("SELECT * FROM members WHERE member_id = %s", GetSQLValueString($colname_Recordset1, "int"));
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
+$Recordset1 = mysql_query($query_Recordset0, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$colname_Recordset1 = $row_Recordset0['member_id'];
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+echo "Rows returned: $totalRows_Recordset1";
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -214,12 +201,11 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-      <a class="navbar-brand" href="#">Brand</a></div>
+      <a class="navbar-brand" href="..\index.html">W3OI</a></div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="membersarea.php">Members Area<span class="sr-only">(current)</span></a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Add</a></li>
