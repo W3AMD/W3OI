@@ -174,23 +174,23 @@ do {
   if($currentlastname!=$row_Recordset1['lname']) {
 	  $newfield=true;
   }
-  else $newfield=false;
+  else {
+	  $newfield=false;
+  }
   $currentlastname=$row_Recordset1['lname'];
-  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix']);
-?>
-  <p>
-    <?php
+  echo "<p>";
     if($newfield) {
-    echo "<fieldset><legend>Family: $row_Recordset1['lname']</legend>";
+		echo ("<fieldset><legend>" . $row_Recordset1['lname'] . ": </legend>");
 	}
-	?>
-    <label>
-      <input type="checkbox" name="<?php echo $row_Recordset1['member_id']?>" value="<?php echo $row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix'];?>" id="">
-      Family</label>
-  </p>
-  <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+  echo "<label><input type=\"checkbox\" name=\"" . $row_Recordset1['member_id'] .
+       "\" value=\"" . $row_Recordset1['fname'] . ', ' .
+$row_Recordset1['suffix']. "\">" . $row_Recordset1['fname'];
+if($row_Recordset1['suffix']!=NULL) {
+	echo ', ' . $row_Recordset1['suffix'];
+}
+echo "</label>";
+  echo "</p>";
+  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 <input type="submit" value="Update"></form>
 </form>
 </div>
