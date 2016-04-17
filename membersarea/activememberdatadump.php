@@ -1,3 +1,4 @@
+<?php require_once('../Connections/W3OITesting.php'); ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -43,7 +44,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-<?php require_once('../Connections/W3OITesting.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -115,7 +115,7 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
       <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
       <ul class="dropdown-menu">
         <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="datadump.php">Active Members Data File</a></li>
+        <li role="presentation"><a href="activememberdatadump.php">Active Members Data File</a></li>
         <li role="presentation"><a href="bulkactiveemaillist.php">Recent Email List</a></li>
         <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
         <!--<li role="presentation" class="divider"></li>-->
@@ -190,16 +190,10 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
 $timelastyear=time()-31536000;
 $year = date("Y",$timelastyear);
 $yearfull = $year . '-00-00';
-$select = "SELECT DISTINCT title, fname, mid, lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, hfone, busfone, unlfone, email FROM members, paid  " .
+$select = "SELECT DISTINCT title, fname, mid, lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, hfone, mfone, busfone, unlfone, email FROM members, paid  " .
    "Where (`members`.`member_id` = `paid`.`member_id`) AND " .
    "(year > '$yearfull')" .
    "ORDER BY lname, fname";
-/*
- $findrecords = "select * from members, paid " .
-   "Where (`members`.`member_id` = `paid`.`member_id`) AND " .
-   "(year > '$yearfull') " .
-   "ORDER BY lname, fname, fcccall";
-*/
 $export = mysql_query ( $select ) or die ( "Sql error : " . mysql_error( ) );
 $fields = mysql_num_fields ( $export );
 $eachfield = "";
@@ -213,7 +207,6 @@ for ( $i = 0; $i < $fields; $i++ )
 	}
 }
 $eachfield .= "\n";
-//$eachfield = str_replace( "\t" , ", " , $eachfield);
 while( $row = mysql_fetch_row( $export ) )
 {
     $line = '';
@@ -225,7 +218,6 @@ while( $row = mysql_fetch_row( $export ) )
         }
         else
         {
-            //$value = str_replace( '"' , '""' , $value );
             $value = $value . ", ";
         }
         $line .= $value;
@@ -235,7 +227,7 @@ while( $row = mysql_fetch_row( $export ) )
 $data = str_replace( "\r" , "" , $data );
 //first delete existing file
 $filename="memberdata " . date ('m-d-Y G-i') . ".csv";
-//first delete leftover files from the last use guarenteeing only one file in the directory at a time
+//first delete leftover files from the last use guarantee only one file in the directory at a time
 foreach(glob("memberdata *") as $file)
     {
 	   unlink($file);
