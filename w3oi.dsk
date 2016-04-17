@@ -11,15 +11,20 @@ Count=0
 [OpenFiles]
 Module2=membersarea\membersarea.php
 Module3=membersarea\memberinfo.php
+Module4=membersarea\createfamily.php
 
 [membersarea\membersarea.php]
 Line=0
 Position=0
 
 [membersarea\memberinfo.php]
-Line=44
-Position=29
+Line=0
+Position=0
+
+[membersarea\createfamily.php]
+Line=0
+Position=0
 
 [Status]
-OpenModule=membersarea\memberinfo.php
+OpenModule=membersarea\createfamily.php
 

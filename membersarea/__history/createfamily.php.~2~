@@ -1,5 +1,6 @@
 <?php require_once('../Connections/W3OITesting.php');?>
 <?php
+/*
 if (!isset($_SESSION)) {
   session_start();
 }
@@ -36,6 +37,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   header("Location: ". $MM_restrictGoTo);
   exit;
 }
+*/
 ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
@@ -71,68 +73,49 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
 
-//if a post is received handle it here
-function checkPostArray($array, $W3OITesting){
-  try
-  {
-     $count=0;
-	 $arraysize=count($array);
-	 //check if the array has at least one member but not two
-	 if(($arraysize<2) && ($arraysize>0)) {
-		//there is nothing to do if two members haven't been selected
-		echo "Error: At least two members must be selected to create a family.<br>";
-		return;
-	  }
-	 //check if no post information was given at all
-	 if($arraysize==0) return; //if so exit
-	 //find the maximum family id from the family table
-	 $newfamilyid=0;
-     $query_Recordset2 = "SELECT MAX(family_id) as MaxId FROM family";
-     $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-     $row_Recordset2 = mysql_fetch_assoc($Recordset2);
-	 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
-	 $newfamilyid=$row_Recordset2['MaxId'];
-	 if($newfamilyid==0) {
-	     echo "Error no ID<br>";
-		 exit;
-	  }
-	  $newfamilyid++;
-	  //now create a query to create a new family based on the selected members
-	  /*INSERT INTO table_name (column1, column2, column3,...)
-        VALUES (value1, value2, value3,...) 
-      */
-      $query_Recordset2 = "INSERT INTO family (auto_id, family_id, member_id) VALUES (";
-	  $i=0;
-	  foreach ($array as $key => $value){
-        //first check the array is more than one member there is no family in 1 member
-		//if the count is currently zero we need to get the maximum family id value and add one to it
-		//here the key will be the member_id and the value will be the first name
-		if($i==0) {
-			$query_Recordset2 .= "NULL, $newfamilyid, $key)";
-		}
-		else {
-			$query_Recordset2 .= ", (NULL, $newfamilyid, $key)";
-		}
-		$i++;
-      }
-	  $query_Recordset2 .= ";";
-	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	  echo "Family Created!<br>";
-  }
-  catch (Exception $e) {
-    echo 'Caught exception: ',  $e->getMessage(), "\n";
-  }
-}
-
-checkPostArray($_POST, $W3OITesting);
-
-//remove families already accounted for
 $query_Recordset1 = "SELECT lname, fname, suffix, members.member_id " .
 "FROM members " .
 "GROUP BY lname, fname, suffix";
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$newfamilyid=0;
+
+//if a post is received handle it here
+function checkPostArray($array){
+  try
+  {
+     $count=0;
+	 foreach ($array as $key => $value){
+        //first check the array is more than one member there is no family in 1 member
+	    $arraysize=count($array);
+	 	if($array<2) {
+		//there is nothing to do if two members haven't been selected
+		    echo "Error: At least two members must be selected to create a family.<br>";
+			return;
+		}
+		//if the count is currently zero we need to get the maximum family id value and add one to it
+		if($newfamilyid==0) {
+            $query_Recordset2 = "SELECT MAX(family_id) as MaxId FROM family";
+            $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+            $row_Recordset2 = mysql_fetch_assoc($Recordset2) or die(mysql_error());
+			$newfamilyid=$row_Recordset2['MaxId']+1;
+			echo "New family ID: $newfamilyid<br>";
+			if($newfamilyid==0) {
+			  echo "Error no ID<br>";
+			  exit;
+			}
+		}
+		//here the key will be the member_id and the value will be the first name
+		echo "$key => $value<br>";
+    }
+    }
+    catch Exception ($e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+}
+}
+
+checkPostArray($_POST);
 
 ?>
 <!doctype html>

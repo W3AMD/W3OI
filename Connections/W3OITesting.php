@@ -2,6 +2,7 @@
 # FileName="Connection_php_mysql.htm"
 # Type="MYSQL"
 # HTTP="true"
+//108.2.206.24 or local
 $hostname_W3OITesting = "localhost:3306";
 $database_W3OITesting = "lvarcftp_w3oi";
 $username_W3OITesting = "lvarcftp";
