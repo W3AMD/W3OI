@@ -76,6 +76,69 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 mysql_select_db($database_W3OITesting, $W3OITesting);
+//if a post is received handle it here
+function checkPostArray($array, $W3OITesting){
+  try
+  {
+     //check for empty post information
+	 if(count($array)==0) return;
+	 //post information given start to parse
+	 foreach ($array as $key => $value) {
+    	echo "$key => $value<br>";
+      }
+	  $values="'" . $array["title"] . "', ";
+	  $values.="'" . $array["fname"] . "', ";
+	  $values.="'" . $array["mname"] . "', ";
+	  $values.="'" . $array["lname"] . "', ";
+	  $values.="'" . $array["suffix"] . "', ";
+	  $values.="'" . $array["fcccall"] . "', ";
+	  $values.="'" . $array["class"] . "', ";
+	  $values.="'" . $array["addr1"] . "', ";
+	  $values.="'" . $array["addr2"] . "', ";
+	  $values.="'" . $array["city"] . "', ";
+	  $values.="'" . $array["state"] . "', ";
+	  $values.="'" . $array["county"] . "', ";
+	  $values.="'" . $array["zip"] . "', ";
+	  $values.="'" . $array["email"] . "', ";
+	  $values.="'" . $array["busfone"] . "', ";
+	  $values.="'" . $array["hfone"] . "', ";
+	  $values.="'" . $array["mfone"] . "', ";
+	  $values.="'" . $array["unlfone"] . "', ";
+	  $values.= "'" . date('Y-m-d') . "', ";
+	  $values.="'" . $array["note"] . "'";
+	  $paymenttype=$array["MemType"];
+	  echo "$values<br>";
+	  //create the query to add the new member
+	  $query_Recordset2 = "INSERT INTO members (member_id, title, fname, mid, ".
+	  "lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, email, ".
+      "busfone, hfone, mfone, unlfone,lastupdt, note) VALUES (NULL, $values)";
+      echo "$query_Recordset2<br>";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "New Member Created!<br>";
+	  //add the payment information
+	  //if it's before Oct 1 (the cutoff date) the member is for this year
+	  //otherwise it's for next year
+	  $checkmonth=date('m');
+	  if($checkmonth>=10) {
+	    echo "After October It's next year.<br>";
+	    $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
+	   }
+	  else {
+	    echo "Before October It's this year.<br>";
+	    $paymentyear=date('Y') . "-12-31";
+	  }
+	  $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL, LAST_INSERT_ID(), '$paymentyear', '$paymenttype')";
+      echo "$query_Recordset2<br>";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "Payment information updated!<br>";
+  }
+  catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+  }
+}
+
+checkPostArray($_POST, $W3OITesting);
+
 ?>
 <!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -145,6 +208,92 @@ mysql_select_db($database_W3OITesting, $W3OITesting);
   <!-- /.container-fluid -->
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
+<div class="container">
+<form method="post" action="addmember.php" name="form">
+<fieldset><legend>Member Identification:</legend>
+<p>MemberID: <input type="text" name="member_id" readonly value="NULL"></p></fieldset>
+<fieldset><legend>Name Information:</legend>
+  <p>Title: <input type="text" name="title" value=""></p>
+  <p>First name:
+    <input name="fname" type="text" value="">
+  </p>
+  <p>Middle: 
+    <input type="text" name="mname" value="">
+  </p>
+  <p>Last:
+    <input type="text" name="lname" value="">
+  </p>
+  <p>Suffix: 
+    <input type="text" name="suffix" value="">
+  </p>
+</fieldset>
+<fieldset><legend>Contact Information:</legend>
+  <p>Email: 
+    <input type="email" name="email" value="">
+  </p>
+  <p>Home Phone: 
+   <input type="tel" name="hfone" value="">
+  </p>
+  <p>Mobile Phone: 
+   <input type="tel" name="mfone" value="">
+  </p>
+  <p>Business Phone: 
+    <input type="tel" name="busfone" value="">
+  </p>
+  <p>Unlisted Phone: 
+    <input type="tel" name="unlfone" value="">
+  </p>
+<fieldset><legend>Address Information:</legend>
+  <p>Address1: 
+    <input type="text" name="addr1" value=""><br></p>
+  <p>Address2:  <input type="text" name="addr2" value="">
+    <br>
+  </p>
+  <p>City: 
+    <input type="text" name="city" value="">
+  </p>
+  <p>State: 
+    <input type="text" name="state" value="PA">
+  </p>
+  <p>Zip: 
+    <input type="text" name="zip" value="">
+  </p>
+  <p>County: 
+    <input type="text" name="county" value="Lehigh">
+  </p>
+</fieldset>
+<fieldset><legend>License Information:</legend>
+  <p>Callsign: 
+    <input type="text" name="fcccall" value="">
+  </p>
+  <p>Class: 
+    <input type="text" name="fccclass" value="T">
+  </p>
+</fieldset>
+<fieldset><legend>Notes:</legend>
+  <p>Note: 
+    <input type="text" name="note" value="">
+  </p>
+</fieldset>
+<p>
+    <label>
+      <input type="radio" name="MemType" value="R" id="">
+      Regular</label>
+    <label>
+      <input type="radio" name="MemType" value="F" id="">
+      Family</label>
+    <label>
+      <input type="radio" name="MemType" value="A" id="">
+      Associate</label>
+    <label>
+      <input type="radio" name="MemType" value="L" id="">
+      Lifetime</label>
+</p>
+<input type="submit" value="Add"></form>
+</div>
+<?php
+mysql_free_result($Recordset1);
+?>
 <!-- InstanceEndEditable -->
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>

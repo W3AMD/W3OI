@@ -40,6 +40,8 @@ function displayCallAndQRZLink($row, $displayaslink = true)
 function displayMemberIcon($row)
 {
    //do this only if an image file exists
+   //TODO: This needs to be changed to the member ID if the member doesn't have
+   // a callsign - JMB 04/17/16
    $callsign = $row['fcccall'];
    $fulldir/*$dir . */ = '../members/images/thumbs/';
 
