@@ -1,14 +1,14 @@
 <!doctype html>
-<html>
+<html><!-- InstanceBegin template="/Templates/W3OIMemAreaNavTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta charset="utf-8">
-<!-- TemplateBeginEditable name="doctitle" -->
+<!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled Document</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
 <!-- <link href="file:///C|/Users/John/Documents/HTML5 Builder/Projects/W3OI/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 <link href="../css/bootstrap-3.3.6.css" rel="stylesheet" type="text/css">
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -61,9 +61,9 @@
 <script src="../js/jquery-1.11.3.min.js"></script>
 <!-- <script src="file:///C|/Users/John/AppData/Roaming/Adobe/Dreamweaver CC 2015/en_US/Configuration/Temp/Assets/eam4A93.tmp/js/bootstrap.js"></script> -->
 <script src="../js/bootstrap-3.3.6.js"></script>
-<!-- TemplateBeginEditable name="EditRegion3" -->
+<!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 </div>
-<!-- TemplateEndEditable -->
+<!-- InstanceEndEditable -->
 </body>
-</html>
+<!-- InstanceEnd --></html>

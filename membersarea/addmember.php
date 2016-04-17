@@ -3,8 +3,8 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-$MM_authorizedUsers = "5";
-$MM_donotCheckaccess = "false";
+$MM_authorizedUsers = "";
+$MM_donotCheckaccess = "true";
 
 // *** Restrict Access To Page: Grant or deny access to this page
 function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
@@ -18,21 +18,16 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
     // Parse the strings into arrays. 
     $arrUsers = Explode(",", $strUsers); 
     $arrGroups = Explode(",", $strGroups); 
-    /*if (in_array($UserName, $arrUsers)) { 
+    if (in_array($UserName, $arrUsers)) { 
       $isValid = true; 
     } 
     // Or, you may restrict access to only certain users based on their username. 
     if (in_array($UserGroup, $arrGroups)) { 
       $isValid = true; 
     } 
-    */
-	if(($UserName=='w3oitreasury')) {
-	  $isValid = true; 
-    }
-	/*
-	if (($strUsers == "") && true) { 
+    if (($strUsers == "") && true) { 
       $isValid = true; 
-    } */ 
+    } 
   } 
   return $isValid; 
 }
@@ -80,58 +75,79 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   return $theValue;
 }
 }
-
 mysql_select_db($database_W3OITesting, $W3OITesting);
-
-/* target query example
-this gets all the last payment records from members active at least in the 
-last 3 years
-SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
-FROM members
-INNER JOIN
-    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
-    FROM paid
-    GROUP BY paid.member_id) groupedpaid 
-ON members.member_id = groupedpaid.member_id
-Where (MaxDateTime < '2016-12-31') AND
-(MaxDateTime >= '2013-12-31')*/
-$yearnow = date("Y").'-12-31';
-$yearrecent = date("Y",strtotime('-1 year')).'-12-31';
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
-"FROM members " .
-"INNER JOIN " .
-    "(SELECT paid.member_id, MAX(paid.year) AS MaxDateTime " .
-    "FROM paid " .
-    "GROUP BY paid.member_id) groupedpaid ".
-    "ON members.member_id = groupedpaid.member_id " .
-"Where (MaxDateTime < '$yearnow') AND ".
-"(MaxDateTime >= '$yearrecent')" .
-"ORDER BY lname, fname, suffix, fcccall";
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-
 //if a post is received handle it here
-function getPostArray($array){
-     foreach ($array as $key => $value){
-        echo "$key => $value<br>";
-        if(is_array($value)){ //If $value is an array, get it also
-            getPostArray($value);
-        }  
-    } 
+function checkPostArray($array, $W3OITesting){
+  try
+  {
+     //check for empty post information
+	 if(count($array)==0) return;
+	 //post information given start to parse
+	 foreach ($array as $key => $value) {
+    	echo "$key => $value<br>";
+      }
+	  $values="'" . $array["title"] . "', ";
+	  $values.="'" . $array["fname"] . "', ";
+	  $values.="'" . $array["mname"] . "', ";
+	  $values.="'" . $array["lname"] . "', ";
+	  $values.="'" . $array["suffix"] . "', ";
+	  $values.="'" . $array["fcccall"] . "', ";
+	  $values.="'" . $array["class"] . "', ";
+	  $values.="'" . $array["addr1"] . "', ";
+	  $values.="'" . $array["addr2"] . "', ";
+	  $values.="'" . $array["city"] . "', ";
+	  $values.="'" . $array["state"] . "', ";
+	  $values.="'" . $array["county"] . "', ";
+	  $values.="'" . $array["zip"] . "', ";
+	  $values.="'" . $array["email"] . "', ";
+	  $values.="'" . $array["busfone"] . "', ";
+	  $values.="'" . $array["hfone"] . "', ";
+	  $values.="'" . $array["mfone"] . "', ";
+	  $values.="'" . $array["unlfone"] . "', ";
+	  $values.= "'" . date('Y-m-d') . "', ";
+	  $values.="'" . $array["note"] . "'";
+	  $paymenttype=$array["MemType"];
+	  echo "$values<br>";
+	  //create the query to add the new member
+	  $query_Recordset2 = "INSERT INTO members (member_id, title, fname, mid, ".
+	  "lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, email, ".
+      "busfone, hfone, mfone, unlfone,lastupdt, note) VALUES (NULL, $values)";
+      echo "$query_Recordset2<br>";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "New Member Created!<br>";
+	  //add the payment information
+	  //if it's before Oct 1 (the cutoff date) the member is for this year
+	  //otherwise it's for next year
+	  $checkmonth=date('m');
+	  if($checkmonth>=10) {
+	    echo "After October It's next year.<br>";
+	    $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
+	   }
+	  else {
+	    echo "Before October It's this year.<br>";
+	    $paymentyear=date('Y') . "-12-31";
+	  }
+	  $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL, LAST_INSERT_ID(), '$paymentyear', '$paymenttype')";
+      echo "$query_Recordset2<br>";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "Payment information updated!<br>";
+  }
+  catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+  }
 }
 
-getPostArray($_POST);
+checkPostArray($_POST, $W3OITesting);
 
 ?>
-</html><!doctype html>
+<!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bulk Payment Updates</title>
+<title>Add Member</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -193,29 +209,87 @@ getPostArray($_POST);
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-  <form method="post" action="markpaidbulk.php">
-  <?php 
-do { 
-  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
-?>
-  <p>
+<form method="post" action="addmember.php" name="form">
+<fieldset><legend>Member Identification:</legend>
+<p>MemberID: <input type="text" name="member_id" readonly value="NULL"></p></fieldset>
+<fieldset><legend>Name Information:</legend>
+  <p>Title: <input type="text" name="title" value=""></p>
+  <p>First name:
+    <input name="fname" type="text" value="">
+  </p>
+  <p>Middle: 
+    <input type="text" name="mname" value="">
+  </p>
+  <p>Last:
+    <input type="text" name="lname" value="">
+  </p>
+  <p>Suffix: 
+    <input type="text" name="suffix" value="">
+  </p>
+</fieldset>
+<fieldset><legend>Contact Information:</legend>
+  <p>Email: 
+    <input type="email" name="email" value="">
+  </p>
+  <p>Home Phone: 
+   <input type="tel" name="hfone" value="">
+  </p>
+  <p>Mobile Phone: 
+   <input type="tel" name="mfone" value="">
+  </p>
+  <p>Business Phone: 
+    <input type="tel" name="busfone" value="">
+  </p>
+  <p>Unlisted Phone: 
+    <input type="tel" name="unlfone" value="">
+  </p>
+<fieldset><legend>Address Information:</legend>
+  <p>Address1: 
+    <input type="text" name="addr1" value=""><br></p>
+  <p>Address2:  <input type="text" name="addr2" value="">
+    <br>
+  </p>
+  <p>City: 
+    <input type="text" name="city" value="">
+  </p>
+  <p>State: 
+    <input type="text" name="state" value="PA">
+  </p>
+  <p>Zip: 
+    <input type="text" name="zip" value="">
+  </p>
+  <p>County: 
+    <input type="text" name="county" value="Lehigh">
+  </p>
+</fieldset>
+<fieldset><legend>License Information:</legend>
+  <p>Callsign: 
+    <input type="text" name="fcccall" value="">
+  </p>
+  <p>Class: 
+    <input type="text" name="fccclass" value="T">
+  </p>
+</fieldset>
+<fieldset><legend>Notes:</legend>
+  <p>Note: 
+    <input type="text" name="note" value="">
+  </p>
+</fieldset>
+<p>
     <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="R" id="">
+      <input type="radio" name="MemType" value="R" id="">
       Regular</label>
     <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="F" id="">
+      <input type="radio" name="MemType" value="F" id="">
       Family</label>
     <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="A" id="">
+      <input type="radio" name="MemType" value="A" id="">
       Associate</label>
     <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="L" id="">
+      <input type="radio" name="MemType" value="L" id="">
       Lifetime</label>
-  </p>
-  <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
-<input type="submit" value="Update"></form>
-</form>
+</p>
+<input type="submit" value="Add"></form>
 </div>
 <?php
 mysql_free_result($Recordset1);

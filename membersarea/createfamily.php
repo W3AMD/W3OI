@@ -1,4 +1,4 @@
-<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php require_once('../Connections/W3OITesting.php');?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -7,51 +7,39 @@ $MM_authorizedUsers = "5";
 $MM_donotCheckaccess = "false";
 
 // *** Restrict Access To Page: Grant or deny access to this page
-function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
-  // For security, start by assuming the visitor is NOT authorized. 
-  $isValid = False; 
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
+  // For security, start by assuming the visitor is NOT authorized.
+  $isValid = False;
 
-  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
-  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
-  if (!empty($UserName)) { 
-    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
-    // Parse the strings into arrays. 
-    $arrUsers = Explode(",", $strUsers); 
-    $arrGroups = Explode(",", $strGroups); 
-    /*if (in_array($UserName, $arrUsers)) { 
-      $isValid = true; 
-    } 
-    // Or, you may restrict access to only certain users based on their username. 
-    if (in_array($UserGroup, $arrGroups)) { 
-      $isValid = true; 
-    } 
-    */
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username.
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank.
+  if (!empty($UserName)) {
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login.
+    // Parse the strings into arrays.
+    $arrUsers = Explode(",", $strUsers);
+    $arrGroups = Explode(",", $strGroups);
 	if(($UserName=='w3oitreasury')) {
-	  $isValid = true; 
+	  $isValid = true;
     }
-	/*
-	if (($strUsers == "") && true) { 
-      $isValid = true; 
-    } */ 
-  } 
-  return $isValid; 
+  }
+  return $isValid;
 }
 
 $MM_restrictGoTo = "login.php";
-if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {
   $MM_qsChar = "?";
   $MM_referrer = $_SERVER['PHP_SELF'];
   if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
-  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0)
   $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
   $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
-  header("Location: ". $MM_restrictGoTo); 
+  header("Location: ". $MM_restrictGoTo);
   exit;
 }
 ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
@@ -62,7 +50,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -83,55 +71,78 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
 
-/* target query example
-this gets all the last payment records from members active at least in the 
-last 3 years
-SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
-FROM members
-INNER JOIN
-    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
-    FROM paid
-    GROUP BY paid.member_id) groupedpaid 
-ON members.member_id = groupedpaid.member_id
-Where (MaxDateTime < '2016-12-31') AND
-(MaxDateTime >= '2013-12-31')*/
-$yearnow = date("Y").'-12-31';
-$yearrecent = date("Y",strtotime('-1 year')).'-12-31';
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
+//if a post is received handle it here
+function checkPostArray($array, $W3OITesting){
+  try
+  {
+     $count=0;
+	 $arraysize=count($array);
+	 //check if the array has at least one member but not two
+	 if(($arraysize<2) && ($arraysize>0)) {
+		//there is nothing to do if two members haven't been selected
+		echo "Error: At least two members must be selected to create a family.<br>";
+		return;
+	  }
+	 //check if no post information was given at all
+	 if($arraysize==0) return; //if so exit
+	 //find the maximum family id from the family table
+	 $newfamilyid=0;
+     $query_Recordset2 = "SELECT MAX(family_id) as MaxId FROM family";
+     $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+     $row_Recordset2 = mysql_fetch_assoc($Recordset2);
+	 $totalRows_Recordset2 = mysql_num_rows($Recordset2);
+	 $newfamilyid=$row_Recordset2['MaxId'];
+	 if($newfamilyid==0) {
+	     echo "Error no ID<br>";
+		 exit;
+	  }
+	  $newfamilyid++;
+	  //now create a query to create a new family based on the selected members
+	  /*INSERT INTO table_name (column1, column2, column3,...)
+        VALUES (value1, value2, value3,...) 
+      */
+      $query_Recordset2 = "INSERT INTO family (auto_id, family_id, member_id) VALUES (";
+	  $i=0;
+	  foreach ($array as $key => $value){
+        //first check the array is more than one member there is no family in 1 member
+		//if the count is currently zero we need to get the maximum family id value and add one to it
+		//here the key will be the member_id and the value will be the first name
+		if($i==0) {
+			$query_Recordset2 .= "NULL, $newfamilyid, $key)";
+		}
+		else {
+			$query_Recordset2 .= ", (NULL, $newfamilyid, $key)";
+		}
+		$i++;
+      }
+	  $query_Recordset2 .= ";";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "Family Created!<br>";
+  }
+  catch (Exception $e) {
+    echo 'Caught exception: ',  $e->getMessage(), "\n";
+  }
+}
+
+checkPostArray($_POST, $W3OITesting);
+
+//remove families already accounted for
+$query_Recordset1 = "SELECT lname, fname, suffix, members.member_id " .
 "FROM members " .
-"INNER JOIN " .
-    "(SELECT paid.member_id, MAX(paid.year) AS MaxDateTime " .
-    "FROM paid " .
-    "GROUP BY paid.member_id) groupedpaid ".
-    "ON members.member_id = groupedpaid.member_id " .
-"Where (MaxDateTime < '$yearnow') AND ".
-"(MaxDateTime >= '$yearrecent')" .
-"ORDER BY lname, fname, suffix, fcccall";
+"GROUP BY lname, fname, suffix";
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 
-//if a post is received handle it here
-function getPostArray($array){
-     foreach ($array as $key => $value){
-        echo "$key => $value<br>";
-        if(is_array($value)){ //If $value is an array, get it also
-            getPostArray($value);
-        }  
-    } 
-}
-
-getPostArray($_POST);
-
 ?>
-</html><!doctype html>
+<!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bulk Payment Updates</title>
+<title>Create Family</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -161,7 +172,7 @@ getPostArray($_POST);
             <?php
             if($isID) {
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
-             }          
+             }
             ?>
             <li><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
@@ -193,27 +204,30 @@ getPostArray($_POST);
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
-  <form method="post" action="markpaidbulk.php">
-  <?php 
-do { 
-  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
-?>
-  <p>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="R" id="">
-      Regular</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="F" id="">
-      Family</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="A" id="">
-      Associate</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="L" id="">
-      Lifetime</label>
-  </p>
-  <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
+  <form method="post" action="createfamily.php">
+  <?php
+$currentlastname='';
+do {
+  if($currentlastname!=$row_Recordset1['lname']) {
+	  $newfield=true;
+  }
+  else {
+	  $newfield=false;
+  }
+  $currentlastname=$row_Recordset1['lname'];
+  echo "<p>";
+    if($newfield) {
+		echo ("<fieldset><legend>" . $row_Recordset1['lname'] . ": </legend>");
+	}
+  echo "<label><input type=\"checkbox\" name=\"" . $row_Recordset1['member_id'] .
+       "\" value=\"" . $row_Recordset1['fname'] . ', ' .
+$row_Recordset1['suffix']. "\">" . $row_Recordset1['fname'];
+if($row_Recordset1['suffix']!=NULL) {
+	echo ', ' . $row_Recordset1['suffix'];
+}
+echo "</label>";
+  echo "</p>";
+  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 <input type="submit" value="Update"></form>
 </form>
 </div>

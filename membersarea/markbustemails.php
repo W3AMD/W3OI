@@ -1,4 +1,4 @@
-<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php require_once('../Connections/W3OITesting.php');?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -49,89 +49,14 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
   exit;
 }
 ?>
-<?php
-if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
-{
-  if (PHP_VERSION < 6) {
-    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-  }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
-  switch ($theType) {
-    case "text":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
-    case "long":
-    case "int":
-      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
-      break;
-    case "double":
-      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
-      break;
-    case "date":
-      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;
-    case "defined":
-      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
-      break;
-  }
-  return $theValue;
-}
-}
-
-mysql_select_db($database_W3OITesting, $W3OITesting);
-
-/* target query example
-this gets all the last payment records from members active at least in the 
-last 3 years
-SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
-FROM members
-INNER JOIN
-    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
-    FROM paid
-    GROUP BY paid.member_id) groupedpaid 
-ON members.member_id = groupedpaid.member_id
-Where (MaxDateTime < '2016-12-31') AND
-(MaxDateTime >= '2013-12-31')*/
-$yearnow = date("Y").'-12-31';
-$yearrecent = date("Y",strtotime('-1 year')).'-12-31';
-$query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
-"FROM members " .
-"INNER JOIN " .
-    "(SELECT paid.member_id, MAX(paid.year) AS MaxDateTime " .
-    "FROM paid " .
-    "GROUP BY paid.member_id) groupedpaid ".
-    "ON members.member_id = groupedpaid.member_id " .
-"Where (MaxDateTime < '$yearnow') AND ".
-"(MaxDateTime >= '$yearrecent')" .
-"ORDER BY lname, fname, suffix, fcccall";
-$Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-
-//if a post is received handle it here
-function getPostArray($array){
-     foreach ($array as $key => $value){
-        echo "$key => $value<br>";
-        if(is_array($value)){ //If $value is an array, get it also
-            getPostArray($value);
-        }  
-    } 
-}
-
-getPostArray($_POST);
-
-?>
-</html><!doctype html>
+<!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta charset="utf-8">
 <!-- InstanceBeginEditable name="doctitle" -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bulk Payment Updates</title>
+<title>Mark Bust Emails</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -192,34 +117,6 @@ getPostArray($_POST);
   <!-- /.container-fluid -->
 </nav>
 <!-- InstanceBeginEditable name="EditRegion3" -->
-<div class="container">
-  <form method="post" action="markpaidbulk.php">
-  <?php 
-do { 
-  echo ($row_Recordset1['lname'] . ', ' . $row_Recordset1['fname'] . ', ' .
-$row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
-?>
-  <p>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="R" id="">
-      Regular</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="F" id="">
-      Family</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="A" id="">
-      Associate</label>
-    <label>
-      <input type="radio" name="<?php echo $row_Recordset1['member_id']?>" value="L" id="">
-      Lifetime</label>
-  </p>
-  <?php  } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
-<input type="submit" value="Update"></form>
-</form>
-</div>
-<?php
-mysql_free_result($Recordset1);
-?>
 <!-- InstanceEndEditable -->
 <script src="../js/jquery-1.11.3.min.js"></script>
 <script src="../js/bootstrap.js"></script>
