@@ -116,65 +116,26 @@ echo "Active Member ($lastyear/$thisyear) Email List";
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-      <a class="navbar-brand" href="membersarea.php">W3OI Members Area</a></div>
+      <a class="navbar-brand" href="http://www.w3oi.org">W3OI</a></div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="activememberdatadump.php">Active Members Data File</a></li>
-        <li role="presentation"><a href="bulkactiveemaillist.php">Recent Email List</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>
-    <?php if(isset($_GET['Treasury'])) {
-	echo ('<div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Treasury Reports<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li role="presentation"><a href="#">Valid Email List</a></li>
-        <li role="presentation"><a href="#">Busted Email List</a></li>
-        <li role="presentation"><a href="#">BoG Email List</a></li>
-        <li role="presentation"><a href="#">BoG Home Phone List</a></li>
-        <li role="presentation"><a href="#">BoG Data List</a></li>
-        <li role="presentation"><a href="#">Need Badges or Cards List</a></li>
-        <li role="presentation"><a href="#">Associate Members List</a></li>
-        <li role="presentation"><a href="#">Paid Members List</a></li>
-        <li role="presentation"><a href="#">Address Labels List</a></li>
-        <li role="presentation"><a href="#">Overdue Members List</a></li>
-        <li role="presentation"><a href="#">Clear Card And Badges Fields</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Member Editor<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <!--<li role="presentation" class="dropdown-header">Members List</li>-->
-        <li role="presentation"><a href="#">Add</a></li>
-        <li role="presentation"><a href="../membersarea/memberinfoeditor.php">Update</a></li>
-        <li role="presentation"><a href="#">Add Paid Records</a></li>
-        <!--<li role="presentation" class="disabled"><a href="#">Disabled Link</a></li>-->
-        <!--<li role="presentation" class="divider"></li>-->
-        <!--<li role="presentation"><a href="#">Separated Link</a></li>-->
-      </ul>
-    </div>');
-    }
-    ?>
-    <?php if(isset($_GET['Board'])) {
-	echo ('<div class="btn-group">
-      <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board Functions<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li role="presentation"><a href="#">Send Bulk Email</a></li>
-      </ul>
-    </div>');
-    }
-    ?>
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
-      <ul class="nav navbar-nav navbar-right">
-      <form method="post" class="navbar-form navbar-left"
+     <ul class="nav navbar-nav">
+        <li class="inactive"><a href="membersarea.php">Members Area<span class="sr-only"></span></a></li>
+        <li class="dropdown"><a href="membershipmanagerhome.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li role="presentation"><a href="activememberdatadump.php">Active Members Data File</a></li>
+            <li role="presentation"><a href="bulkactiveemaillist.php">Recent Email List</a></li>
+            <!--
+            <li role="separator" class="divider"></li>
+            <li><a href="sendofficersemail.php">Send Officers Email</a></li>
+            <li><a href="sendboardemail.php">Send Board Email</a></li>
+            <li><a href="sendofficersboardemail.php">Send Officers / Board Email</a></li>
+            <li><a href="sendbulkclubemail.php">Send Bulk Club Email</a></li>
+            -->
+          </ul>
+        </li>
+     </ul>
+    <form method="post" class="navbar-form navbar-left"
       action="memberinfo.php">
         <div class="form-group">
           <input type="text" class="form-control" name="Search" placeholder="Callsign or Lastname">
@@ -182,7 +143,7 @@ echo "Active Member ($lastyear/$thisyear) Email List";
         <button type="submit" class="btn btn-default" id="Submit" >Search</button>
         </a>
       </form>
-      </ul>
+      </div>
     </div>
     <!-- /.navbar-collapse -->
   </div>

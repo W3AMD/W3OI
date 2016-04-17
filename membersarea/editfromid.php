@@ -194,7 +194,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="topFixedNavbar1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="membersarea.php">Members Area<span class="sr-only"></span></a></li>
+        <li class="inactive"><a href="membersarea.php">Members Area<span class="sr-only"></span></a></li>
         <li class="dropdown"><a href="membershipmanagerhome.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Edit<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="addmember.php">Add</a></li>
@@ -210,7 +210,9 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
             <li><a href="createfamily.php">Create Family</a></li>
             <li><a href="editfamily.php">Edit Family</a></li>
             <li><a href="viewfamilies.php">View Families</a></li>
-            <li><a href="removefamily.php">Remove Family</a></li>
+            <li><a href="removefamily.php">Disband Family</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="markbustemails.php">Mark Bust Emails</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="membershiptrends.php">Membership Trends</a></li>
           </ul>
