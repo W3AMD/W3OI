@@ -106,25 +106,24 @@ function checkPostArray($array, $W3OITesting){
 	  $values.="'" . $array["unlfone"] . "', ";
 	  $values.= "'" . date('Y-m-d') . "', ";
 	  $values.="'" . $array["note"] . "'";
-	  $paymenttype=$array["MemType"];
 	  echo "$values<br>";
 	  //create the query to add the new member
 	  $query_Recordset2 = "INSERT INTO members (member_id, title, fname, mid, ".
 	  "lname, suffix, fcccall, class, addr1, addr2, city, state, zip, cnty, email, ".
       "busfone, hfone, mfone, unlfone,lastupdt, note) VALUES (NULL, $values)";
-      echo "$query_Recordset2<br>";
-	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+      mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
 	  echo "New Member Created!<br>";
 	  //add the payment information
 	  //if it's before Oct 1 (the cutoff date) the member is for this year
 	  //otherwise it's for next year
+	  $paymenttype=$array["MemType"];
 	  $checkmonth=date('m');
 	  if($checkmonth>=10) {
-	    echo "After October It's next year.<br>";
+	    echo "After October payments are for next year.<br>";
 	    $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
 	   }
 	  else {
-	    echo "Before October It's this year.<br>";
+	    echo "Before October payment is for this year.<br>";
 	    $paymentyear=date('Y') . "-12-31";
 	  }
 	  $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL, LAST_INSERT_ID(), '$paymentyear', '$paymenttype')";

@@ -67,6 +67,9 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
       break;
+    case "bool":
+      $theValue = ($theValue != "") ? intval(1) : intval(0);
+      break;
     case "double":
       $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
       break;
@@ -87,7 +90,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
-  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, mfone=%s, unlfone=%s WHERE member_id=%s",
+  //get todays date for the last record update
+  $today=date('Y-m-d');
+  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, mfone=%s, unlfone=%s, note=%s, silentkey=%s, ndbdg=%s, ndcard=%s, lastupdt=%s WHERE member_id=%s",
                        GetSQLValueString($_POST['fname'], "text"),
                        GetSQLValueString($_POST['mname'], "text"),
                        GetSQLValueString($_POST['lname'], "text"),
@@ -106,12 +111,35 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
                        GetSQLValueString($_POST['hfone'], "text"),
                        GetSQLValueString($_POST['mfone'], "text"),
                        GetSQLValueString($_POST['unlfone'], "text"),
+                       GetSQLValueString($_POST['note'], "text"),
+                       GetSQLValueString($_POST['skey'], "bool"),
+                       GetSQLValueString($_POST['needbadge'], "bool"),
+                       GetSQLValueString($_POST['needcard'], "bool"),
+                       GetSQLValueString($today, "text"),
                        GetSQLValueString($_POST['member_id'], "int"));
 
   mysql_select_db($database_W3OITesting, $W3OITesting);
   $Result1 = mysql_query($updateSQL, $W3OITesting) or die(mysql_error());
-}
+  //add the payment information
+  //if it's before Oct 1 (the cutoff date) the member is for this year
+  //otherwise it's for next year
+  $paymenttype=$array["MemType"];
+  $checkmonth=date('m');
+  if($checkmonth>=10) {
+	    echo "After October payments are for next year.<br>";
+	    $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
+	   }
+  else {
+	    echo "Before October payment is for this year.<br>";
+	    $paymentyear=date('Y') . "-12-31";
+	  }
+  $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL," . 
+      GetSQLValueString($_POST['member_id'], "int") . " '$paymentyear', '$paymenttype')";
+      echo "$query_Recordset2<br>";
+	  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  echo "Payment information updated!<br>";
 
+}
 $colname_Recordset1 = "-1";
 if (isset($_GET['member_id'])) {
   $colname_Recordset1 = $_GET['member_id'];
@@ -299,6 +327,41 @@ exit;
   <p>Class: 
     <input type="text" name="fccclass" value="<?php echo $row_Recordset1['class']; ?>">
   </p>
+</fieldset>
+<fieldset><legend>Notes:</legend>
+  <p>Note: 
+    <input type="text" name="note" value="<?php echo $row_Recordset1['note']; ?>">
+  </p>
+  <p> 
+    <input type="checkbox" name="skey" value="silentkey"<?php
+    if($row_Recordset1['silentkey']==1)
+	echo "checked";?>>Silent Key
+  </p>
+  <p> 
+    <input type="checkbox" name="needbadge" value="needbadge"<?php
+    if($row_Recordset1['ndbdg']==1)
+	echo "checked";?>>Needs Badge
+  </p>
+  <p> 
+    <input type="checkbox" name="needcard" value="needcard"<?php
+    if($row_Recordset1['ndcard']==1)
+	echo "checked";?>>Needs Member Card
+  </p>
+</fieldset>
+<fieldset><legend>Add Payment:</legend><p>
+   <label>
+      <input type="radio" name="MemType" value="R" id="">
+      Regular</label>
+   <label>
+      <input type="radio" name="MemType" value="F" id="">
+      Family</label>
+   <label>
+      <input type="radio" name="MemType" value="A" id="">
+      Associate</label>
+   <label>
+      <input type="radio" name="MemType" value="L" id="">
+      Lifetime</label>
+</p>
 </fieldset>
 <input type="hidden" name="MM_update" value="form">
 <input type="submit" value="Update"></form>
