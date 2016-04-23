@@ -167,12 +167,6 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
             <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="./training/addmember.php">Adding A Member</a></li>
-            <li><a href="./training/editmember.php">Editing Members</a></li>
-          </ul>
-        </li>
       </ul>
       <form method="post" class="navbar-form navbar-left"
       action="membershipmanager.php">

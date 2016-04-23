@@ -125,12 +125,6 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Training<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="./training/addmember.php">Adding A Member</a></li>
-            <li><a href="./training/editmember.php">Editing Members</a></li>
-          </ul>
-        </li>
       </ul>
       <form method="post" class="navbar-form navbar-left"
       action="membershipmanager.php">
@@ -148,7 +142,28 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 <h2>W3OI Member Management Area</h2>
-<h5>Place user instructions here</h5>
+<h4>Adding a member</h4>
+<p>
+To add a member go to the member edit menu above and select the Add drop down menu item. Fill out the required fields as necessary and select the member type. Press the Add button on the bottom of the form and the member will be added to the database and the payment information will be updated based on the selection.
+</p>
+<p>
+Adding a member with payment information will automatically place the member on the W3OI site under the membership roster.
+</p>
+<h4>Editing a member</h4>
+<p>
+To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box and then select Member Edit -> Update. 
+</p>
+<p>
+Enter the updated information into the fields and press the Update button. If payment information needs to be updated you can also optionally select the member payment type. </p>
+<h4>Creating a family</h4>
+<p>
+To create a family select the Member Edit -> Create Family menu item from the top navigation. Select the members from the list which should be in this family and then press the update button at the bottom.
+</p>
+Creating a family gives the added benefit of automatically updating payment information for the family as a whole. For example, editing any one member of a family and adding a payment type of 'Family' will automatically update payment records for all other members in this family.
+<h4>Viewing a family</h4>
+<p>
+With the View Family menu item chosen this will give you a list of all the W3OI family associations in the database.
+</p>
 </div>
 <!-- InstanceEndEditable -->
 <script src="../js/jquery-1.11.3.min.js"></script>
