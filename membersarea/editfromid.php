@@ -67,6 +67,9 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
       break;
+    case "bool":
+      $theValue = ($theValue != "") ? intval(1) : intval(0);
+      break;
     case "double":
       $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
       break;
@@ -87,7 +90,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
-  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, mfone=%s, unlfone=%s WHERE member_id=%s",
+  //get todays date for the last record update
+  $today=date('Y-m-d');
+  $updateSQL = sprintf("UPDATE members SET fname=%s, mid=%s, lname=%s, title=%s, suffix=%s, fcccall=%s, `class`=%s, addr1=%s, addr2=%s, city=%s, `state`=%s, zip=%s, cnty=%s, email=%s, busfone=%s, hfone=%s, mfone=%s, unlfone=%s, note=%s, silentkey=%s, ndbdg=%s, ndcard=%s, lastupdt=%s WHERE member_id=%s",
                        GetSQLValueString($_POST['fname'], "text"),
                        GetSQLValueString($_POST['mname'], "text"),
                        GetSQLValueString($_POST['lname'], "text"),
@@ -106,12 +111,78 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
                        GetSQLValueString($_POST['hfone'], "text"),
                        GetSQLValueString($_POST['mfone'], "text"),
                        GetSQLValueString($_POST['unlfone'], "text"),
+                       GetSQLValueString($_POST['note'], "text"),
+                       GetSQLValueString($_POST['skey'], "bool"),
+                       GetSQLValueString($_POST['needbadge'], "bool"),
+                       GetSQLValueString($_POST['needcard'], "bool"),
+                       GetSQLValueString($today, "text"),
                        GetSQLValueString($_POST['member_id'], "int"));
 
   mysql_select_db($database_W3OITesting, $W3OITesting);
   $Result1 = mysql_query($updateSQL, $W3OITesting) or die(mysql_error());
+  $paymenttype=$_POST['MemType'];
+  if($paymenttype!='') {
+		 //add the payment information
+         //if it's before Oct 1 (the cutoff date) the member is for this year
+         //otherwise it's for next year
+         $checkmonth=date('m');
+         if($checkmonth>=10) {
+	       //echo "After October payments are for next year.<br>";
+	       $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
+	      }
+         else {
+	       //echo "Before October payment is for this year.<br>";
+	       $paymentyear=date('Y') . "-12-31";
+	     }
+	  //check if a payment record already exists for this year
+      $query_Recordset2 = "SELECT * From paid where member_id = " .
+	  GetSQLValueString($_POST['member_id'], "int") . " AND year = '" .
+	  $paymentyear . "'";
+	  $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	  $totalRows_Recordset2 = mysql_num_rows($Recordset2);
+      if($totalRows_Recordset2>0) {
+	      echo "Payment information already exists for $paymentyear!<br>";
+	  }
+	  else {
+        //check if this member is part of a family if so update all family members payments
+        //run the query to find out if this member is in a family
+		$query_Recordset2 = "SELECT * From family where member_id = " .
+	    GetSQLValueString($_POST['member_id'], "int");
+	    $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	    $totalRows_Recordset2 = mysql_num_rows($Recordset2);
+        $row_Recordset2 = mysql_fetch_assoc($Recordset2);
+        $familyid = $row_Recordset2['family_id'];
+        if($totalRows_Recordset2>0) {
+	      //this member is part of a family so we'll need to update all the payment records
+		  //for the family
+		  //first check if the payment type is correct, it should be 'F' for family
+		  if($paymenttype!='F') {
+		      echo "Error, This member is part of family but you didn't select family for payment type.<br>";
+	          }
+		  else {
+			  echo "This member is part of family with ID: $familyid<br>";
+	          $query_Recordset2 = "SELECT * From family where family_id = " . GetSQLValueString($familyid, "int");
+	          $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	          while ($row = mysql_fetch_array($Recordset2, MYSQL_ASSOC)) {
+	      	      $memberid = $row['member_id'];
+         		  //finally insert the payment record
+	              $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL," . 
+                      GetSQLValueString($memberid, "int") . ", '$paymentyear', '$paymenttype')";
+                  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	              echo "Payment information updated for $memberid!<br>";
+    		    }
+	        }
+		 }
+	    else {
+		  //finally insert the payment record
+	      $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL," . 
+          GetSQLValueString($_POST['member_id'], "int") . ", '$paymentyear', '$paymenttype')";
+          mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
+	      echo "Payment information updated!<br>";
+		}
+	  }
+  }
 }
-
 $colname_Recordset1 = "-1";
 if (isset($_GET['member_id'])) {
   $colname_Recordset1 = $_GET['member_id'];
@@ -203,18 +274,41 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
             ?>
-            <li><a href="removemember.php">Remove</a></li>
+            <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
-            <li><a href="editfamily.php">Edit Family</a></li>
+            <li class="disabled"><a href="editfamily.php">Edit Family</a></li>
             <li><a href="viewfamilies.php">View Families</a></li>
-            <li><a href="removefamily.php">Disband Family</a></li>
+            <li class="disabled"><a href="removefamily.php">Disband Family</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="markbustemails.php">Mark Bust Emails</a></li>
+            <li class="disabled"><a href="markbustemails.php">Mark Bust Emails</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="membershiptrends.php">Membership Trends</a></li>
+            <li class="disabled"><a href="membershiptrends.php">Membership Trends</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="disabled"><a href="./reports/reportbustemaillist.php">Bust Email List</a></li>
+            <li class="disabled"><a href="./reports/reportbogemaillist.php">BOG Email List</a></li>
+            <li class="disabled"><a href="./reports/reportbogphonelist.php">BOG Home Phone List</a></li>
+            <li class="disabled"><a href="./reports/reportbogdatalist.php">BOG Data List</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="./reports/reportofficersemaillist.php">Officers' Email List</a></li>
+            <li class="disabled"><a href="./reports/reportofficersphonelist.php">Officers' Home Phone List</a></li>
+            <li class="disabled"><a href="./reports/reportofficersdatalist.php">Officers' Data List</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="./reports/reportneedbadgcardlist.php">Need Badges Or Cards List</a></li>
+            <li class="disabled"><a href="./reports/reportassociateslist.php">Find Associate Members List</a></li>
+            <li class="disabled"><a href="./reports/reportpaidmemberslist.php">Paid Members List</a></li>
+            <li class="disabled"><a href="./reports/reportpaidmembersaddrlist.php">Paid Members Address List</a></li>
+            <li class="disabled"><a href="./reports/reportexpiredlist.php">Expired Members List</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Functions<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
           </ul>
         </li>
       </ul>
@@ -299,6 +393,41 @@ exit;
   <p>Class: 
     <input type="text" name="fccclass" value="<?php echo $row_Recordset1['class']; ?>">
   </p>
+</fieldset>
+<fieldset><legend>Notes:</legend>
+  <p>Note: 
+    <input type="text" name="note" size="100" value="<?php echo $row_Recordset1['note']; ?>">
+  </p>
+  <p> 
+    <input type="checkbox" name="skey" value="silentkey"<?php
+    if($row_Recordset1['silentkey']==1)
+	echo "checked";?>>Silent Key
+  </p>
+  <p> 
+    <input type="checkbox" name="needbadge" value="needbadge"<?php
+    if($row_Recordset1['ndbdg']==1)
+	echo "checked";?>>Needs Badge
+  </p>
+  <p> 
+    <input type="checkbox" name="needcard" value="needcard"<?php
+    if($row_Recordset1['ndcard']==1)
+	echo "checked";?>>Needs Member Card
+  </p>
+</fieldset>
+<fieldset><legend>Add Payment:</legend><p>
+   <label>
+      <input type="radio" name="MemType" value="R" id="">
+      Regular</label>
+   <label>
+      <input type="radio" name="MemType" value="F" id="">
+      Family</label>
+   <label>
+      <input type="radio" name="MemType" value="A" id="">
+      Associate</label>
+   <label>
+      <input type="radio" name="MemType" value="L" id="">
+      Lifetime</label>
+</p>
 </fieldset>
 <input type="hidden" name="MM_update" value="form">
 <input type="submit" value="Update"></form>

@@ -88,18 +88,41 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             echo "<li><a href=\"editfromid.php?member_id=$search\">Update</a></li>";
              }          
             ?>
-            <li><a href="removemember.php">Remove</a></li>
+            <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
-            <li><a href="editfamily.php">Edit Family</a></li>
+            <li class="disabled"><a href="editfamily.php">Edit Family</a></li>
             <li><a href="viewfamilies.php">View Families</a></li>
-            <li><a href="removefamily.php">Disband Family</a></li>
+            <li class="disabled"><a href="removefamily.php">Disband Family</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="markbustemails.php">Mark Bust Emails</a></li>
+            <li class="disabled"><a href="markbustemails.php">Mark Bust Emails</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="membershiptrends.php">Membership Trends</a></li>
+            <li class="disabled"><a href="membershiptrends.php">Membership Trends</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="disabled"><a href="./reports/reportbustemaillist.php">Bust Email List</a></li>
+            <li class="disabled"><a href="./reports/reportbogemaillist.php">BOG Email List</a></li>
+            <li class="disabled"><a href="./reports/reportbogphonelist.php">BOG Home Phone List</a></li>
+            <li class="disabled"><a href="./reports/reportbogdatalist.php">BOG Data List</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="./reports/reportofficersemaillist.php">Officers' Email List</a></li>
+            <li class="disabled"><a href="./reports/reportofficersphonelist.php">Officers' Home Phone List</a></li>
+            <li class="disabled"><a href="./reports/reportofficersdatalist.php">Officers' Data List</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="disabled"><a href="./reports/reportneedbadgcardlist.php">Need Badges Or Cards List</a></li>
+            <li class="disabled"><a href="./reports/reportassociateslist.php">Find Associate Members List</a></li>
+            <li class="disabled"><a href="./reports/reportpaidmemberslist.php">Paid Members List</a></li>
+            <li class="disabled"><a href="./reports/reportpaidmembersaddrlist.php">Paid Members Address List</a></li>
+            <li class="disabled"><a href="./reports/reportexpiredlist.php">Expired Members List</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Functions<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
           </ul>
         </li>
       </ul>
@@ -119,7 +142,28 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceBeginEditable name="EditRegion3" -->
 <div class="container">
 <h2>W3OI Member Management Area</h2>
-<h5>Place user instructions here</h5>
+<h4>Adding a member</h4>
+<p>
+To add a member go to the member edit menu above and select the Add drop down menu item. Fill out the required fields as necessary and select the member type. Press the Add button on the bottom of the form and the member will be added to the database and the payment information will be updated based on the selection.
+</p>
+<p>
+Adding a member with payment information will automatically place the member on the W3OI site under the membership roster.
+</p>
+<h4>Editing a member</h4>
+<p>
+To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box and then select Member Edit -> Update. 
+</p>
+<p>
+Enter the updated information into the fields and press the Update button. If payment information needs to be updated you can also optionally select the member payment type. </p>
+<h4>Creating a family</h4>
+<p>
+To create a family select the Member Edit -> Create Family menu item from the top navigation. Select the members from the list which should be in this family and then press the update button at the bottom.
+</p>
+Creating a family gives the added benefit of automatically updating payment information for the family as a whole. For example, editing any one member of a family and adding a payment type of 'Family' will automatically update payment records for all other members in this family.
+<h4>Viewing a family</h4>
+<p>
+With the View Family menu item chosen this will give you a list of all the W3OI family associations in the database.
+</p>
 </div>
 <!-- InstanceEndEditable -->
 <script src="../js/jquery-1.11.3.min.js"></script>
