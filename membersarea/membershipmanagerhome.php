@@ -155,6 +155,10 @@ To edit a member type all or some of the member's last name, callsign or member'
 </p>
 <p>
 Enter the updated information into the fields and press the Update button. If payment information needs to be updated you can also optionally select the member payment type. </p>
+<h4>Payments</h4>
+<p>
+Payment information entered prior to October 1st of the current year will be entered onto the current year. Any payment information added on or after October 1st will be placed onto the subsequent year.
+</p>
 <h4>Creating a family</h4>
 <p>
 To create a family select the Member Edit -> Create Family menu item from the top navigation. Select the members from the list which should be in this family and then press the update button at the bottom.
