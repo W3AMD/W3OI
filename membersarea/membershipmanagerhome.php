@@ -90,7 +90,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             ?>
             <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
             <li class="disabled"><a href="editfamily.php">Edit Family</a></li>
@@ -151,7 +151,7 @@ Adding a member with payment information will automatically place the member on 
 </p>
 <h4>Editing a member</h4>
 <p>
-To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box and then select Member Edit -> Update. 
+To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box, press the Search button and then select Member Edit -> Update. 
 </p>
 <p>
 Enter the updated information into the fields and press the Update button. If payment information needs to be updated you can also optionally select the member payment type. </p>
@@ -159,6 +159,8 @@ Enter the updated information into the fields and press the Update button. If pa
 <p>
 Payment information entered prior to October 1st of the current year will be entered onto the current year. Any payment information added on or after October 1st will be placed onto the subsequent year.
 </p>
+<h4>Bulk Payments</h4>
+<p>If many payments need to be entered simultaneously the Member Edit -&gt; Mark Paid Bulk feature can be used. With this special feature, select the members names which have paid and their payment type. If the member is a member of a created family unit, (I.E. Gable, Borchers, Bobo), select only one member from the family. When finished selecting the payment types on multiple members press the Update button on the page bottom. The page will reload and show which members were updated.</p>
 <h4>Creating a family</h4>
 <p>
 To create a family select the Member Edit -> Create Family menu item from the top navigation. Select the members from the list which should be in this family and then press the update button at the bottom.

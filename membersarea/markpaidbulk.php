@@ -1,4 +1,7 @@
-<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php
+require_once('../Connections/W3OITesting.php');
+require_once('./functions/paymentroutines.php');
+ ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -81,9 +84,52 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+//if a post is received handle it here
+function getPostArray($array,$database_W3OITesting2,$W3OITesting2){
+	 foreach ($array as $key => $value){
+		//search here for if this member is part of a family
+		//if not part of a family just update the payment
+		//record for the member with the value
+        try {
+            $query_Recordset1 = "SELECT lname, fname, suffix,                 `members`.member_id , `family`.member_id " .
+                 "FROM members, family " .
+                 "WHERE (`members`.member_id = `family`.member_id " .
+                 "AND `members`.member_id = $key)";
+            //echo $query_Recordset1. "<br>";
+			$Recordset1 = mysql_query($query_Recordset1, $W3OITesting2);
+            $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+            $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+            //echo $totalRows_Recordset1 . "<br>";
+			//echo "$key => $value";
+            echo "Updating ";
+			if($totalRows_Recordset1!=0) {
+			  echo " family payment record for " . $row_Recordset1['lname'] .
+			  ", " . $row_Recordset1['fname'];
+             } else { 
+			  $query_Recordset1 = "SELECT lname, fname " .
+                 "FROM members " .
+                 "WHERE (`members`.member_id = $key)";
+              $Recordset1 = mysql_query($query_Recordset1, $W3OITesting2);
+              $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+              echo " individual payment record for " . $row_Recordset1['lname'] .
+			  ", " . $row_Recordset1['fname'];
+			 }
+            echo "<br>";
+		}
+        catch(Exception $e)
+         {
+          echo "Exception: $e";
+		  die();
+         }
+        AddPayment($key,$value,$W3OITesting2);
+		if(is_array($value)){ //If $value is an array, get it also
+            getPostArray($value);
+        } 
+    } 
+}
 mysql_select_db($database_W3OITesting, $W3OITesting);
-
-$yearnow = date("Y").'-12-31';
+getPostArray($_POST,$database_W3OITesting,$W3OITesting);
+$yearnow = date("Y",strtotime('+1 year')).'-12-31';
 $yearrecent = date("Y",strtotime('-1 year')).'-12-31';
 $query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
 "FROM members " .
@@ -98,18 +144,6 @@ $query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.memb
 $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
-
-//if a post is received handle it here
-function getPostArray($array){
-     foreach ($array as $key => $value){
-        echo "$key => $value<br>";
-        if(is_array($value)){ //If $value is an array, get it also
-            getPostArray($value);
-        }  
-    } 
-}
-
-getPostArray($_POST);
 
 ?>
 </html><!doctype html>
@@ -153,7 +187,7 @@ getPostArray($_POST);
             ?>
             <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
             <li class="disabled"><a href="editfamily.php">Edit Family</a></li>

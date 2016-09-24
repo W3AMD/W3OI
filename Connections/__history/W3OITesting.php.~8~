@@ -11,10 +11,10 @@
    $password_W3OITesting = "g3r!nTaq$";
 
   // Production info
-   //$hostname_W3OITesting='localhost:3306';
-   //$database_W3OITesting='lvarcftp_w3oi';
-   //$username_W3OITesting = 'lvarcftp_w3oiusr';
-   //$password_W3OITesting = 'kzWwv_lMPLo@';
+   $hostname_W3OITesting='localhost:3306';
+   $database_W3OITesting='lvarcftp_w3oi';
+   $username_W3OITesting = 'lvarcftp_w3oiusr';
+   $password_W3OITesting = 'kzWwv_lMPLo@';
 
   // Development info
    // $hostname = '198.71.227.91:3306';

@@ -180,7 +180,7 @@ checkPostArray($_POST, $W3OITesting);
             ?>
             <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
             <li class="disabled"><a href="editfamily.php">Edit Family</a></li>

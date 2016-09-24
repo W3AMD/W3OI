@@ -1,4 +1,7 @@
-<?php require_once('../Connections/W3OITesting.php');?>
+<?php
+require_once('../Connections/W3OITesting.php');
+require_once('./functions/paymentroutines.php');
+?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -122,65 +125,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
   $Result1 = mysql_query($updateSQL, $W3OITesting) or die(mysql_error());
   $paymenttype=$_POST['MemType'];
   if($paymenttype!='') {
-		 //add the payment information
-         //if it's before Oct 1 (the cutoff date) the member is for this year
-         //otherwise it's for next year
-         $checkmonth=date('m');
-         if($checkmonth>=10) {
-	       //echo "After October payments are for next year.<br>";
-	       $paymentyear=date('Y', strtotime('+1 year')) . "-12-31";
-	      }
-         else {
-	       //echo "Before October payment is for this year.<br>";
-	       $paymentyear=date('Y') . "-12-31";
-	     }
-	  //check if a payment record already exists for this year
-      $query_Recordset2 = "SELECT * From paid where member_id = " .
-	  GetSQLValueString($_POST['member_id'], "int") . " AND year = '" .
-	  $paymentyear . "'";
-	  $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	  $totalRows_Recordset2 = mysql_num_rows($Recordset2);
-      if($totalRows_Recordset2>0) {
-	      echo "Payment information already exists for $paymentyear!<br>";
-	  }
-	  else {
-        //check if this member is part of a family if so update all family members payments
-        //run the query to find out if this member is in a family
-		$query_Recordset2 = "SELECT * From family where member_id = " .
-	    GetSQLValueString($_POST['member_id'], "int");
-	    $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	    $totalRows_Recordset2 = mysql_num_rows($Recordset2);
-        $row_Recordset2 = mysql_fetch_assoc($Recordset2);
-        $familyid = $row_Recordset2['family_id'];
-        if($totalRows_Recordset2>0) {
-	      //this member is part of a family so we'll need to update all the payment records
-		  //for the family
-		  //first check if the payment type is correct, it should be 'F' for family
-		  if($paymenttype!='F') {
-		      echo "Error, This member is part of family but you didn't select family for payment type.<br>";
-	          }
-		  else {
-			  echo "This member is part of family with ID: $familyid<br>";
-	          $query_Recordset2 = "SELECT * From family where family_id = " . GetSQLValueString($familyid, "int");
-	          $Recordset2 = mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	          while ($row = mysql_fetch_array($Recordset2, MYSQL_ASSOC)) {
-	      	      $memberid = $row['member_id'];
-         		  //finally insert the payment record
-	              $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL," . 
-                      GetSQLValueString($memberid, "int") . ", '$paymentyear', '$paymenttype')";
-                  mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	              echo "Payment information updated for $memberid!<br>";
-    		    }
-	        }
-		 }
-	    else {
-		  //finally insert the payment record
-	      $query_Recordset2 = "INSERT INTO paid (paid_id, member_id, year, type) VALUES (NULL," . 
-          GetSQLValueString($_POST['member_id'], "int") . ", '$paymentyear', '$paymenttype')";
-          mysql_query($query_Recordset2, $W3OITesting) or die(mysql_error());
-	      echo "Payment information updated!<br>";
-		}
-	  }
+	   AddPayment(GetSQLValueString($_POST['member_id'], "int"),$paymenttype,$W3OITesting);
   }
 }
 $colname_Recordset1 = "-1";
@@ -276,7 +221,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
             ?>
             <li class="disabled"><a href="removemember.php">Remove</a></li>
             <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
+            <li><a href="markpaidbulk.php">Mark Paid Bulk</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="createfamily.php">Create Family</a></li>
             <li class="disabled"><a href="editfamily.php">Edit Family</a></li>
