@@ -83,18 +83,6 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 mysql_select_db($database_W3OITesting, $W3OITesting);
 
-/* target query example
-this gets all the last payment records from members active at least in the 
-last 3 years
-SELECT DISTINCT lname, fname, suffix, members.member_id, MaxDateTime
-FROM members
-INNER JOIN
-    (SELECT paid.member_id, MAX(paid.year) AS MaxDateTime
-    FROM paid
-    GROUP BY paid.member_id) groupedpaid 
-ON members.member_id = groupedpaid.member_id
-Where (MaxDateTime < '2016-12-31') AND
-(MaxDateTime >= '2013-12-31')*/
 $yearnow = date("Y").'-12-31';
 $yearrecent = date("Y",strtotime('-1 year')).'-12-31';
 $query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
