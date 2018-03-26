@@ -24,7 +24,7 @@ function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) {
       $isValid = true; 
     } 
     */
-	if(($UserName=='w3oiofficer') || ($UserName=='w3oiboard')) {
+	if($UserName=='w3oiofficer') {
 	  $isValid = true; 
     }
 	/*

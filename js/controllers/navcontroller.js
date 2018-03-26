@@ -33,7 +33,7 @@
 					}
 					break;
 				case 'ares':
-					if ( current === 'net-controls' || current === 'net-roster' || current === 'aresinfo' ) {
+					if ( current === 'net-controls' || current === 'net-roster' || current === 'dstarinfo' ) {
 						return "active";
 					}
 					break;

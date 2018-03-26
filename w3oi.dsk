@@ -9,22 +9,22 @@ group0=Watches
 Count=0
 
 [OpenFiles]
-Module2=membersarea\membersarea.php
-Module3=membersarea\memberinfo.php
-Module4=membersarea\createfamily.php
+Module2=manager\announcementmanager.php
+Module3=manager\managementconsole.php
+Module4=manager\announcementeditor.php
 
-[membersarea\membersarea.php]
-Line=0
+[manager\announcementmanager.php]
+Line=19
+Position=55
+
+[manager\managementconsole.php]
+Line=24
 Position=0
 
-[membersarea\memberinfo.php]
-Line=0
-Position=0
-
-[membersarea\createfamily.php]
-Line=0
-Position=0
+[manager\announcementeditor.php]
+Line=20
+Position=38
 
 [Status]
-OpenModule=membersarea\createfamily.php
+OpenModule=manager\announcementeditor.php
 

@@ -60,7 +60,7 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="../../css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -99,31 +99,13 @@ if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers,
             <li role="separator" class="divider"></li>
             <li class="disabled"><a href="markbustemails.php">Mark Bust Emails</a></li>
             <li role="separator" class="divider"></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="membershipmanagerhome.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="unrenewed.php">Expired members</a></li>
             <li class="disabled"><a href="membershiptrends.php">Membership Trends</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="disabled"><a href="./reports/reportbustemaillist.php">Bust Email List</a></li>
-            <li class="disabled"><a href="./reports/reportbogemaillist.php">BOG Email List</a></li>
-            <li class="disabled"><a href="./reports/reportbogphonelist.php">BOG Home Phone List</a></li>
-            <li class="disabled"><a href="./reports/reportbogdatalist.php">BOG Data List</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="./reports/reportofficersemaillist.php">Officers' Email List</a></li>
-            <li class="disabled"><a href="./reports/reportofficersphonelist.php">Officers' Home Phone List</a></li>
-            <li class="disabled"><a href="./reports/reportofficersdatalist.php">Officers' Data List</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="./reports/reportneedbadgcardlist.php">Need Badges Or Cards List</a></li>
-            <li class="disabled"><a href="./reports/reportassociateslist.php">Find Associate Members List</a></li>
-            <li class="disabled"><a href="./reports/reportpaidmemberslist.php">Paid Members List</a></li>
-            <li class="disabled"><a href="./reports/reportpaidmembersaddrlist.php">Paid Members Address List</a></li>
-            <li class="disabled"><a href="./reports/reportexpiredlist.php">Expired Members List</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Functions<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
-          </ul>
+           </ul>
         </li>
       </ul>
       <form method="post" class="navbar-form navbar-left"
@@ -151,7 +133,7 @@ Adding a member with payment information will automatically place the member on 
 </p>
 <h4>Editing a member</h4>
 <p>
-To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box and then select Member Edit -> Update. 
+To edit a member type all or some of the member's last name, callsign or member's ID number (if you know it) into the search box at the top of the page. If there is only one member which meets this criteria you can select Member Edit -> Update from the top menu. If you were given more than one member type the member ID of the desired member to edit in the top search box, press the Search button and then select Member Edit -> Update. 
 </p>
 <p>
 Enter the updated information into the fields and press the Update button. If payment information needs to be updated you can also optionally select the member payment type. </p>
@@ -159,6 +141,8 @@ Enter the updated information into the fields and press the Update button. If pa
 <p>
 Payment information entered prior to October 1st of the current year will be entered onto the current year. Any payment information added on or after October 1st will be placed onto the subsequent year.
 </p>
+<h4>Bulk Payments</h4>
+<p>If many payments need to be entered simultaneously the Member Edit -&gt; Mark Paid Bulk feature can be used. With this special feature, select the members names which have paid and their payment type. If the member is a member of a created family unit, (I.E. Gable, Borchers, Bobo), select only one member from the family. When finished selecting the payment types on multiple members press the Update button on the page bottom. The page will reload and show which members were updated.</p>
 <h4>Creating a family</h4>
 <p>
 To create a family select the Member Edit -> Create Family menu item from the top navigation. Select the members from the list which should be in this family and then press the update button at the bottom.
@@ -170,7 +154,7 @@ With the View Family menu item chosen this will give you a list of all the W3OI 
 </p>
 </div>
 <!-- InstanceEndEditable -->
-<script src="../js/jquery-1.11.3.min.js"></script>
-<script src="../js/bootstrap.js"></script>
+<script src="../../js/jquery-1.11.3.min.js"></script>
+<script src="../../js/bootstrap.js"></script>
 </body>
 <!-- InstanceEnd --></html>

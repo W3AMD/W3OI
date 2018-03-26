@@ -1,4 +1,7 @@
-<?php require_once('../Connections/W3OITesting.php'); ?>
+<?php
+require_once('../Connections/W3OITesting.php');
+require_once('./functions/paymentroutines.php');
+ ?>
 <?php
 if (!isset($_SESSION)) {
   session_start();
@@ -81,9 +84,52 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
+//if a post is received handle it here
+function getPostArray($array,$database_W3OITesting2,$W3OITesting2){
+	 foreach ($array as $key => $value){
+		//search here for if this member is part of a family
+		//if not part of a family just update the payment
+		//record for the member with the value
+        try {
+            $query_Recordset1 = "SELECT lname, fname, suffix,                 `members`.member_id , `family`.member_id " .
+                 "FROM members, family " .
+                 "WHERE (`members`.member_id = `family`.member_id " .
+                 "AND `members`.member_id = $key)";
+            //echo $query_Recordset1. "<br>";
+			$Recordset1 = mysql_query($query_Recordset1, $W3OITesting2);
+            $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+            $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+            //echo $totalRows_Recordset1 . "<br>";
+			//echo "$key => $value";
+            echo "Updating ";
+			if($totalRows_Recordset1!=0) {
+			  echo " family payment record for " . $row_Recordset1['lname'] .
+			  ", " . $row_Recordset1['fname'];
+             } else { 
+			  $query_Recordset1 = "SELECT lname, fname " .
+                 "FROM members " .
+                 "WHERE (`members`.member_id = $key)";
+              $Recordset1 = mysql_query($query_Recordset1, $W3OITesting2);
+              $row_Recordset1 = mysql_fetch_assoc($Recordset1);
+              echo " individual payment record for " . $row_Recordset1['lname'] .
+			  ", " . $row_Recordset1['fname'];
+			 }
+            echo "<br>";
+		}
+        catch(Exception $e)
+         {
+          echo "Exception: $e";
+		  die();
+         }
+        AddPayment($key,$value,$W3OITesting2);
+		if(is_array($value)){ //If $value is an array, get it also
+            getPostArray($value);
+        } 
+    } 
+}
 mysql_select_db($database_W3OITesting, $W3OITesting);
-
-$yearnow = date("Y").'-12-31';
+getPostArray($_POST,$database_W3OITesting,$W3OITesting);
+$yearnow = date("Y",strtotime('+1 year')).'-12-31';
 $yearrecent = date("Y",strtotime('-1 year')).'-12-31';
 $query_Recordset1 = "SELECT DISTINCT lname, fname, suffix, fcccall, members.member_id, MaxDateTime " .
 "FROM members " .
@@ -99,18 +145,6 @@ $Recordset1 = mysql_query($query_Recordset1, $W3OITesting) or die(mysql_error())
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 
-//if a post is received handle it here
-function getPostArray($array){
-     foreach ($array as $key => $value){
-        echo "$key => $value<br>";
-        if(is_array($value)){ //If $value is an array, get it also
-            getPostArray($value);
-        }  
-    } 
-}
-
-getPostArray($_POST);
-
 ?>
 </html><!doctype html>
 <html><!-- InstanceBegin template="/Templates/memeditnav.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -123,7 +157,7 @@ getPostArray($_POST);
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="../../css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -162,31 +196,13 @@ getPostArray($_POST);
             <li role="separator" class="divider"></li>
             <li class="disabled"><a href="markbustemails.php">Mark Bust Emails</a></li>
             <li role="separator" class="divider"></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="membershipmanagerhome.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="unrenewed.php">Expired members</a></li>
             <li class="disabled"><a href="membershiptrends.php">Membership Trends</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="disabled"><a href="./reports/reportbustemaillist.php">Bust Email List</a></li>
-            <li class="disabled"><a href="./reports/reportbogemaillist.php">BOG Email List</a></li>
-            <li class="disabled"><a href="./reports/reportbogphonelist.php">BOG Home Phone List</a></li>
-            <li class="disabled"><a href="./reports/reportbogdatalist.php">BOG Data List</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="./reports/reportofficersemaillist.php">Officers' Email List</a></li>
-            <li class="disabled"><a href="./reports/reportofficersphonelist.php">Officers' Home Phone List</a></li>
-            <li class="disabled"><a href="./reports/reportofficersdatalist.php">Officers' Data List</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="disabled"><a href="./reports/reportneedbadgcardlist.php">Need Badges Or Cards List</a></li>
-            <li class="disabled"><a href="./reports/reportassociateslist.php">Find Associate Members List</a></li>
-            <li class="disabled"><a href="./reports/reportpaidmemberslist.php">Paid Members List</a></li>
-            <li class="disabled"><a href="./reports/reportpaidmembersaddrlist.php">Paid Members Address List</a></li>
-            <li class="disabled"><a href="./reports/reportexpiredlist.php">Expired Members List</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Functions<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="disabled"><a href="./functions/funcclearcardbadgeflags.php">Clear All Need Card / Badge Flags</a></li>
-          </ul>
+           </ul>
         </li>
       </ul>
       <form method="post" class="navbar-form navbar-left"
@@ -232,7 +248,7 @@ $row_Recordset1['suffix'] . ', ' . $row_Recordset1['fcccall']);
 mysql_free_result($Recordset1);
 ?>
 <!-- InstanceEndEditable -->
-<script src="../js/jquery-1.11.3.min.js"></script>
-<script src="../js/bootstrap.js"></script>
+<script src="../../js/jquery-1.11.3.min.js"></script>
+<script src="../../js/bootstrap.js"></script>
 </body>
 <!-- InstanceEnd --></html>

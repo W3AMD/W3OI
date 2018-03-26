@@ -1,0 +1,97 @@
+<?php
+//copyright 2016 LVARC
+//Author: W3AMD John Borchers
+function listFolderFiles($dir, $currentdir, $dateandfile)
+{
+   $ffs = scandir($dir);
+   echo '<ol>';
+   foreach($ffs as $ff)
+   {
+      if($ff != '.' && $ff != '..')
+      {
+         if(is_dir($dir . '/' . $ff))
+         {
+            echo '<li>' . $ff;
+         }
+         else
+         {
+            $day = '01';
+            $month = substr($ff, 0, 3);
+            $year = substr($ff, 3, 2);
+            $time = strtotime($day . $month . $year);
+            $pathfile = '../newsletter/' . $currentdir . '/' . $ff;
+            array_push($dateandfile, $time, $pathfile);
+            echo '<li>' . '<a href="' . $pathfile . '">' . $ff . '</a>';
+         }
+         if(is_dir($dir . '/' . $ff))
+            $dateandfile = listFolderFiles($dir . '/' . $ff, $ff, $dateandfile);
+         echo '</li>';
+      }
+   }
+   echo '</ol>';
+   return $dateandfile;
+}
+
+//create an array and search for vox issues
+//the array stores the date of the issue from the month/year in the file
+
+$dateandfile = array();
+$dateandfile = listFolderFiles('../newsletter/', NULL, $dateandfile);
+
+//find the newest VOX issue date in the array
+$maxdate = 0;
+foreach($dateandfile as $k=>$v)
+{
+   if($v > $maxdate)
+      $maxdate = $v;
+   if($k % 2)
+      echo $v;
+   else
+      echo '<BR>' . $v . " ";
+}
+
+//maxdate now how the newest VOX issue date
+//loop through the array finding the newest issue date
+//display that issue to the window with it's link
+//remove the value from the array
+//and repeat until the array is empty
+foreach($dateandfile as $k=>$v)
+{
+   $pathkey = $k + 1;
+   if($v == $maxdate)
+   {
+      echo '<h1><p>The latest issue is:' . $v . " key " . $dateandfile[$pathkey] . '</p></h1>';
+   }
+}
+
+
+//use the array to find the largest date
+
+/*
+
+$sourcedir = "../newsletter/";
+$fileExt = "pdf";
+$request = $_SERVER['REQUEST_URI'];
+$endreq = strrpos($request,'/');
+$url = substr($request, 0, $endreq);
+
+$dir = opendir($sourcedir);
+
+$strReturned = '<ul>';
+
+while ( false !== ( $file = readdir($dir) ) )
+{
+	// if ( substr_compare($file, $fileExt, -3, 3) )
+	if ($file != "." && $file != ".." && $file != "images")
+	{
+		$strReturned .= "<li><a href='$url/$sourcedir$file' target='_blank'>$file</a></li>";
+	}
+}
+
+$strReturned .= '</ul>';
+closedir($dir);
+
+print($strReturned);
+
+?>
+*/
